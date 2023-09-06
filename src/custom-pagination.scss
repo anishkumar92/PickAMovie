@@ -1,0 +1,22 @@
+/* Custom Dark-Themed Pagination Styles */
+
+/* Change the background color of the pagination */
+.pagination {
+  background-color: #121212; /* Dark background color */
+  -bs-pagination-border-color: #e20f0f;
+  .page-link {
+    background-color: #121212; /* Dark background color */
+    border: none;
+  }
+}
+
+/* Change the color of the pagination links */
+.pagination a {
+  color: #bb1414; /* White text color */
+}
+
+/* Change the color of the active page link */
+.pagination .active a {
+  background-color: #f39c12; /* Yellow background color for active page */
+  color: #121212; /* Dark text color for active page */
+}

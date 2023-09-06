@@ -1,0 +1,23 @@
+<div class="category-picker">
+    <h2 class="dark-text">Pick a Category</h2>
+    <div class="category-list">
+        <div class="category-row" *ngFor="let genre of genres">
+            <button [ngClass]="{ 'active': genre === selectedGenre }" (click)="selectGenre(genre)">{{ genre.name
+                }}</button>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <pagination *ngIf="this.pagedMovies && this.totalPages > 1" [(ngModel)]="currentPage"
+        [totalItems]="totalPages * pageSize" [itemsPerPage]="pageSize" [maxSize]="5" (pageChanged)="pageChanged($event)"
+        class="pagination">
+    </pagination>
+</div>
+
+<app-movie-list [movieList]="pagedMovies"></app-movie-list>
+<div class="box">
+    <pagination *ngIf="this.pagedMovies && this.totalPages > 1" [(ngModel)]="currentPage"
+        [totalItems]="totalPages * pageSize" [itemsPerPage]="pageSize" [maxSize]="5" (pageChanged)="pageChanged($event)"
+        class="pagination">
+    </pagination>
+</div>
