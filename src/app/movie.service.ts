@@ -1,12 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import API_KEY from 'apikey';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService implements OnInit {
-  private apiKey = 'db429d5222f3917cc3a2ec5ed97724bc';
+  private apiKey = API_KEY;
   private apiUrl = 'https://api.themoviedb.org/3';
   options = {
     method: 'GET',
@@ -22,13 +23,13 @@ export class MovieService implements OnInit {
     // Use movieService methods here to fetch and display movie data
   }
   getPopularMovies(): Observable<any> {
-    const url = `${this.apiUrl}/movie/popular`;
+    const url = `${this.apiUrl}/movie/popular?language=en-US'`;
     const params = new HttpParams().set('api_key', this.apiKey);
 
     return this.http.get(url, { params });
   }
   getMovieGenres(): Observable<any> {
-    const url = `${this.apiUrl}/genre/movie/list`;
+    const url = `${this.apiUrl}/genre/movie/list?language=en-US'`;
     const params = new HttpParams().set('api_key', this.apiKey);
     return this.http.get(url, { params });
   }
@@ -43,12 +44,18 @@ export class MovieService implements OnInit {
       .set('api_key', this.apiKey)
       .set('include_adult', 'false')
       .set('include_video', 'false')
-      .set('language', 'en-US')
       .set('page', page.toString()) // Set the page number
       .set('sort_by', 'popularity.desc')
       .set('with_genres', genreId)
-      .set('page_size', pageSize.toString()); // Set the page size
+      .set('page_size', pageSize.toString()) // Set the page size
+      .set('language', 'en-US');
 
+    return this.http.get(url, { params });
+  }
+
+  getOneMovieDetails(id: number) {
+    const url = `${this.apiUrl}/movie/${id}?language=en-US'`;
+    const params = new HttpParams().set('api_key', this.apiKey);
     return this.http.get(url, { params });
   }
 }

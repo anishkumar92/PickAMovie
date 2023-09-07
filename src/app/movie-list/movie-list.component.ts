@@ -1,16 +1,23 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
+  providers: [NgbModalConfig, NgbModal],
 })
 export class MovieListComponent implements OnInit {
   @Input() movieList: any;
   movies: any;
-
-  constructor(private movieService: MovieService) {}
+  movieDetails: any;
+  openPopup: boolean = false;
+  constructor(
+    private movieService: MovieService,
+    private modalService: NgbModal
+  ) {}
   ngOnInit(): void {
     console.log('movies 111', this.movieList);
     this.movies = this.movieList;
@@ -26,5 +33,23 @@ export class MovieListComponent implements OnInit {
       // Provide a fallback image URL or handle null values as needed
       return 'assets/no-image-available.png'; // Fallback image URL
     }
+  }
+
+  onSelect(selectedId: any): void {
+    this.movieService.getOneMovieDetails(selectedId).subscribe((data) => {
+      console.log('one movie', data);
+      this.movieDetails = data; // Update the displayed movies
+      this.openPopup = true;
+      // this.movieDetails = selectedId;
+      this.openMovieDetailsModal(this.movieDetails);
+    });
+  }
+
+  // Function to open the movie details modal
+  openMovieDetailsModal(movie: any) {
+    const modalRef = this.modalService.open(MovieDetailsComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.movie = movie; // Pass movie data to the modal
   }
 }

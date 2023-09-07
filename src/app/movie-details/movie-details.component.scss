@@ -1,0 +1,80 @@
+.movie-details {
+  background-color: #121212; /* Dark background color */
+  color: #fff;
+  width: 400px; /* Set a fixed width */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  overflow-wrap: anywhere;
+}
+
+/* Animation for showing the modal */
+.movie-details.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Close button styles */
+.close-button {
+  position: static;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.movie-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.movie-details img.movie-poster {
+  max-width: 100%;
+  height: 300px;
+  margin: 0 auto 10px;
+}
+
+.movie-details-content p {
+  margin: 10px 0;
+}
+
+/* Hyperlink styles */
+.movie-details a {
+  color: #f39c12;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.movie-details a:hover {
+  text-decoration: none;
+}
+
+/* Responsive styles for smaller screens (e.g., mobile) */
+@media (max-width: 767px) {
+  .movie-details {
+    padding: 10px;
+  }
+
+  .movie-details h2 {
+    font-size: 1.2rem;
+  }
+
+  .movie-details img.movie-poster {
+    max-width: 80%;
+  }
+}

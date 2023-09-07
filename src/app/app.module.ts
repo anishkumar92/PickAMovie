@@ -13,9 +13,9 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
+    MovieDetailsComponent,
     MovieListComponent,
     MovieSearchComponent,
-    MovieDetailsComponent,
     CategoryPickerComponent,
   ],
   imports: [
