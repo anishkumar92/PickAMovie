@@ -12,6 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { LoaderInterceptor } from './loading.interceptor';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingService } from './loading.service';
+import { AppRoutingModule } from './app-routing.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { RandomMovieComponent } from './random-movie/random-movie.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +26,17 @@ import { LoadingService } from './loading.service';
     MovieSearchComponent,
     CategoryPickerComponent,
     LoaderComponent,
+    NavbarComponent,
+    HomeComponent,
+    RandomMovieComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     PaginationModule.forRoot(),
     FormsModule,
+    AppRoutingModule,
   ],
   providers: [
     LoadingService,

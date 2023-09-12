@@ -1,0 +1,101 @@
+/* Centered container for movie details */
+.movie-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   z-index: 1000;
+}
+
+/* Movie Details Component Styles */
+.movie-details {
+  background-color: #121212; /* Dark background color */
+  color: #fff;
+  width: 400px; /* Set a fixed width */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  //   opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  position: relative;
+  z-index: 1001;
+}
+
+/* Animation for showing the modal */
+.movie-details.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Close button styles */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.movie-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.movie-details img.movie-poster {
+  max-width: 100%;
+  height: 300px;
+  margin: 0 auto 10px;
+}
+
+.movie-details-content p {
+  margin: 10px 0;
+}
+
+/* Hyperlink styles */
+.movie-details a {
+  color: #f39c12;
+  text-decoration: underline;
+}
+
+.movie-details a:hover {
+  text-decoration: none;
+}
+
+/* Responsive styles for smaller screens (e.g., mobile) */
+@media (max-width: 767px) {
+  .movie-details {
+    width: 80%;
+  }
+}
+
+/* CSS for the large button */
+.large-button {
+  display: block;
+  width: 200px; /* Set the width to your desired size */
+  height: 80px; /* Set the height to your desired size */
+  margin: 0 auto;
+  font-size: 1.5rem;
+  background-color: #f39c12; /* Button background color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.large-button:hover {
+  background-color: #e67e22; /* Change background color on hover */
+}

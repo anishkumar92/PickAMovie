@@ -35,11 +35,7 @@ export class MovieService implements OnInit {
 
   //   return this.http.get(this.baseUrl);
   // }
-  getPopularMovies(): Observable<any> {
-    const tmdbUrl = 'https://api.themoviedb.org/3/movie/popular?language=en-US';
-    const proxyUrl = `${this.baseUrl}/api/tmdb-proxy?url=${tmdbUrl}`;
-    return this.http.get(proxyUrl);
-  }
+
   // getMovieGenres(): Observable<any> {
   //   const url = `${this.apiUrl}/genre/movie/list?language=en-US'`;
   //   // const params = new HttpParams().set('api_key', this.apiKey);
@@ -119,7 +115,18 @@ export class MovieService implements OnInit {
     const url = `${this.baseUrl}`;
     const params = new HttpParams().set(
       'url',
-      `${this.apiUrl}/movie/${id}?language=en-US'`
+      `${this.apiUrl}/movie/${id}?include_adult=false&language=en-US'`
+    );
+    return this.http.get(url, { params });
+  }
+
+  getPopularMovies(pageno = 1): Observable<any> {
+    const url = `${this.baseUrl}`;
+    const params = new HttpParams().set(
+      'url',
+      `${
+        this.apiUrl
+      }/movie/popular?page=${pageno.toString()}&include_adult=false&language=en-US'`
     );
     return this.http.get(url, { params });
   }
