@@ -4,13 +4,13 @@
         you're in the mood for a specific genre or just looking for a random movie adventure.</p>
 </header>
 
-<section class="features">
-    <div class="feature">
+<section class="row features" [routerLink]="['/category']">
+    <div class="col-12 col-md-4 feature">
         <h2>Browse by Category</h2>
         <p>Explore movies by genre, actor, or director. Whether you're into action, romance, or comedy, we've got
             you covered.</p>
     </div>
-    <div class="feature">
+    <div class="col-12 col-md-4 feature" [routerLink]="['/random']">
         <h2>Random Movie Picker</h2>
         <p>Feeling adventurous? Let our random movie picker surprise you with a movie you might never have thought
             to watch.</p>

@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   //   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  // background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
   //   position: fixed;
   //   top: 0;
   //   left: 0;
@@ -15,8 +15,8 @@
 
 /* Movie Details Component Styles */
 .movie-details {
-  background-color: #121212; /* Dark background color */
-  color: #fff;
+  background-color: #682f76; /* Dark background color */
+  color: #f6f6f4;
   width: 400px; /* Set a fixed width */
   padding: 20px;
   border-radius: 10px;
@@ -41,7 +41,7 @@
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: #fff;
+  color: #f6f6f4;
   background: none;
   border: none;
   cursor: pointer;
@@ -66,7 +66,7 @@
 
 /* Hyperlink styles */
 .movie-details a {
-  color: #f39c12;
+  color: #b0e66b;
   text-decoration: underline;
 }
 
@@ -85,10 +85,10 @@
 .large-button {
   display: block;
   width: 200px; /* Set the width to your desired size */
-  height: 80px; /* Set the height to your desired size */
+  height: 40px; /* Set the height to your desired size */
   margin: 0 auto;
   font-size: 1.5rem;
-  background-color: #f39c12; /* Button background color */
+  background-color: #682f76; /* Button background color */
   color: #fff; /* Text color */
   border: none;
   border-radius: 10px;
@@ -97,5 +97,16 @@
 }
 
 .large-button:hover {
-  background-color: #e67e22; /* Change background color on hover */
+  color: #b0e66b;
+  background-color: #5c1a29; /* Change background color on hover */
+}
+
+.button-container {
+  padding: 50px;
+  // background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+}
+
+h2,
+strong {
+  color: #b0e66b;
 }

@@ -28,11 +28,13 @@ export class CategoryPickerComponent {
       // Handle the data here
       this.genres = data.genres;
       console.log('genres', this.genres);
+      this.selectGenre(this.genres['0']);
     });
   }
 
   // Method to handle the selection of a genre
   selectGenre(genre: any) {
+    console.log('gene', genre);
     this.selectedGenre = genre; // Set the selected genre
     // Perform actions based on the selected genre, e.g., fetch movies of this genre
     // this.movieService

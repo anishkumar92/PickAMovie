@@ -1,5 +1,5 @@
 <div class="category-picker">
-    <h2 class="dark-text">Pick a Category</h2>
+    <h2 class="dark-text">"Find Your Movie Muse - Pick a Category!"</h2>
     <div class="category-list">
         <div class="category-row" *ngFor="let genre of genres">
             <button [ngClass]="{ 'active': genre === selectedGenre }" (click)="selectGenre(genre)">{{ genre.name

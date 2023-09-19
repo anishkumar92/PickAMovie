@@ -1,6 +1,6 @@
 /* Styles for the dark-themed category picker container */
 .category-picker {
-  background-color: #121212; /* Dark background color */
+  background-color: #0c1b33; /* Dark background color */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -10,7 +10,7 @@
 /* Title style for dark theme */
 .dark-text {
   font-size: 1.5rem;
-  color: #fff; /* Updated title color for dark theme */
+  color: #b0e66b; /* Updated title color for dark theme */
   margin-bottom: 10px;
 }
 
@@ -30,7 +30,7 @@
 /* Button styles for dark theme */
 .category-picker button {
   background-color: #333; /* Dark button background color */
-  color: #fff; /* Button text color for dark theme */
+  color: #f6f6f4; /* Button text color for dark theme */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -45,25 +45,25 @@
 
 /* Active tab style for dark theme */
 .category-picker button.active {
-  background-color: #008cba; /* Active tab background color for dark theme */
+  background-color: #682f76; /* Active tab background color for dark theme */
 }
 
 /* Custom Pagination Styles */
 
 /* Change the background color of the pagination */
 .pagination {
-  background-color: #121212;
+  background-color: #0c1b33;
 }
 
 /* Change the color of the pagination links */
 .pagination a {
-  color: #fff;
+  color: #f6f6f4;
 }
 
 /* Change the color of the active page link */
 .pagination .active a {
-  background-color: #f39c12;
-  color: #121212;
+  background-color: #b0e66b;
+  color: #0c1b33;
 }
 
 .box {

@@ -1,10 +1,14 @@
 /* Navbar Styles */
 .navbar {
   background-color: #333;
-  color: #fff;
+  color: #ffffff;
   padding: 10px 0;
 }
 
+.bg-dark {
+  color: #ffffff !important;
+  background-color: #110e1b !important;
+}
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
@@ -12,7 +16,7 @@
 }
 
 .navbar-toggler-icon {
-  background-color: #333; /* Hamburger menu color */
+  background-color: #000; /* Hamburger menu color */
 }
 
 .nav-item {
@@ -20,26 +24,27 @@
 }
 
 .nav-link {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s; /* Smooth color transition */
 }
 
 .nav-link:hover {
-  color: #6787e0; /* Hover color */
+  color: #b0e66b; /* Hover color */
   text-decoration: none;
 }
 
 /* Highlight active link */
 .nav-item.active {
-  background-color: #f39c12; /* Active link background color */
+  color: #f6f6f4;
+  background-color: #682f76; /* Active link background color */
   border-radius: 4px;
 }
 
 /* Mobile menu styles (adjust breakpoint as needed) */
 @media (max-width: 768px) {
   .navbar-toggler {
-    color: #fff; /* Hamburger menu color */
+    color: #f6f6f4; /* Hamburger menu color */
   }
 
   .navbar-nav {

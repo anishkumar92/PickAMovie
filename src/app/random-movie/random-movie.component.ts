@@ -10,6 +10,7 @@ export class RandomMovieComponent {
   movieID = 1;
   movie: any;
   apiData: any;
+  isFectching: boolean = true;
   constructor(private movieService: MovieService) {
     this.initializeAPI();
   }
@@ -44,17 +45,22 @@ export class RandomMovieComponent {
     // });
   }
   selectRandomMovie(): any {
+    this.isFectching = false;
     this.movieService.getOneMovieDetails(this.movieID).subscribe(
       (result) => {
         this.movie = result;
+        this.isFectching = true;
       },
       (err) => {
+        this.isFectching = true;
+
         alert('Hit Random Again ! the Movie wasnt Sutiable for all ages');
       }
     );
   }
 
   getRandomMovie() {
+    this.isFectching = true;
     const totalPages = 100;
     this.movie = null;
     let randomPage = Math.floor(Math.random() * totalPages) + 1;

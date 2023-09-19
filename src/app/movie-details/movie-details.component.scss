@@ -1,6 +1,6 @@
 .movie-details {
-  background-color: #121212; /* Dark background color */
-  color: #fff;
+  background-color: #0c1b33; /* Dark background color */
+  color: #f6f6f4;
   width: 400px; /* Set a fixed width */
   padding: 20px;
   border-radius: 10px;
@@ -30,7 +30,7 @@
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: #fff;
+  color: #f6f6f4;
   background: none;
   border: none;
   cursor: pointer;
@@ -55,7 +55,7 @@
 
 /* Hyperlink styles */
 .movie-details a {
-  color: #f39c12;
+  color: #b0e66b;
   text-decoration: underline;
   overflow-wrap: anywhere;
 }
@@ -77,4 +77,9 @@
   .movie-details img.movie-poster {
     max-width: 80%;
   }
+}
+
+h2,
+strong {
+  color: #b0e66b;
 }
