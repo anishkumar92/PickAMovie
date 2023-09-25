@@ -88,3 +88,55 @@ button:hover {
 section:hover {
   cursor: pointer;
 }
+
+// .image-banner {
+//   background-image: url("../../assets/cbs.png");
+.image-banner {
+  position: relative;
+  background-image: url("../../assets/cbs-2.png"); /* Replace 'your-image.jpg' with your image path */
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 100px 0; /* Adjust the padding to your liking */
+  color: #fff; /* Text color */
+}
+
+.text-container {
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.text-container h1 {
+  font-size: 2.5rem; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  letter-spacing: 2px; /* Adjust letter spacing */
+  text-transform: uppercase; /* Uppercase text */
+  margin: 0;
+}
+
+.text-container p {
+  font-size: 1.5rem; /* Adjust the font size for the paragraph */
+  max-width: 800px; /* Set a maximum width for the paragraph */
+  margin: 0 auto; /* Center the paragraph */
+  line-height: 1.5; /* Adjust line height for readability */
+}
+
+@media (max-width: 767px) {
+  .image-banner {
+    padding: 40px 0; /* Adjust the padding for smaller mobile screens */
+  }
+
+  .text-container {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  .text-container h1 {
+    font-size: 1.5rem; /* Further reduce font size for smaller screens */
+  }
+
+  .text-container p {
+    font-size: 1rem; /* Further reduce font size for the paragraph on smaller screens */
+  }
+}
