@@ -10,7 +10,7 @@
   background-color: #110e1b !important;
 }
 .navbar-brand {
-  font-size: 1.5rem;
+  // font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
 }
@@ -41,6 +41,19 @@
   border-radius: 4px;
 }
 
+.acc {
+  font-size: 14px;
+  padding-right: 20px;
+}
+
+.acc img {
+  width: 50px; /* Adjust the width as needed */
+  margin-left: 10px; /* Adjust the spacing between text and logo */
+}
+.check {
+  width: 50px; /* Adjust the width as needed */
+  margin-left: 10px; /* Adjust the spacing between text and logo */
+}
 /* Mobile menu styles (adjust breakpoint as needed) */
 @media (max-width: 768px) {
   .navbar-toggler {
@@ -55,4 +68,20 @@
     margin-right: 0;
     margin-bottom: 10px;
   }
+
+  // .acc {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   font-size: 14px;
+  //   color: #777; /* Text color */
+  //   /* Add a border-top for better separation */
+  //   border-top: 1px solid #444;
+  //   padding-top: 10px; /* Add some top padding for spacing */
+  // }
+
+  // .acc img {
+  //   width: 50px; /* Adjust the width as needed */
+  //   margin-left: 10px; /* Adjust the spacing between text and logo */
+  // }
 }
