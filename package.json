@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
+    "@vercel/analytics": "^1.0.2",
     "bootstrap": "^5.3.1",
     "bourbon": "^7.3.0",
     "ngx-bootstrap": "^11.0.2",
