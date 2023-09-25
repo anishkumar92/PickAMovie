@@ -12,8 +12,7 @@ export class MovieService implements OnInit {
   // private apiKey = API_KEY;
   isLoading: boolean = true;
   // private baseUrl = 'http://localhost:5000/api/tmdb-proxy';
-  private baseUrl =
-    'https://moive-picker-server.vercel.app:5000/api/tmdb-proxy';
+  private baseUrl = 'https://moviedb-server.vercel.app:5000/api/tmdb-proxy';
 
   private apiUrl = 'https://api.themoviedb.org/3';
   // options = {
