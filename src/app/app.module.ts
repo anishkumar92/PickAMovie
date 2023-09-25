@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ContactComponent } from './contact/contact.component';
     HomeComponent,
     RandomMovieComponent,
     ContactComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,
