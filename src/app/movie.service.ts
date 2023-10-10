@@ -28,63 +28,8 @@ export class MovieService implements OnInit {
     private http: HttpClient,
     private loadingService: LoadingService
   ) {}
-  ngOnInit() {
-    // Use movieService methods here to fetch and display movie data
-  }
-  // getPopularMovies(): Observable<any> {
-  //   const url = `${this.apiUrl}/movie/popular?language=en-US'`;
-  //   // const params = new HttpParams().set('api_key', this.apiKey);
+  ngOnInit() {}
 
-  //   return this.http.get(this.baseUrl);
-  // }
-
-  // getMovieGenres(): Observable<any> {
-  //   const url = `${this.apiUrl}/genre/movie/list?language=en-US'`;
-  //   // const params = new HttpParams().set('api_key', this.apiKey);
-  //   return this.http.get(this.baseUrl);
-  // }
-
-  // getMovieGenres(): Observable<any> {
-  //   const url = `${this.baseUrl}/api/tmdb-proxy`; // Use the server-side proxy route
-
-  //   return this.http.get(url);
-  // }
-  // getMoviesForGenre(
-  //   genreId: any,
-  //   page: number,
-  //   pageSize: number
-  // ): Observable<any> {
-  //   let url = `${this.apiUrl}/discover/movie`;
-  //   const params = new HttpParams()
-  //     // .set('api_key', this.apiKey)
-  //     .set('include_adult', 'false')
-  //     .set('include_video', 'false')
-  //     .set('page', page.toString()) // Set the page number
-  //     .set('sort_by', 'popularity.desc')
-  //     .set('with_genres', genreId)
-  //     .set('page_size', pageSize.toString()) // Set the page size
-  //     .set('language', 'en-US');
-
-  //   return this.http.get(this.baseUrl, { params });
-  // }
-
-  // getOneMovieDetails(id: number) {
-  //   const url = `${this.apiUrl}/movie/${id}?language=en-US'`;
-  //   // const params = new HttpParams().set('api_key', this.apiKey);
-  //   return this.http.get(this.baseUrl);
-  // }
-
-  // getPopularMovies(): Observable<any> {
-  //   const url = `${this.baseUrl}/movie/popular`;
-  //   const params = new HttpParams();
-  //   return this.http.get(url, { params });
-  // }
-
-  // getMovieGenres(): Observable<any> {
-  //   const url = `${this.baseUrl}/api/tmdb-proxy`;
-  //   const params = new HttpParams();
-  //   return this.http.get(url, { params });
-  // }
   getMovieGenres(): Observable<any> {
     const url = `${this.baseUrl}`; // Use the server-side proxy route
     const params = new HttpParams().set(
@@ -131,5 +76,17 @@ export class MovieService implements OnInit {
       }/movie/popular?page=${pageno.toString()}&include_adult=false&language=en-US'`
     );
     return this.http.get(url, { params });
+  }
+
+  //
+  sendEmail(formData: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    console.log('form', formData);
+    const url = `https://moviedb-server.vercel.app/send-email`;
+    return this.http.post(url, formData, httpOptions);
   }
 }

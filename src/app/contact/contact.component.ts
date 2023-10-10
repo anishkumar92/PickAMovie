@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-contact',
@@ -11,9 +12,17 @@ export class ContactComponent {
     email: '',
     message: '',
   };
+  constructor(private movieService: MovieService) {}
   onSubmit() {
-    // Handle form submission here
-    console.log('Form submitted with data:', this.formData);
-    // You can add code here to send the form data to a server or perform other actions.
+    this.movieService.sendEmail(this.formData).subscribe({
+      next: (data) => console.log('res', data),
+      error: (error) => console.error('There was an error!', error),
+    });
+    this.formData = {
+      name: '',
+      email: '',
+      message: '',
+    };
+    alert('Your message has been sent!');
   }
 }
