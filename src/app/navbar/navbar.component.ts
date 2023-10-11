@@ -7,4 +7,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   constructor(private router: Router) {}
+  closeNavbar() {
+    const navbarToggler = document.querySelector(
+      '.navbar-toggler'
+    ) as HTMLElement;
+    if (navbarToggler) {
+      navbarToggler.click(); // Simulate a click on the navbar-toggler button to close the navbar
+    }
+  }
 }

@@ -48,6 +48,17 @@ button:hover {
 .social-icons a {
   margin: 0 10px;
   font-size: 24px;
-  color: #682f76;
+  color: #b0e66b;
   text-decoration: none;
+}
+
+.error-messages {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

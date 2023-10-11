@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <span><img class="check" src="../../assets/logo.png" alt="MOVIE PICKER"></span>
-        <a class="navbar-brand" href="#">MOVIE PICKER</a>
+        <a class="navbar-brand" [routerLink]="['/home']">MOVIE PICKER</a>
         <div class="acc d-flex flex-column align-items-center">
             <span>Powered by</span>
             <!-- <a href="https://www.themoviedb.org/"> -->
@@ -15,16 +15,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/home']">Home</a>
+                    <a class="nav-link" [routerLink]="['/home']" (click)="closeNavbar()">Home</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/category']">Browse by Category</a>
+                    <a class="nav-link" [routerLink]="['/category']" (click)="closeNavbar()">Browse by Category</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/random']">Random Movie Picker</a>
+                    <a class="nav-link" [routerLink]="['/random']" (click)="closeNavbar()">Random Movie Picker</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+                    <a class="nav-link" [routerLink]="['/contact']" (click)="closeNavbar()">Contact</a>
                 </li>
             </ul>
         </div>

@@ -13,16 +13,21 @@ export class ContactComponent {
     message: '',
   };
   constructor(private movieService: MovieService) {}
-  onSubmit() {
-    this.movieService.sendEmail(this.formData).subscribe({
-      next: (data) => console.log('res', data),
-      error: (error) => console.error('There was an error!', error),
-    });
-    this.formData = {
-      name: '',
-      email: '',
-      message: '',
-    };
-    alert('Your message has been sent!');
+  onSubmit(contactForm: any): void {
+    if (contactForm.valid) {
+      this.movieService.sendEmail(this.formData).subscribe({
+        next: (data) => console.log('res', data),
+        error: (error) => console.error('There was an error!', error),
+      });
+      this.formData = {
+        name: '',
+        email: '',
+        message: '',
+      };
+      alert('Your message has been sent!');
+    } else {
+      // Form is invalid, display error messages or handle as needed.
+      console.log('Form is invalid. Please check the fields.');
+    }
   }
 }
