@@ -1,6 +1,8 @@
+@import "../../variables.scss";
+
 .movie-details {
-  background-color: #0c1b33; /* Dark background color */
-  color: #f6f6f4;
+  background-color: $dark-color; /* Dark background color */
+  color: $secondary-color;
   width: 400px; /* Set a fixed width */
   padding: 20px;
   border-radius: 10px;
@@ -30,7 +32,7 @@
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: #f6f6f4;
+  color: $secondary-color;
   background: none;
   border: none;
   cursor: pointer;
@@ -55,7 +57,7 @@
 
 /* Hyperlink styles */
 .movie-details a {
-  color: #b0e66b;
+  color: $accent-color;
   text-decoration: underline;
   overflow-wrap: anywhere;
 }
@@ -81,5 +83,5 @@
 
 h2,
 strong {
-  color: #b0e66b;
+  color: $accent-color;
 }

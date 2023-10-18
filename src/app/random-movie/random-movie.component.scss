@@ -1,4 +1,5 @@
-/* Centered container for movie details */
+@import "../../variables.scss";
+/* Cente$warning-color container for movie details */
 .movie-details-container {
   display: flex;
   justify-content: center;
@@ -15,8 +16,8 @@
 
 /* Movie Details Component Styles */
 .movie-details {
-  background-color: #682f76; /* Dark background color */
-  color: #f6f6f4;
+  background-color: $primary-color; /* Dark background color */
+  color: $secondary-color;
   width: 400px; /* Set a fixed width */
   padding: 20px;
   border-radius: 10px;
@@ -41,7 +42,7 @@
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: #f6f6f4;
+  color: $secondary-color;
   background: none;
   border: none;
   cursor: pointer;
@@ -66,7 +67,7 @@
 
 /* Hyperlink styles */
 .movie-details a {
-  color: #b0e66b;
+  color: $accent-color;
   text-decoration: underline;
 }
 
@@ -84,12 +85,12 @@
 /* CSS for the large button */
 .large-button {
   display: block;
-  width: 200px; /* Set the width to your desired size */
-  height: 40px; /* Set the height to your desired size */
+  width: 200px; /* Set the width to your desi$warning-color size */
+  height: 40px; /* Set the height to your desi$warning-color size */
   margin: 0 auto;
   font-size: 1.5rem;
-  background-color: #682f76; /* Button background color */
-  color: #fff; /* Text color */
+  background-color: $primary-color; /* Button background color */
+  color: $secondary-color; /* Text color */
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -97,7 +98,7 @@
 }
 
 .large-button:hover {
-  color: #b0e66b;
+  color: $accent-color;
   background-color: #5c1a29; /* Change background color on hover */
 }
 
@@ -108,5 +109,5 @@
 
 h2,
 strong {
-  color: #b0e66b;
+  color: $accent-color;
 }

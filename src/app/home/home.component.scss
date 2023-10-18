@@ -1,8 +1,9 @@
+@import "../../variables.scss";
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #0c1b33; /* Dark background color */
-  color: #f6f6f4;
+  background-color: $dark-color; /* Dark background color */
+  color: $secondary-color;
   margin: 0;
   padding: 0;
 }
@@ -15,19 +16,20 @@ footer {
 
 h1,
 h2 {
-  color: #b0e66b; /* Highlight color */
+  color: $accent-color; /* Highlight color */
 }
 
 /* Header Styles */
 header {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-  border-bottom: 1px solid #b0e66b; /* Highlight border */
+  border-bottom: 1px solid $accent-color; /* Highlight border */
   animation: fadeIn 1s ease-in-out; /* Fade-in animation */
 }
 
 /* Features Section Styles */
 .features {
+  margin: 0rem;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -50,8 +52,8 @@ header {
 
 /* Button Styles */
 button {
-  background-color: #b0e66b; /* Button background color */
-  color: #f6f6f4;
+  background-color: $accent-color; /* Button background color */
+  color: $secondary-color;
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
@@ -98,7 +100,7 @@ section:hover {
   background-position: center;
   text-align: center;
   padding: 100px 0; /* Adjust the padding to your liking */
-  color: #fff; /* Text color */
+  color: $secondary-color; /* Text color */
 }
 
 .text-container {
@@ -118,7 +120,7 @@ section:hover {
 
 .text-container p {
   font-size: 1.5rem; /* Adjust the font size for the paragraph */
-  max-width: 800px; /* Set a maximum width for the paragraph */
+  // max-width: 800px; /* Set a maximum width for the paragraph */
   margin: 0 auto; /* Center the paragraph */
   line-height: 1.5; /* Adjust line height for readability */
 }
@@ -129,14 +131,14 @@ section:hover {
   }
 
   .text-container {
-    padding: 10px; /* Reduce padding for smaller screens */
+    padding: 10px; /* $warning-coloruce padding for smaller screens */
   }
 
   .text-container h1 {
-    font-size: 1.5rem; /* Further reduce font size for smaller screens */
+    font-size: 1.5rem; /* Further $warning-coloruce font size for smaller screens */
   }
 
   .text-container p {
-    font-size: 1rem; /* Further reduce font size for the paragraph on smaller screens */
+    font-size: 1rem; /* Further $warning-coloruce font size for the paragraph on smaller screens */
   }
 }
