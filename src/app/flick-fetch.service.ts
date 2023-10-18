@@ -30,23 +30,24 @@ export class MovieService implements OnInit {
   ) {}
   ngOnInit() {}
 
-  getMovieGenres(): Observable<any> {
+  getGenres(showMovies: boolean): Observable<any> {
     const url = `${this.baseUrl}`; // Use the server-side proxy route
     const params = new HttpParams().set(
       'url',
-      `${this.apiUrl}/genre/movie/list?language=en-US`
+      `${this.apiUrl}/genre/${showMovies ? 'movie' : 'tv'}/list?language=en-US`
     );
     // .set('api_key', this.apiKey);
     return this.http.get(url, { params });
   }
-  getMoviesForGenre(
+  getFlickForGenre(
+    showMovies: boolean,
     genreId: any,
     page: number,
     pageSize: number
   ): Observable<any> {
     const url = `${this.baseUrl}`;
     const params = new HttpParams()
-      .set('url', `${this.apiUrl}/discover/movie`)
+      .set('url', `${this.apiUrl}/discover/${showMovies ? 'movie' : 'tv'}`)
       .set('include_adult', 'false')
       .set('include_video', 'false')
       .set('page', page.toString())
@@ -58,22 +59,24 @@ export class MovieService implements OnInit {
     return this.http.get(url, { params });
   }
 
-  getOneMovieDetails(id: number) {
+  getFlickDetails(showMovies: boolean, id: number) {
     const url = `${this.baseUrl}`;
     const params = new HttpParams().set(
       'url',
-      `${this.apiUrl}/movie/${id}?include_adult=false&language=en-US'`
+      `${this.apiUrl}/${
+        showMovies ? 'movie' : 'tv'
+      }/${id}?include_adult=false&language=en-US'`
     );
     return this.http.get(url, { params });
   }
 
-  getPopularMovies(pageno = 1): Observable<any> {
+  getRandomFlick(showMovies: boolean, pageno = 1): Observable<any> {
     const url = `${this.baseUrl}`;
     const params = new HttpParams().set(
       'url',
-      `${
-        this.apiUrl
-      }/movie/popular?page=${pageno.toString()}&include_adult=false&language=en-US'`
+      `${this.apiUrl}/${
+        showMovies ? 'movie' : 'tv'
+      }/popular?page=${pageno.toString()}&include_adult=false&language=en-US'`
     );
     return this.http.get(url, { params });
   }

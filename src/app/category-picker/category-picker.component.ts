@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../flick-fetch.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
 
 @Component({
@@ -9,6 +9,7 @@ import { PaginationConfig } from 'ngx-bootstrap/pagination';
   providers: [PaginationConfig],
 })
 export class CategoryPickerComponent {
+  showMovies = true; // Flag to swith between Tv shows and movies
   genres: any[] = [];
   movieList: any[] = [];
   selectedGenre: any; // Variable to store the selected genre
@@ -23,13 +24,21 @@ export class CategoryPickerComponent {
   ) {}
 
   ngOnInit() {
-    // Use movieService methods here to fetch and display movie data
-    this.movieService.getMovieGenres().subscribe((data) => {
+    this.fetchFlick();
+  }
+
+  fetchFlick() {
+    this.movieService.getGenres(this.showMovies).subscribe((data) => {
       // Handle the data here
       this.genres = data.genres;
       console.log('genres', this.genres);
       this.selectGenre(this.genres['0']);
     });
+  }
+
+  onToggle() {
+    this.showMovies = !this.showMovies;
+    this.fetchFlick();
   }
 
   // Method to handle the selection of a genre
@@ -55,7 +64,7 @@ export class CategoryPickerComponent {
     // Call your server-side API to fetch the data for the current page
     console.log(id, this.currentPage, this.pageSize);
     this.movieService
-      .getMoviesForGenre(id, this.currentPage, this.pageSize)
+      .getFlickForGenre(this.showMovies, id, this.currentPage, this.pageSize)
       .subscribe((data) => {
         console.log('res', data);
         this.pagedMovies = data.results; // Update the displayed movies

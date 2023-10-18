@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../flick-fetch.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
@@ -11,6 +11,7 @@ import { MovieDetailsComponent } from '../movie-details/movie-details.component'
 })
 export class MovieListComponent implements OnInit {
   @Input() movieList: any;
+  @Input() showMovies: boolean = true;
   movies: any;
   movieDetails: any;
   openPopup: boolean = false;
@@ -36,13 +37,15 @@ export class MovieListComponent implements OnInit {
   }
 
   onSelect(selectedId: any): void {
-    this.movieService.getOneMovieDetails(selectedId).subscribe((data) => {
-      console.log('one movie', data);
-      this.movieDetails = data; // Update the displayed movies
-      this.openPopup = true;
-      // this.movieDetails = selectedId;
-      this.openMovieDetailsModal(this.movieDetails);
-    });
+    this.movieService
+      .getFlickDetails(this.showMovies, selectedId)
+      .subscribe((data) => {
+        console.log('one movie', data);
+        this.movieDetails = data; // Update the displayed movies
+        this.openPopup = true;
+        // this.movieDetails = selectedId;
+        this.openMovieDetailsModal(this.movieDetails);
+      });
   }
 
   // Function to open the movie details modal

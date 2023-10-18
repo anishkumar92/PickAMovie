@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../flick-fetch.service';
 
 @Component({
   selector: 'app-random-movie',
@@ -11,8 +11,13 @@ export class RandomMovieComponent {
   movie: any;
   apiData: any;
   isFectching: boolean = true;
+  showMovies: boolean = true;
   constructor(private movieService: MovieService) {
     this.initializeAPI();
+  }
+
+  onToggle() {
+    this.showMovies = !this.showMovies;
   }
 
   getImageUrl(filePath: string | null): string {
@@ -46,7 +51,7 @@ export class RandomMovieComponent {
   }
   selectRandomMovie(): any {
     this.isFectching = false;
-    this.movieService.getOneMovieDetails(this.movieID).subscribe(
+    this.movieService.getFlickDetails(this.showMovies, this.movieID).subscribe(
       (result) => {
         this.movie = result;
         this.isFectching = true;
@@ -64,13 +69,15 @@ export class RandomMovieComponent {
     const totalPages = 100;
     this.movie = null;
     let randomPage = Math.floor(Math.random() * totalPages) + 1;
-    this.movieService.getPopularMovies(randomPage).subscribe((result) => {
-      this.apiData = result.results;
-      const movieArray = Math.floor(Math.random() * this.apiData.length); // Assuming 20 movies per page
-      this.movieID = this.apiData[movieArray].id;
-      setTimeout(() => {
-        this.selectRandomMovie();
-      }, 10);
-    });
+    this.movieService
+      .getRandomFlick(this.showMovies, randomPage)
+      .subscribe((result) => {
+        this.apiData = result.results;
+        const movieArray = Math.floor(Math.random() * this.apiData.length); // Assuming 20 movies per page
+        this.movieID = this.apiData[movieArray].id;
+        setTimeout(() => {
+          this.selectRandomMovie();
+        }, 10);
+      });
   }
 }

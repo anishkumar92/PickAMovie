@@ -1,3 +1,12 @@
+<div class="toggle-container">
+    <span class="lab-mov"> TV shows </span>
+    <label class="switch">
+        <input type="checkbox" [(ngModel)]="showMovies" (click)="onToggle()">
+        <span class="slider"></span>
+    </label>
+    <span class="lab-mov">Movie</span>
+
+</div>
 <div class="button-container">
     <button class="large-button" (click)="getRandomMovie()">"Surprise Me!"</button>
 </div>
