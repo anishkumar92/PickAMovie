@@ -21,6 +21,7 @@ export class CategoryPickerComponent {
   totalPages = 1; // Total number of pages
   // selectedGernre: any;
   newValue: any;
+  newPage = 1;
   constructor(
     private movieService: MovieService,
     private paginationConfig: PaginationConfig,
@@ -34,6 +35,7 @@ export class CategoryPickerComponent {
         ? (this.showMovies = true)
         : (this.showMovies = false);
       this.newValue = params['genre'];
+      this.newPage = Number(params['page']);
 
       this.fetchFlick();
     });
@@ -49,7 +51,7 @@ export class CategoryPickerComponent {
         );
       }
       console.log('genres', this.selectedGenre);
-      this.selectGenre(this.selectedGenre);
+      this.selectGenre(this.selectedGenre, this.newPage);
     });
   }
 
@@ -59,22 +61,25 @@ export class CategoryPickerComponent {
     this.router.navigate([
       '/category',
       this.showMovies ? 'Movies' : 'TV',
-      this.showMovies ? 'Action' : 'Comedy',
+      this.showMovies ? 'Action' : 'Animation',
+      '1',
     ]);
     // this.selectGenre(this.selectedGenre);
   }
 
   // Method to handle the selection of a genre
-  selectGenre(genre: any) {
+  selectGenre(genre: any, page: number = 1) {
+    this.currentPage = page;
     console.log('gene', genre);
     this.selectedGenre = genre; // Set the selected genre
     this.router.navigate([
       '/category',
       this.showMovies ? 'Movies' : 'TV',
       this.selectedGenre.name,
+      page,
     ]);
 
-    this.currentPage = 1;
+    // this.currentPage = 1;
     console.log(this.selectedGenre);
     if (this.selectedGenre) {
       this.loadPage(this.selectedGenre.id, this.currentPage);
@@ -99,6 +104,12 @@ export class CategoryPickerComponent {
   // Function to handle page change event
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.loadPage(this.selectedGenre.id, this.currentPage);
+    this.router.navigate([
+      '/category',
+      this.showMovies ? 'Movies' : 'TV',
+      this.selectedGenre.name,
+      this.currentPage,
+    ]);
+    // this.loadPage(this.selectedGenre.id, this.currentPage);
   }
 }
