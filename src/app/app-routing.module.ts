@@ -8,7 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'category', component: CategoryPickerComponent },
+  { path: 'category/:type/:genre', component: CategoryPickerComponent },
   { path: 'random', component: RandomMovieComponent },
   { path: 'contact', component: ContactComponent },
   { path: '', component: HomeComponent },

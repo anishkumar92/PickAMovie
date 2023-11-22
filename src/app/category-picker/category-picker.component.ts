@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MovieService } from '../flick-fetch.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-picker',
@@ -18,46 +19,66 @@ export class CategoryPickerComponent {
   currentPage = 1; // Current page number
   pageSize = 10; // Number of movies to display per page
   totalPages = 1; // Total number of pages
+  // selectedGernre: any;
+  newValue: any;
   constructor(
     private movieService: MovieService,
-    private paginationConfig: PaginationConfig
+    private paginationConfig: PaginationConfig,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.fetchFlick();
+    this.route.params.subscribe((params) => {
+      params['type'] === 'Movies'
+        ? (this.showMovies = true)
+        : (this.showMovies = false);
+      this.newValue = params['genre'];
+
+      this.fetchFlick();
+    });
   }
 
   fetchFlick() {
-    let one = 1;
-    console.log(one);
     this.movieService.getGenres(this.showMovies).subscribe((data) => {
       // Handle the data here
       this.genres = data.genres;
-
-      console.log('genres', this.genres);
-      this.selectGenre(this.genres['0']);
+      if (this.genres) {
+        this.selectedGenre = this.genres.find(
+          (obj) => obj.name === this.newValue
+        );
+      }
+      console.log('genres', this.selectedGenre);
+      this.selectGenre(this.selectedGenre);
     });
   }
 
   onToggle() {
     this.showMovies = !this.showMovies;
-    this.fetchFlick();
+    // this.fetchFlick();
+    this.router.navigate([
+      '/category',
+      this.showMovies ? 'Movies' : 'TV',
+      this.showMovies ? 'Action' : 'Comedy',
+    ]);
+    // this.selectGenre(this.selectedGenre);
   }
 
   // Method to handle the selection of a genre
   selectGenre(genre: any) {
     console.log('gene', genre);
     this.selectedGenre = genre; // Set the selected genre
-    // Perform actions based on the selected genre, e.g., fetch movies of this genre
-    // this.movieService
-    //   .getMoviesForGenre(this.selectedGenre.id, 2, 50)
-    //   .subscribe((data) => {
-    //     //  this.genres = data.genres;
-    //     this.movieList = data.results;
-    //     console.log('movies', data);
-    //   });
+    this.router.navigate([
+      '/category',
+      this.showMovies ? 'Movies' : 'TV',
+      this.selectedGenre.name,
+    ]);
+
     this.currentPage = 1;
-    this.loadPage(this.selectedGenre.id, this.currentPage);
+    console.log(this.selectedGenre);
+    if (this.selectedGenre) {
+      this.loadPage(this.selectedGenre.id, this.currentPage);
+    }
   }
 
   // Function to load a specific page of movies
