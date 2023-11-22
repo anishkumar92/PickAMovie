@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  theme: string = 'light'; // default theme
   constructor(private router: Router) {}
   closeNavbar() {
     const navbarToggler = document.querySelector(
@@ -13,6 +14,19 @@ export class NavbarComponent {
     ) as HTMLElement;
     if (navbarToggler) {
       navbarToggler.click(); // Simulate a click on the navbar-toggler button to close the navbar
+    }
+  }
+
+  toggleTheme() {
+    const body = document.body;
+    if (this.theme === 'light') {
+      this.theme = 'dark';
+      body.classList.add('dark-theme');
+      body.classList.remove('light-theme');
+    } else {
+      this.theme = 'light';
+      body.classList.add('light-theme');
+      body.classList.remove('dark-theme');
     }
   }
 }

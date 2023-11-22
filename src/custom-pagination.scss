@@ -1,23 +1,24 @@
-@import "./variables.scss";
 /* Custom Dark-Themed Pagination Styles */
 
 /* Change the background color of the pagination */
 .pagination {
-  background-color: $dark-color; /* Dark background color */
-  -bs-pagination-border-color: $warning-color;
+  background-color: var(--dark-color); /* Dark background color */
+  -bs-pagination-border-color: var(--warning-color);
   .page-link {
-    background-color: $dark-color; /* Dark background color */
+    background-color: var(--dark-color); /* Dark background color */
     border: none;
   }
 }
 
 /* Change the color of the pagination links */
 .pagination a {
-  color: $accent-color; /* White text color */
+  color: var(--accent-color); /* White text color */
 }
 
 /* Change the color of the active page link */
 .pagination .active a {
-  background-color: $accent-color; /* Yellow background color for active page */
-  color: $dark-color; /* Dark text color for active page */
+  background-color: var(
+    --accent-color
+  ); /* Yellow background color for active page */
+  color: var(--dark-color); /* Dark text color for active page */
 }

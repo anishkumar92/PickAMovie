@@ -1,5 +1,4 @@
-@import "../../variables.scss";
-/* Cente$warning-color container for movie details */
+/* Centevar(--warning-color) container for movie details */
 .movie-details-container {
   display: flex;
   justify-content: center;
@@ -16,8 +15,8 @@
 
 /* Movie Details Component Styles */
 .movie-details {
-  background-color: $primary-color; /* Dark background color */
-  color: $secondary-color;
+  background-color: var(--primary-color); /* Dark background color */
+  color: var(--secondary-color);
   width: 400px; /* Set a fixed width */
   padding: 20px;
   border-radius: 10px;
@@ -42,7 +41,7 @@
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: $secondary-color;
+  color: var(--secondary-color);
   background: none;
   border: none;
   cursor: pointer;
@@ -67,7 +66,7 @@
 
 /* Hyperlink styles */
 .movie-details a {
-  color: $accent-color;
+  color: var(--accent-color);
   text-decoration: underline;
 }
 
@@ -85,12 +84,12 @@
 /* CSS for the large button */
 .large-button {
   display: block;
-  width: 200px; /* Set the width to your desi$warning-color size */
-  height: 40px; /* Set the height to your desi$warning-color size */
+  width: 200px; /* Set the width to your desivar(--warning-color) size */
+  height: 40px; /* Set the height to your desivar(--warning-color) size */
   margin: 0 auto;
   font-size: 1.5rem;
-  background-color: $primary-color; /* Button background color */
-  color: $secondary-color; /* Text color */
+  background-color: var(--primary-color); /* Button background color */
+  color: var(--secondary-color); /* Text color */
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -98,7 +97,7 @@
 }
 
 .large-button:hover {
-  color: $accent-color;
+  color: var(--accent-color);
   background-color: #5c1a29; /* Change background color on hover */
 }
 
@@ -109,7 +108,7 @@
 
 h2,
 strong {
-  color: $accent-color;
+  color: var(--accent-color);
 }
 
 .lab-mov {
@@ -144,7 +143,7 @@ strong {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   transition: 0.4s;
   border-radius: 34px; // Rounded edges for the slider
 }
@@ -156,13 +155,13 @@ strong {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: $black-color;
+  background-color: var(--black-color);
   transition: 0.4s;
   border-radius: 50%; // Rounded edges for the knob
 }
 
 input:checked + .slider {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
 }
 
 input:checked + .slider:before {

@@ -1,9 +1,8 @@
-@import "../../variables.scss";
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: $dark-color; /* Dark background color */
-  color: $secondary-color;
+  background-color: var(--dark-color); /* Dark background color */
+  color: var(--secondary-color);
   margin: 0;
   padding: 0;
 }
@@ -16,14 +15,14 @@ footer {
 
 h1,
 h2 {
-  color: $accent-color; /* Highlight color */
+  color: var(--accent-color); /* Highlight color */
 }
 
 /* Header Styles */
 header {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-  border-bottom: 1px solid $accent-color; /* Highlight border */
+  border-bottom: 1px solid var(--accent-color); /* Highlight border */
   animation: fadeIn 1s ease-in-out; /* Fade-in animation */
 }
 
@@ -52,8 +51,8 @@ header {
 
 /* Button Styles */
 button {
-  background-color: $accent-color; /* Button background color */
-  color: $secondary-color;
+  background-color: var(--accent-color); /* Button background color */
+  color: var(--secondary-color);
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
@@ -100,7 +99,7 @@ section:hover {
   background-position: center;
   text-align: center;
   padding: 100px 0; /* Adjust the padding to your liking */
-  color: $secondary-color; /* Text color */
+  color: var(--secondary-color); /* Text color */
 }
 
 .text-container {
@@ -131,14 +130,14 @@ section:hover {
   }
 
   .text-container {
-    padding: 10px; /* $warning-coloruce padding for smaller screens */
+    padding: 10px; /* var(--warning-color)uce padding for smaller screens */
   }
 
   .text-container h1 {
-    font-size: 1.5rem; /* Further $warning-coloruce font size for smaller screens */
+    font-size: 1.5rem; /* Further var(--warning-color)uce font size for smaller screens */
   }
 
   .text-container p {
-    font-size: 1rem; /* Further $warning-coloruce font size for the paragraph on smaller screens */
+    font-size: 1rem; /* Further var(--warning-color)uce font size for the paragraph on smaller screens */
   }
 }

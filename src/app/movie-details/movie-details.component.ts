@@ -12,12 +12,18 @@ export class MovieDetailsComponent implements OnInit {
   @Input() movie: any;
   movieDetials: any;
   showModal = true;
+  showFullText: boolean = false;
+
   constructor(public activeModal: NgbActiveModal) {} // Inject NgbModal
 
   ngOnInit(): void {
     console.log('Movie Details:', this.movie);
     this.movieDetials = this.movie;
     console.log('Movie Details 2:', this.movieDetials);
+  }
+
+  toggleText() {
+    this.showFullText = !this.showFullText;
   }
 
   getImageUrl(filePath: string | null): string {

@@ -1,18 +1,17 @@
-@import "../../variables.scss";
-
 /* Styles for the dark-themed category picker container */
 .category-picker {
-  background-color: $dark-color; /* Dark background color */
+  background-color: var(--dark-color); /* Dark background color */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px var(--accent-color);
   text-align: center;
+  margin: 10px;
 }
 
 /* Title style for dark theme */
 .dark-text {
   font-size: 1.5rem;
-  color: $accent-color; /* Updated title color for dark theme */
+  color: var(--accent-color); /* Updated title color for dark theme */
   margin-bottom: 10px;
 }
 
@@ -31,8 +30,8 @@
 
 /* Button styles for dark theme */
 .category-picker button {
-  background-color: $black-color; /* Dark button background color */
-  color: $secondary-color; /* Button text color for dark theme */
+  background-color: var(--black-color); /* Dark button background color */
+  color: var(--secondary-color); /* Button text color for dark theme */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -42,36 +41,47 @@
 }
 
 .category-picker button:hover {
-  background-color: #555; /* Button background color on hover for dark theme */
+  color: var(--dark-color);
+  background-color: var(
+    --accent-color
+  ); /* Button background color on hover for dark theme */
 }
 
 /* Active tab style for dark theme */
 .category-picker button.active {
-  background-color: $primary-color; /* Active tab background color for dark theme */
+  background-color: var(
+    --primary-color
+  ); /* Active tab background color for dark theme */
 }
 
 /* Custom Pagination Styles */
 
 /* Change the background color of the pagination */
 .pagination {
-  background-color: $dark-color;
+  background-color: var(--dark-color);
+  color: var(--primary-color);
+}
+
+::ng-deep --bs-pagination-disabled-color {
+  color: var(--primary-color);
 }
 
 /* Change the color of the pagination links */
 .pagination a {
-  color: $secondary-color;
+  color: var(--primary-color);
 }
 
 /* Change the color of the active page link */
 .pagination .active a {
-  background-color: $accent-color;
-  color: $dark-color;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 .box {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px;
 }
 
 .box div {
@@ -111,7 +121,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   transition: 0.4s;
   border-radius: 34px; // Rounded edges for the slider
 }
@@ -123,23 +133,15 @@
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: $black-color;
+  background-color: var(--black-color);
   transition: 0.4s;
   border-radius: 50%; // Rounded edges for the knob
 }
 
 input:checked + .slider {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
 }
 
 input:checked + .slider:before {
   transform: translateX(26px);
-}
-
-@media (max-width: 768px) {
-  .box {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
 }

@@ -15,6 +15,8 @@ export class MovieListComponent implements OnInit {
   movies: any;
   movieDetails: any;
   openPopup: boolean = false;
+  showFullText: boolean = false;
+
   constructor(
     private movieService: MovieService,
     private modalService: NgbModal
@@ -54,5 +56,9 @@ export class MovieListComponent implements OnInit {
       centered: true,
     });
     modalRef.componentInstance.movie = movie; // Pass movie data to the modal
+  }
+
+  toggleText() {
+    // this.showFullText = !this.showFullText;
   }
 }

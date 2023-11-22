@@ -1,15 +1,13 @@
-@import "../../variables.scss";
-
 /* Navbar Styles */
 .navbar {
-  background-color: $dark-color;
-  color: $secondary-color;
+  background-color: var(--dark-color);
+  color: var(--secondary-color);
   padding: 10px 0;
 }
 
 .bg-dark {
-  color: $secondary-color !important;
-  background-color: $black-color !important;
+  color: var(--secondary-color) !important;
+  background-color: var(--black-color) !important;
 }
 .navbar-brand {
   // font-size: 1.5rem;
@@ -18,7 +16,7 @@
 }
 
 .navbar-toggler-icon {
-  background-color: $black-color; /* Hamburger menu color */
+  background-color: var(--black-color); /* Hamburger menu color */
 }
 
 .nav-item {
@@ -26,20 +24,20 @@
 }
 
 .nav-link {
-  color: $secondary-color;
+  color: var(--secondary-color);
   text-decoration: none;
   transition: color 0.3s; /* Smooth color transition */
 }
 
 .nav-link:hover {
-  color: $accent-color; /* Hover color */
+  color: var(--accent-color); /* Hover color */
   text-decoration: none;
 }
 
 /* Highlight active link */
 .nav-item.active {
-  color: $secondary-color;
-  background-color: $primary-color; /* Active link background color */
+  color: var(--secondary-color);
+  background-color: var(--primary-color); /* Active link background color */
   border-radius: 4px;
 }
 
@@ -59,7 +57,7 @@
 /* Mobile menu styles (adjust breakpoint as needed) */
 @media (max-width: 768px) {
   .navbar-toggler {
-    color: $secondary-color; /* Hamburger menu color */
+    color: var(--secondary-color); /* Hamburger menu color */
   }
 
   .navbar-nav {

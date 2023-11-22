@@ -1,19 +1,17 @@
-@import "../../variables.scss";
-
 /* Styles for the movie list container */
 .movie-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
-  background-color: $dark-color;
+  background-color: var(--dark-color);
 }
 
 /* Styles for individual movie cards */
 .movie-card {
   position: relative;
   width: 300px;
-  background-color: #1c1c1c;
+  background-color: var(--movie-card-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
@@ -42,19 +40,19 @@
 .movie-title {
   font-size: 1.5rem;
   margin: 0;
-  color: $accent-color;
+  color: var(--accent-color);
 }
 
 .movie-overview {
   margin-top: 10px;
-  color: #ccc;
+  color: var(--secondary-color);
 }
 
 .movie-release-date,
 .movie-rating {
   margin-top: 5px;
   font-weight: bold;
-  color: $accent-color;
+  color: var(--accent-color);
 }
 
 /* Add a gradient overlay on hover */
@@ -81,8 +79,8 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: $accent-color;
-  color: $dark-color;
+  background-color: var(--accent-color);
+  color: var(--dark-color);
   padding: 5px 15px;
   border: none;
   border-radius: 5px;
@@ -91,5 +89,32 @@
 }
 
 .view-details-button:hover {
-  background-color: #e74c3c;
+  background-color: var(--accent-color);
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.toggle-text-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.toggle-text-btn:hover,
+.toggle-text-btn:focus {
+  color: var(--accent-color);
+  text-decoration: underline;
+  outline: none;
 }

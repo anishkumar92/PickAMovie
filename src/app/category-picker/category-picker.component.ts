@@ -28,9 +28,12 @@ export class CategoryPickerComponent {
   }
 
   fetchFlick() {
+    let one = 1;
+    console.log(one);
     this.movieService.getGenres(this.showMovies).subscribe((data) => {
       // Handle the data here
       this.genres = data.genres;
+
       console.log('genres', this.genres);
       this.selectGenre(this.genres['0']);
     });

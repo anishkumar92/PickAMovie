@@ -1,27 +1,48 @@
-@import "./variables.scss";
 /* You can add global styles to this file, and also import other style files */
 
 /* Global styles for the entire app */
+:root {
+  // Root Color Variables
+  --primary-color: #682f76;
+  --secondary-color: #f6f6f4;
+  --accent-color: #b0e66b;
+  --warning-color: #e20f0f;
+  --dark-color: #4b7ccc;
+  --black-color: #110e1b;
+  --movie-card-color: #1c1c1c;
+}
+
+.dark-theme {
+  // Root Color Variables
+  --primary-color: #caffbf;
+  --secondary-color: #000;
+  --accent-color: #ee6055;
+  --warning-color: #e20f0f;
+  --dark-color: #fffffc;
+  --black-color: #ffc6ff;
+  --movie-card-color: #ffef9f;
+}
+
 body {
-  background-color: $dark-color; /* Dark background color */
-  color: $secondary-color; /* Default text color for the entire app */
+  background-color: var(--dark-color); /* Dark background color */
+  color: var(--secondary-color); /* Default text color for the entire app */
 }
 
 /* Style the scrollbar */
 ::-webkit-scrollbar {
   width: 10px; /* Width of the scrollbar */
-  background-color: $dark-color; /* Track color */
+  background-color: var(--dark-color); /* Track color */
 }
 
 /* Style the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: $accent-color; /* Thumb color */
+  background-color: var(--accent-color); /* Thumb color */
   border-radius: 5px; /* Rounded corners for the thumb */
 }
 
 /* Style the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: $dark-color; /* Track color */
+  background-color: var(--dark-color); /* Track color */
 }
 
 /* Style the scrollbar for mobile devices */
@@ -33,12 +54,12 @@ body {
 
   /* Style the scrollbar thumb */
   ::-webkit-scrollbar-thumb {
-    background-color: $accent-color; /* Thumb color */
+    background-color: var(--accent-color); /* Thumb color */
     border-radius: 5px; /* Rounded corners for the thumb */
   }
 
   /* Style the scrollbar track */
   ::-webkit-scrollbar-track {
-    background-color: $dark-color; /* Track color */
+    background-color: var(--dark-color); /* Track color */
   }
 }

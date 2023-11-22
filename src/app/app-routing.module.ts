@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: '', component: HomeComponent },
   { path: '*', component: HomeComponent },
+  // write a lazy loaded route
+  // { path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   // Add more routes as needed
 ];
 @NgModule({
