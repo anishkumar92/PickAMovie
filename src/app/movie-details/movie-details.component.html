@@ -1,6 +1,7 @@
 <div class="movie-details" [ngClass]="{'show': showModal}">
     <button class="close-button" (click)="closeModal()">&times;</button>
-    <h2>{{ movie.title }}</h2>
+    <h2 (click)="searchMovie(movie.title)" style="cursor:pointer;">
+        {{ movie.title }}</h2>
     <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" alt="{{ movie.title }} Poster">
     <div class="movie-details-content">
         <p [ngClass]="{'truncate': !showFullText}">
@@ -13,5 +14,6 @@
         <p><strong>Rating :</strong> {{ movie.vote_average }}/10</p>
         <p><strong>Genres :</strong> {{ getGenres(movie.genres) }}</p>
         <p><strong>Homepage : </strong> <a [href]="movie.homepage" target="_blank">Click Here</a></p>
+        <p ><strong>Find more at Google  </strong> <a (click)="searchMovie(movie.title)" style="cursor:pointer;">Click Here</a></p>
     </div>
 </div>

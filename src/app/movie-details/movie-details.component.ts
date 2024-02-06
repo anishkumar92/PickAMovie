@@ -26,6 +26,12 @@ export class MovieDetailsComponent implements OnInit {
     this.showFullText = !this.showFullText;
   }
 
+  searchMovie(title: string): void {
+    const query = encodeURIComponent(title);
+    const url = `https://www.google.com/search?q=${query}`;
+    window.open(url, '_blank');
+  }
+
   getImageUrl(filePath: string | null): string {
     if (filePath) {
       const baseUrl = 'https://image.tmdb.org/t/p/';
