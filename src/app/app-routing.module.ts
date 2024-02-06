@@ -5,6 +5,7 @@ import { CategoryPickerComponent } from './category-picker/category-picker.compo
 import { HomeComponent } from './home/home.component';
 import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'random', component: RandomMovieComponent },
   { path: 'contact', component: ContactComponent },
   { path: '', component: HomeComponent },
-  { path: '*', component: HomeComponent },
+  { path: '**', component: PageNotFoundComponent },
   // write a lazy loaded route
   // { path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   // Add more routes as needed

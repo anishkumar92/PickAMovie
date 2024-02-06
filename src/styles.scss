@@ -7,7 +7,7 @@
   --secondary-color: #f6f6f4;
   --accent-color: #b0e66b;
   --warning-color: #e20f0f;
-  --dark-color: #4b7ccc;
+  --dark-color: #07295f;
   --black-color: #110e1b;
   --movie-card-color: #1c1c1c;
 }
@@ -26,6 +26,10 @@
 body {
   background-color: var(--dark-color); /* Dark background color */
   color: var(--secondary-color); /* Default text color for the entire app */
+}
+
+.img-style {
+  height: 80vh;
 }
 
 /* Style the scrollbar */

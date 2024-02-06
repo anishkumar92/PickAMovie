@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { BannerComponent } from './banner/banner.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BannerComponent } from './banner/banner.component';
     RandomMovieComponent,
     ContactComponent,
     BannerComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
