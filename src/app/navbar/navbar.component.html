@@ -49,13 +49,22 @@
               <i class="fas fa-envelope nav-icon"></i>Contact
             </a>
           </li>
+          <!-- Add Mature Content Toggle for Mobile View -->
+          <li class="nav-item d-lg-none">
+            <div class="nav-link mature-mobile">
+              <app-mature-toggle></app-mature-toggle>
+            </div>
+          </li>
         </ul>
       </div>
   
-      <!-- TMDB Attribution -->
-      <div class="tmdb-attribution d-none d-lg-flex">
-        <span>Powered by</span>
-        <img src="../../assets/tmdb logo.svg" alt="TMDB">
+      <!-- TMDB Attribution & Mature Toggle for Desktop -->
+      <div class="navbar-right-section d-none d-lg-flex">
+        <app-mature-toggle></app-mature-toggle>
+        <div class="tmdb-attribution">
+          <span>Powered by</span>
+          <img src="../../assets/tmdb logo.svg" alt="TMDB">
+        </div>
       </div>
     </div>
   </nav>

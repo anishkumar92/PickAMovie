@@ -19,6 +19,7 @@ import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { BannerComponent } from './banner/banner.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatureContentWarningComponent, MatureToggleComponent } from './mature-toggle/mature-toggle.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ContactComponent,
     BannerComponent,
     PageNotFoundComponent,
+    MatureToggleComponent,
+    MatureContentWarningComponent 
   ],
   imports: [
     BrowserModule,

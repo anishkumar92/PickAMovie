@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MovieService } from '../flick-fetch.service';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-contact',

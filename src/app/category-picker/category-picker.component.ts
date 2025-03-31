@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MovieService } from '../flick-fetch.service';
+import { MovieService } from '../movie.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 

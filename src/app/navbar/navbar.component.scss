@@ -263,3 +263,24 @@
 //     document.querySelector('.navbar')?.classList.remove('scrolled');
 //   }
 // }
+
+/* Add these styles to your existing navbar.component.scss */
+
+.navbar-right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mature-mobile {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin-top: 10px;
+}
+
+@media (max-width: 991px) {
+  .mature-mobile {
+    justify-content: center;
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { MovieService } from '../flick-fetch.service';
+import { MovieService } from '../movie.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
