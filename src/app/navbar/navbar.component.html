@@ -35,6 +35,11 @@
             </a>
           </li>
           <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/search']" (click)="closeNavbar()">
+              <i class="fas fa-search nav-icon"></i>Search
+            </a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/random']" (click)="closeNavbar()">
               <i class="fas fa-random nav-icon"></i>Random
             </a>

@@ -92,4 +92,19 @@ export class MovieService implements OnInit {
     const url = `https://moviedb-server.vercel.app/send-email`;
     return this.http.post(url, formData, httpOptions);
   }
+
+  // Add this method to your existing MovieService class in flick-fetch.service.ts
+
+searchFlicks(query: string, showMovies: boolean, page: number = 1): Observable<any> {
+  const url = `${this.baseUrl}`;
+  const params = new HttpParams()
+    .set('url', `${this.apiUrl}/search/${showMovies ? 'movie' : 'tv'}`)
+    .set('query', query)
+    .set('include_adult', 'false')
+    .set('language', 'en-US')
+    .set('page', page.toString());
+
+  return this.http.get(url, { params });
+}
+
 }

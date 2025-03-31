@@ -1,1 +1,50 @@
-<p>movie-search works!</p>
+<div class="search-container">
+    <div class="search-form">
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          class="search-input" 
+          [(ngModel)]="searchQuery" 
+          placeholder="Search for movies or TV shows..." 
+          (keyup.enter)="search()"
+        >
+        <button class="search-button" (click)="search()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+  
+      <div class="toggle-switch-container">
+        <span class="toggle-label">TV Shows</span>
+        <label class="toggle-switch">
+          <input type="checkbox" [(ngModel)]="showMovies" (change)="clearResults()">
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">Movies</span>
+      </div>
+    </div>
+  
+    <div class="search-results-container" *ngIf="searchResults && searchResults.length > 0">
+      <h2 class="results-title">
+        Search Results for "{{ searchQuery }}"
+      </h2>
+  
+      <app-movie-list [movieList]="searchResults" [showMovies]="showMovies"></app-movie-list>
+  
+      <div class="pagination-container" *ngIf="totalPages > 1">
+        <pagination 
+          [(ngModel)]="currentPage"
+          [totalItems]="totalPages * pageSize" 
+          [itemsPerPage]="pageSize" 
+          [maxSize]="5" 
+          (pageChanged)="pageChanged($event)"
+          class="custom-pagination">
+        </pagination>
+      </div>
+    </div>
+  
+    <div class="no-results" *ngIf="searched && (!searchResults || searchResults.length === 0)">
+      <i class="fas fa-search fa-3x"></i>
+      <h3>No results found for "{{ searchQuery }}"</h3>
+      <p>Try a different search term or check your spelling.</p>
+    </div>
+  </div>

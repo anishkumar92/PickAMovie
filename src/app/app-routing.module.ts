@@ -6,12 +6,14 @@ import { HomeComponent } from './home/home.component';
 import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MovieSearchComponent } from './movie-search/movie-search.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'category/:type/:genre/:page', component: CategoryPickerComponent },
   { path: 'random', component: RandomMovieComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'search', component: MovieSearchComponent },
   { path: '', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent },
   // write a lazy loaded route
