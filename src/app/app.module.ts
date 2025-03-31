@@ -19,7 +19,7 @@ import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { BannerComponent } from './banner/banner.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { MatureContentWarningComponent, MatureToggleComponent } from './mature-toggle/mature-toggle.component';
+import {  MatureToggleComponent, MatureWarningComponent } from './mature-toggle/mature-toggle.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { MatureContentWarningComponent, MatureToggleComponent } from './mature-t
     BannerComponent,
     PageNotFoundComponent,
     MatureToggleComponent,
-    MatureContentWarningComponent 
+    MatureWarningComponent
   ],
   imports: [
     BrowserModule,

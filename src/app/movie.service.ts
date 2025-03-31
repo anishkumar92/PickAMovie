@@ -33,12 +33,18 @@ export class MovieService implements OnInit {
     private loadingService: LoadingService
   ) {}
   
-  ngOnInit() {}
+  ngOnInit() { const storedValue = localStorage.getItem('includeAdult');
+    if (storedValue !== null) {
+      this.includeAdult = storedValue === 'true';
+      this.includeAdultSubject.next(this.includeAdult);
+    }
+  }
 
   // Adult content methods
   toggleAdultContent(include: boolean): void {
     this.includeAdult = include;
     this.includeAdultSubject.next(include);
+    localStorage.setItem('includeAdult', include.toString());
   }
 
   getAdultContentSetting(): boolean {

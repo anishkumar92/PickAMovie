@@ -31,10 +31,6 @@
     &:checked + .mature-slider:before {
       transform: translateX(16px);
     }
-    
-    &:focus + .mature-slider {
-      box-shadow: 0 0 1px var(--warning-color);
-    }
   }
   
   .mature-slider {
@@ -74,7 +70,6 @@
     }
   }
   
-  // Responsive styles
   @media (max-width: 991px) {
     .mature-toggle-container {
       margin: 10px 0;
