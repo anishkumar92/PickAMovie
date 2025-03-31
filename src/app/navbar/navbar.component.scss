@@ -1,87 +1,265 @@
-/* Navbar Styles */
+// Modern Navbar Styles
 .navbar {
-  background-color: var(--dark-color);
-  color: var(--secondary-color);
-  padding: 10px 0;
+  background-color: rgba(17, 14, 27, 0.95); // slightly transparent black
+  padding: 15px 0;
+  transition: all 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  // Add backdrop blur for a modern glass effect
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.bg-dark {
-  color: var(--secondary-color) !important;
-  background-color: var(--black-color) !important;
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
+
+// Logo & Brand
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-brand {
-  // font-size: 1.5rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
-.navbar-toggler-icon {
-  background-color: var(--black-color); /* Hamburger menu color */
+.logo {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.brand-text {
+  color: var(--secondary-color);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+// Nav Menu
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .nav-item {
-  margin-right: 20px;
+  position: relative;
+  margin: 0 5px;
+  
+  &.active {
+    .nav-link {
+      color: var(--accent-color);
+      
+      &:after {
+        width: 100%;
+        opacity: 1;
+      }
+      
+      .nav-icon {
+        color: var(--accent-color);
+      }
+    }
+  }
 }
 
 .nav-link {
   color: var(--secondary-color);
-  text-decoration: none;
-  transition: color 0.3s; /* Smooth color transition */
-}
-
-.nav-link:hover {
-  color: var(--accent-color); /* Hover color */
-  text-decoration: none;
-}
-
-/* Highlight active link */
-.nav-item.active {
-  color: var(--secondary-color);
-  background-color: var(--primary-color); /* Active link background color */
-  border-radius: 4px;
-}
-
-.acc {
-  font-size: 14px;
-  padding-right: 20px;
-}
-
-.acc img {
-  width: 50px; /* Adjust the width as needed */
-  margin-left: 10px; /* Adjust the spacing between text and logo */
-}
-.check {
-  width: 50px; /* Adjust the width as needed */
-  margin-left: 10px; /* Adjust the spacing between text and logo */
-}
-/* Mobile menu styles (adjust breakpoint as needed) */
-@media (max-width: 768px) {
-  .navbar-toggler {
-    color: var(--secondary-color); /* Hamburger menu color */
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+    opacity: 0;
+    border-radius: 3px;
   }
+  
+  &:hover, &:focus {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    
+    &:after {
+      width: 70%;
+      opacity: 1;
+    }
+    
+    .nav-icon {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+  }
+}
 
+.nav-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+// TMDB Attribution
+.tmdb-attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(246, 246, 244, 0.2);
+  font-size: 12px;
+  
+  span {
+    color: var(--secondary-color);
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  
+  img {
+    width: 50px;
+    height: auto;
+  }
+}
+
+// Navbar Toggler (Mobile Menu Button)
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  padding: 5px;
+  margin-right: 10px;
+  
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .navbar-toggler-icon {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Mobile Menu Styles
+@media (max-width: 991px) {
+  .navbar-container {
+    padding: 0 15px;
+  }
+  
+  .navbar-brand-container {
+    width: auto;
+  }
+  
+  .brand-text {
+    font-size: 1.2rem;
+  }
+  
+  .logo {
+    height: 30px;
+  }
+  
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(17, 14, 27, 0.95);
+    border-radius: 0 0 15px 15px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
   .navbar-nav {
     flex-direction: column;
+    width: 100%;
+    gap: 10px;
   }
-
+  
   .nav-item {
-    margin-right: 0;
-    margin-bottom: 10px;
+    width: 100%;
+    margin: 0;
   }
-
-  // .acc {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   font-size: 14px;
-  //   color: #777; /* Text color */
-  //   /* Add a border-top for better separation */
-  //   border-top: 1px solid #444;
-  //   padding-top: 10px; /* Add some top padding for spacing */
-  // }
-
-  // .acc img {
-  //   width: 50px; /* Adjust the width as needed */
-  //   margin-left: 10px; /* Adjust the spacing between text and logo */
-  // }
+  
+  .nav-link {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    
+    &:hover {
+      background-color: rgba(176, 230, 107, 0.1);
+    }
+    
+    &:after {
+      display: none;
+    }
+  }
+  
+  .nav-icon {
+    font-size: 1.2rem;
+    width: 24px;
+  }
+  
+  // Show TMDB Attribution at bottom of mobile menu
+  .tmdb-attribution {
+    display: none;
+  }
 }
+
+// Scroll Behavior - shrink navbar on scroll
+@media (min-width: 992px) {
+  .navbar.scrolled {
+    padding: 10px 0;
+    background-color: rgba(17, 14, 27, 0.98);
+    
+    .logo {
+      height: 35px;
+    }
+    
+    .brand-text {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+// Add javascript to your component to handle scroll behavior
+// Add this to navbar.component.ts
+// @HostListener('window:scroll', [])
+// onWindowScroll() {
+//   if (window.scrollY > 50) {
+//     document.querySelector('.navbar')?.classList.add('scrolled');
+//   } else {
+//     document.querySelector('.navbar')?.classList.remove('scrolled');
+//   }
+// }

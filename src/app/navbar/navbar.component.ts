@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -7,13 +8,30 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   theme: string = 'light'; // default theme
+  
   constructor(private router: Router) {}
+  
+  // Add scroll behavior to shrink navbar when scrolling
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.scrollY > 50) {
+      document.querySelector('.navbar')?.classList.add('scrolled');
+    } else {
+      document.querySelector('.navbar')?.classList.remove('scrolled');
+    }
+  }
+  
   closeNavbar() {
-    const navbarToggler = document.querySelector(
-      '.navbar-toggler'
-    ) as HTMLElement;
-    if (navbarToggler) {
-      navbarToggler.click(); // Simulate a click on the navbar-toggler button to close the navbar
+    // Check if the navbar is expanded and viewport is mobile/tablet
+    if (window.innerWidth < 992) {
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+      if (navbarCollapse?.classList.contains('show')) {
+        // Find the navbar toggler button and click it to close the navbar
+        const navbarToggler = document.querySelector('.navbar-toggler') as HTMLElement;
+        if (navbarToggler) {
+          navbarToggler.click();
+        }
+      }
     }
   }
 
