@@ -29,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
 // Import new components
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FilterModule } from './filter/filter.module';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ProfileComponent } from './profile/profile.component';
     AppRoutingModule,
     // Add new modules
     AuthModule,
-    SharedModule
+    SharedModule,
+    FilterModule
   ],
   providers: [
     LoadingService,

@@ -6,9 +6,29 @@
   [disabled]="isProcessing"
   [title]="limitReached && !isFavorite ? 'Upgrade to Pro for unlimited favorites' : (isFavorite ? 'Remove from favorites' : 'Add to favorites')"
 >
-  <i *ngIf="isProcessing" class="fas fa-spinner fa-spin"></i>
-  <i *ngIf="!isProcessing" class="fas" [ngClass]="isFavorite ? 'fa-heart' : 'fa-heart'"></i>
+  <div class="heart-container" *ngIf="!isProcessing">
+    <!-- SVG Heart for better animation control -->
+    <svg class="heart-svg" viewBox="0 0 24 24" width="24" height="24">
+      <path class="heart-path" 
+            [ngClass]="{'filled': isFavorite}" 
+            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </svg>
+    
+    <!-- Heart particles that appear when clicking -->
+    <div class="heart-particles" [ngClass]="{'animate': animateParticles}">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+      <div class="particle p6"></div>
+    </div>
+  </div>
   
+  <!-- Loading spinner -->
+  <i *ngIf="isProcessing" class="fas fa-spinner fa-spin"></i>
+  
+  <!-- Text labels based on button size -->
   <span *ngIf="size === 'large' && !isFavorite && !isProcessing && !limitReached" class="btn-text">Add to Favorites</span>
   <span *ngIf="size === 'large' && isFavorite && !isProcessing" class="btn-text">Remove from Favorites</span>
   <span *ngIf="size === 'large' && !isFavorite && !isProcessing && limitReached" class="btn-text">Upgrade for More</span>

@@ -1,3 +1,4 @@
+// src/app/movie-list/movie-list.component.ts
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +22,7 @@ export class MovieListComponent implements OnInit {
     private movieService: MovieService,
     private modalService: NgbModal
   ) {}
+  
   ngOnInit(): void {
     console.log('movies 111', this.movieList);
     this.movies = this.movieList;
@@ -38,6 +40,7 @@ export class MovieListComponent implements OnInit {
     }
   }
 
+
   onSelect(selectedId: any): void {
     this.movieService
       .getFlickDetails(this.showMovies, selectedId)
@@ -54,11 +57,28 @@ export class MovieListComponent implements OnInit {
   openMovieDetailsModal(movie: any) {
     const modalRef = this.modalService.open(MovieDetailsComponent, {
       centered: true,
+      size: 'lg',
+      windowClass: 'movie-detail-modal',
+      backdrop: 'static'
     });
     modalRef.componentInstance.movie = movie; // Pass movie data to the modal
+    modalRef.componentInstance.showModal = true; // Show the modal
   }
 
-  toggleText() {
-    // this.showFullText = !this.showFullText;
+  getMovieTitle(movie: any): string {
+    return movie.title || movie.name || 'Unknown Title';
+  }
+  
+  // Helper to get movie/show year
+  getMovieYear(movie: any): string {
+    // For TV shows
+    if (movie.first_air_date) {
+      return movie.first_air_date.substring(0, 4);
+    }
+    // For movies
+    if (movie.release_date) {
+      return movie.release_date.substring(0, 4);
+    }
+    return 'N/A';
   }
 }

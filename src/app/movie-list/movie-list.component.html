@@ -1,14 +1,31 @@
+<!-- Update src/app/movie-list/movie-list.component.html -->
 <div class="movie-list">
     <div class="movie-card" *ngFor="let movie of movieList" (click)="onSelect(movie.id)">
-        <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" alt="{{ movie.original_title }} Poster">
-        <div class="movie-info">
-            <h2 class="movie-title">{{ movie.original_title }}</h2>
-            <p [ngClass]="{'truncate': !showFullText}">
-                <strong>Overview :</strong> {{ movie.overview }}
-            </p>
-
-            <p class="movie-release-date">Release Date: {{ movie.release_date }}</p>
-            <p class="movie-rating">Rating: {{ movie.vote_average }}/10</p>
+      <div class="movie-poster-container">
+        <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" [alt]="getMovieTitle(movie) + ' Poster'">
+        
+        <div class="movie-quick-info">
+          <div class="movie-rating">
+            <i class="fas fa-star"></i>
+            <span>{{ movie.vote_average | number:'1.1-1' }}</span>
+          </div>
+          
+          <div class="movie-year" *ngIf="movie.release_date || movie.first_air_date">
+            {{ getMovieYear(movie) }}
+          </div>
         </div>
+      </div>
+      
+      <div class="movie-info">
+        <h3 class="movie-title">{{ getMovieTitle(movie) }}</h3>
+        
+        <p class="movie-overview" [ngClass]="{'truncate': true}">
+          {{ movie.overview }}
+        </p>
+        
+        <button class="view-details-btn">
+          <i class="fas fa-info-circle"></i> View Details
+        </button>
+      </div>
     </div>
-</div>
+  </div>

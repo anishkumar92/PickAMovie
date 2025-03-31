@@ -1,25 +1,117 @@
 <!-- src/app/movie-details/movie-details.component.html -->
-<div class="movie-details" [ngClass]="{'show': showModal}">
-    <button class="close-button" (click)="closeModal()">&times;</button>
-    <h2 (click)="searchMovie(movie.title)" style="cursor:pointer;">
-        {{ movie.title }}</h2>
-    <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" alt="{{ movie.title }} Poster">
-    <div class="movie-details-content">
-        <p [ngClass]="{'truncate': !showFullText}">
-            <strong>Overview :</strong> {{ movie.overview }}
-        </p>
-        <a href="#" class="toggle-text-btn" (click)="toggleText(); $event.preventDefault()">
-            {{ showFullText ? 'Show Less' : 'Show More' }}
-        </a>
-        <p><strong>Release Date :</strong> {{ movie.release_date }}</p>
-        <p><strong>Rating :</strong> {{ movie.vote_average }}/10</p>
-        <p><strong>Genres :</strong> {{ getGenres(movie.genres) }}</p>
-        <p><strong>Homepage : </strong> <a [href]="movie.homepage" target="_blank">Click Here</a></p>
-        <p><strong>Find more at Google  </strong> <a (click)="searchMovie(movie.title)" style="cursor:pointer;">Click Here</a></p>
-        
-        <!-- Add favorite button -->
-        <div class="favorite-action">
-            <app-favorite-button [movieId]="movie.id" size="large"></app-favorite-button>
+<div class="modal-overlay" [ngClass]="{'show': showModal}" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="modal-header">
+        <h2 class="movie-title">{{ getTitle() }}</h2>
+      </div>
+      
+      <div class="modal-body">
+        <div class="movie-poster-wrapper">
+          <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" [alt]="getTitle() + ' Poster'">
         </div>
+        
+        <div class="movie-info">
+          <div class="rating-year">
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <span>{{ movie.vote_average | number:'1.1-1' }}</span>
+              <span class="max">/10</span>
+            </div>
+            
+            <div class="year">
+              <span>{{ getReleaseYear() }}</span>
+            </div>
+          </div>
+          
+          <div class="movie-genres">
+            <span *ngFor="let genre of movie.genres" class="genre-badge">{{ genre.name }}</span>
+          </div>
+          
+          <div class="movie-overview">
+            <p [ngClass]="{'truncate': !showFullText}">{{ movie.overview }}</p>
+            <button class="toggle-text-btn" (click)="toggleText()" *ngIf="movie.overview && movie.overview.length > 150">
+              {{ showFullText ? 'Show Less' : 'Show More' }}
+            </button>
+          </div>
+          
+          <!-- TV Show specific information -->
+          <div class="tv-info" *ngIf="isTvShow()">
+            <div class="info-section">
+              <h4>Show Info</h4>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Seasons</span>
+                  <span class="info-value">{{ movie.number_of_seasons }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Episodes</span>
+                  <span class="info-value">{{ movie.number_of_episodes }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">{{ movie.status }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">First Aired</span>
+                  <span class="info-value">{{ movie.first_air_date | date:'mediumDate' }}</span>
+                </div>
+                <div class="info-item" *ngIf="movie.last_air_date">
+                  <span class="info-label">Last Aired</span>
+                  <span class="info-value">{{ movie.last_air_date | date:'mediumDate' }}</span>
+                </div>
+                <div class="info-item" *ngIf="movie.networks && movie.networks.length > 0">
+                  <span class="info-label">Network</span>
+                  <span class="info-value">{{ getNetworks() }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Latest Episode -->
+            <div class="last-episode" *ngIf="movie.last_episode_to_air">
+              <h4>Latest Episode</h4>
+              <div class="episode-card">
+                <div class="episode-info">
+                  <span class="episode-title">{{ movie.last_episode_to_air.name || 'Episode ' + movie.last_episode_to_air.episode_number }}</span>
+                  <span class="episode-date">{{ movie.last_episode_to_air.air_date | date:'mediumDate' }}</span>
+                </div>
+                <div class="episode-season">S{{ movie.last_episode_to_air.season_number }} E{{ movie.last_episode_to_air.episode_number }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Movie specific information -->
+          <div class="movie-info-grid" *ngIf="!isTvShow()">
+            <div class="info-item">
+              <h4>Release Date</h4>
+              <p>{{ movie.release_date | date:'mediumDate' }}</p>
+            </div>
+            
+            <div class="info-item" *ngIf="movie.runtime">
+              <h4>Runtime</h4>
+              <p>{{ movie.runtime }} minutes</p>
+            </div>
+          </div>
+          
+          <div class="movie-action">
+            <a [href]="movie.homepage" *ngIf="movie.homepage" target="_blank" class="action-link">
+              Visit Official Site
+            </a>
+            <a (click)="searchMovie(getTitle())" class="action-link">
+              <i class="fab fa-google"></i> Find on Google
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="favorite-btn" [ngClass]="{'active': isFavorite}" (click)="toggleFavorite($event)">
+          <i class="fas" [ngClass]="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i>
+          {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+        </button>
+      </div>
     </div>
-</div>
+  </div>

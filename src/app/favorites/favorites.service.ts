@@ -22,7 +22,7 @@ export class FavoritesService {
     // Initialize favorites from current user
     this.authService.currentUser$.subscribe(user => {
       if (user) {
-        this.favoritesSubject.next(user.favoriteMovies || []);
+        this.favoritesSubject.next([...user.favoriteMovies]);
       } else {
         this.favoritesSubject.next([]);
       }
@@ -62,7 +62,10 @@ export class FavoritesService {
       updatedFavorites = [...currentFavorites, movieId];
     }
     
-    // In a real app, we'd update the server here
+    // Update local state FIRST for immediate UI feedback
+    this.updateLocalFavorites(updatedFavorites, currentUser);
+    
+    // Then update the server
     return this.http.post<{ success: boolean }>(`${this.apiUrl}/toggle`, {
       userId: currentUser.id,
       movieId,
@@ -70,52 +73,93 @@ export class FavoritesService {
     }).pipe(
       map(response => {
         if (response.success) {
-          // Update local state
-          this.favoritesSubject.next(updatedFavorites);
-          
-          // Update user in auth service
-          const updatedUser: User = {
-            ...currentUser,
-            favoriteMovies: updatedFavorites
-          };
-          
-          localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-          
           return !isFavorite; // Return new state (true if added, false if removed)
+        } else {
+          // If server operation failed, revert the local state
+          this.updateLocalFavorites(currentFavorites, currentUser);
+          return isFavorite; // Return original state
         }
-        return isFavorite; // Return original state if operation failed
       }),
-      catchError(() => {
-        // For demo purposes, we'll update local state even if the server fails
-        this.favoritesSubject.next(updatedFavorites);
-        
-        // Update user in auth service
-        const updatedUser: User = {
-          ...currentUser,
-          favoriteMovies: updatedFavorites
-        };
-        
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-        
-        return of(!isFavorite);
+      catchError(error => {
+        // On error, revert to the original state
+        console.error('Toggle favorite error:', error);
+        this.updateLocalFavorites(currentFavorites, currentUser);
+        return of(isFavorite);
       })
     );
   }
   
-  // Load favorite movie details
-  loadFavoriteMovies(): Observable<any[]> {
-    const favoriteIds = this.favoritesSubject.value;
-    if (!favoriteIds.length) {
-      return of([]);
+  // Helper method to update local state
+  private updateLocalFavorites(favorites: number[], user: User): void {
+    // Create a copy of the user object to prevent reference issues
+    const updatedUser: User = {
+      ...user,
+      favoriteMovies: [...favorites] // Use a new array
+    };
+    
+    // Update localStorage
+    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    
+    // Update the BehaviorSubject
+    this.favoritesSubject.next([...favorites]);
+    
+    // Update the auth service
+    this.authService.currentUserSubject.next(updatedUser);
+  }
+  
+  // Method to force refresh favorites (can be called when needed)
+  refreshFavorites(): void {
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser) {
+      // Ensure we're working with a fresh copy
+      const freshFavorites = [...currentUser.favoriteMovies];
+      this.favoritesSubject.next(freshFavorites);
+    }
+  }
+  
+  // Method to directly remove a movie from favorites with immediate UI update
+  // This is useful for the favorites page to avoid the flickering
+  removeMovieFromFavorites(movieId: number, isMovie: boolean = true): Observable<boolean> {
+    const currentUser = this.authService.currentUserValue;
+    
+    if (!currentUser) {
+      return of(false);
     }
     
-    // This is simplified - in a real app we'd make a single request to fetch all favorites
-    // For this demo, we'll load each movie sequentially
-    const requests = favoriteIds.map(id => 
-      this.movieService.getFlickDetails(true, id)
-    );
+    const currentFavorites = [...this.favoritesSubject.value];
     
-    // This would be better with forkJoin or similar, but keeping it simple
-    return of([]); // Placeholder - would need to implement batch loading
+    // Only proceed if the movie is actually in favorites
+    if (!currentFavorites.includes(movieId)) {
+      return of(false);
+    }
+    
+    // Remove from favorites
+    const updatedFavorites = currentFavorites.filter(id => id !== movieId);
+    
+    // Update local state FIRST for immediate UI feedback
+    this.updateLocalFavorites(updatedFavorites, currentUser);
+    
+    // Then update the server
+    return this.http.post<{ success: boolean }>(`${this.apiUrl}/toggle`, {
+      userId: currentUser.id,
+      movieId,
+      isMovie
+    }).pipe(
+      map(response => {
+        if (response.success) {
+          return true; // Success
+        } else {
+          // If server operation failed, revert the local state
+          this.updateLocalFavorites(currentFavorites, currentUser);
+          return false; // Failed
+        }
+      }),
+      catchError(error => {
+        // On error, revert to the original state
+        console.error('Remove favorite error:', error);
+        this.updateLocalFavorites(currentFavorites, currentUser);
+        return of(false);
+      })
+    );
   }
 }

@@ -1,10 +1,16 @@
+<!-- src/app/mature-toggle/mature-toggle.component.html -->
 <div class="mature-toggle-container">
-    <label class="mature-switch">
-      <input type="checkbox" [checked]="includeAdult" (change)="toggleAdultContent($event)">
+  <label class="mature-switch">
+    <input type="checkbox" [checked]="includeAdult" (change)="toggleAdultContent($event)">
+    <div class="switch-wrapper">
       <span class="mature-slider"></span>
-      <span class="mature-label">
-        <i class="fas fa-eye-slash"></i>
-        <span class="mature-text">Mature</span>
+      <span class="slider-state" [class.on]="includeAdult">
+        {{ includeAdult ? 'ON' : 'OFF' }}
       </span>
-    </label>
-  </div>
+    </div>
+    <span class="mature-label">
+      <i class="fas" [ngClass]="includeAdult ? 'fa-eye text-warning' : 'fa-eye-slash'"></i>
+      <span class="mature-text">Mature Content</span>
+    </span>
+  </label>
+</div>

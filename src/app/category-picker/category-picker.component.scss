@@ -1,12 +1,14 @@
+// src/app/category-picker/category-picker.component.scss
 // Variables for reuse
 $bg-dark: rgba(17, 14, 27, 0.7);
 $bg-medium: rgba(7, 41, 95, 0.4);
+$bg-darker: rgba(7, 41, 95, 0.3);
 $bg-disabled: rgba(17, 14, 27, 0.5);
 $border-accent: rgba(176, 230, 107, 0.2);
 $border-light: rgba(176, 230, 107, 0.1);
 $gradient: linear-gradient(135deg, rgba(176, 230, 107, 0.1), rgba(104, 47, 118, 0.1));
 $shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.15);
-$shadow-md: 0 5px 15px rgba(0, 0, 0, 0.2);
+$shadow-md: 0 10px 20px rgba(0, 0, 0, 0.2);
 $shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
 $transition: all 0.3s ease;
 
@@ -23,73 +25,6 @@ $transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-// Toggle Switch
-.toggle-switch-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 8px;
-  background-color: $bg-medium;
-  border-radius: 50px;
-  width: fit-content;
-  max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.toggle-label {
-  color: var(--secondary-color);
-  font-weight: 600;
-  padding: 0 10px;
-  font-size: 0.9rem;
-  opacity: 0.8;
-  transition: $transition;
-  white-space: nowrap;
-}
-
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-  min-width: 50px;
-  
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-}
-
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(246, 246, 244, 0.2);
-  transition: 0.4s;
-  border-radius: 30px;
-  
-  &:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--accent-color);
-    transition: 0.4s;
-    border-radius: 50%;
-  }
-}
-
-input:checked + .toggle-slider:before {
-  transform: translateX(24px);
 }
 
 // Category Header
@@ -122,22 +57,62 @@ input:checked + .toggle-slider:before {
   }
 }
 
-// Genres
-.genres-container {
+// Genres Slider
+.genres-slider-container {
   width: 100%;
-  max-width: 600px;
-  overflow-x: hidden;
-  margin: 0 auto 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
-.genres-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 10px;
+.genres-slider {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 5px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
   width: 100%;
-  box-sizing: border-box;
-  padding: 0 5px;
-  margin: 0 auto;
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+.slider-control {
+  background-color: $bg-darker;
+  border: none;
+  color: var(--accent-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: $transition;
+  box-shadow: $shadow-sm;
+  
+  &:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+    color: var(--secondary-color);
+  }
+  
+  &.prev {
+    margin-right: 10px;
+  }
+  
+  &.next {
+    margin-left: 10px;
+  }
+  
+  i {
+    font-size: 1rem;
+  }
 }
 
 .genre-button {
@@ -146,17 +121,18 @@ input:checked + .toggle-slider:before {
   border-radius: 10px;
   color: var(--secondary-color);
   cursor: pointer;
-  padding: 12px 5px;
+  padding: 15px 10px;
   text-align: center;
   transition: $transition;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  overflow: hidden;
+  min-width: 110px;
+  height: 110px;
+  margin: 0 8px;
+  flex-shrink: 0;
   position: relative;
-  width: 100%;
   
   &:before {
     content: '';
@@ -168,10 +144,11 @@ input:checked + .toggle-slider:before {
     background: $gradient;
     opacity: 0;
     transition: opacity 0.3s ease;
+    border-radius: 10px;
   }
   
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: $shadow-sm;
     
     &:before {
@@ -186,7 +163,7 @@ input:checked + .toggle-slider:before {
   
   &.active {
     background-color: var(--primary-color);
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.05);
     box-shadow: $shadow-md;
     
     .genre-icon, .genre-name {
@@ -200,22 +177,19 @@ input:checked + .toggle-slider:before {
 }
 
 .genre-icon {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
+  font-size: 2rem;
+  margin-bottom: 10px;
   color: rgba(246, 246, 244, 0.8);
   transition: $transition;
 }
 
 .genre-name {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.2px;
-  text-transform: uppercase;
   transition: $transition;
   line-height: 1.1;
-  word-break: break-word;
-  max-width: 100%;
-  padding: 0 2px;
+  max-width: 90%;
 }
 
 // Pagination
@@ -228,7 +202,74 @@ input:checked + .toggle-slider:before {
   padding: 5px 0;
 }
 
-// Custom Pagination - Simplified
+// Movie list container
+::ng-deep app-movie-list {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  display: block;
+}
+
+// Media Queries
+@media (max-width: 768px) {
+  .slider-control {
+    width: 35px;
+    height: 35px;
+    
+    i {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .genre-button {
+    min-width: 100px;
+    height: 100px;
+    padding: 10px 8px;
+  }
+  
+  .genre-icon {
+    font-size: 1.6rem;
+  }
+  
+  .genre-name {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-control {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .genre-button {
+    min-width: 85px;
+    height: 85px;
+    padding: 8px 5px;
+    margin: 0 5px;
+  }
+  
+  .genre-icon {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+  
+  .genre-name {
+    font-size: 0.7rem;
+  }
+}
+
+/* Add to src/custom-pagination.scss or category-picker.component.scss */
+
+/* Enhanced Pagination Styles */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+  width: 100%;
+  padding: 10px 0;
+}
+
 :host ::ng-deep .custom-pagination {
   .pagination {
     display: flex;
@@ -237,6 +278,7 @@ input:checked + .toggle-slider:before {
     border-radius: 0.25rem;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 5px;
     
     li {
       margin: 2px;
@@ -245,20 +287,27 @@ input:checked + .toggle-slider:before {
         background-color: var(--primary-color);
         border-color: var(--primary-color);
         color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
     }
     
     .page-link {
       position: relative;
-      display: block;
-      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      padding: 6px 12px;
       margin-left: -1px;
       line-height: 1.25;
       color: var(--accent-color);
-      background-color: $bg-medium;
-      border: 1px solid $border-accent;
-      transition: $transition;
-      font-size: 0.9rem;
+      background-color: rgba(7, 41, 95, 0.4);
+      border: 1px solid rgba(176, 230, 107, 0.2);
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      font-weight: 500;
       
       &:hover {
         z-index: 2;
@@ -266,6 +315,7 @@ input:checked + .toggle-slider:before {
         text-decoration: none;
         background-color: var(--primary-color);
         border-color: var(--primary-color);
+        transform: translateY(-2px);
       }
       
       &:focus {
@@ -279,79 +329,48 @@ input:checked + .toggle-slider:before {
       color: var(--secondary-color);
       pointer-events: none;
       cursor: auto;
-      background-color: $bg-disabled;
-      border-color: $border-light;
+      background-color: rgba(17, 14, 27, 0.5);
+      border-color: rgba(176, 230, 107, 0.1);
+      opacity: 0.5;
+      transform: none;
+      box-shadow: none;
     }
   }
 }
 
-// Movie list container
-::ng-deep app-movie-list {
-  width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
-  display: block;
-}
-
-// Media Queries - Consolidated and optimized
-@media (min-width: 576px) {
-  .category-selector-container { padding: 20px; }
-  .genres-grid { 
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
-    gap: 12px; 
-  }
-  .genre-button { height: 85px; }
-  .genre-name { font-size: 0.8rem; }
-  .category-title { font-size: 1.8rem; }
-}
-
-@media (min-width: 768px) {
-  .genres-container { max-width: 800px; }
-  .genres-grid { 
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
-  }
-  .genre-button {
-    height: 90px;
-    padding: 15px 10px;
-  }
-  .genre-icon { font-size: 1.6rem; }
-  .genre-name { font-size: 0.85rem; }
-  .toggle-label {
-    font-size: 1rem;
-    padding: 0 15px;
-  }
-  .category-title {
-    font-size: 2rem;
-    &:after { width: 100px; }
+/* Mobile responsive adjustments */
+@media (max-width: 576px) {
+  :host ::ng-deep .custom-pagination {
+    .pagination {
+      .page-link {
+        min-width: 32px;
+        height: 32px;
+        padding: 4px 8px;
+        font-size: 0.85rem;
+      }
+    }
   }
 }
 
-@media (min-width: 992px) {
-  .genres-container { max-width: 1000px; }
-  .genres-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-  .genre-button { height: 100px; }
-  .genre-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-  }
-  .genre-name { font-size: 0.9rem; }
-  .category-title { font-size: 2.2rem; }
+/* Add this to src/app/category-picker/category-picker.component.scss */
+
+/* Create a relative positioning context for the filter component */
+.wrapper {
+  position: relative;
 }
 
-@media (min-width: 1200px) {
-  .genres-container { max-width: 1200px; }
-  .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 20px;
-  }
+/* Ensures the filter doesn't overlap with the pagination */
+.pagination-container {
+  z-index: 90;
+  position: relative;
 }
 
-// Combined larger breakpoints
-@media (min-width: 1600px) {
-  .genres-container { max-width: 1600px; }
-  .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+/* Adjust title spacing to accommodate filter button */
+.category-title {
+  padding-right: 90px; /* Space for the filter button */
+  
+  @media (max-width: 576px) {
+    padding-right: 0; /* Reset on small screens where filter is full width */
+    margin-bottom: 50px; /* Add space below for the filter button */
   }
 }

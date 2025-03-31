@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -91,67 +91,33 @@ export class MovieService implements OnInit {
     return this.http.get(url, { params });
   }
   
-  // Discover methods with enhanced filtering
-  getFlickForGenre(
-    showMovies: boolean,
-    genreId: any,
-    page: number,
-    pageSize: number
-  ): Observable<any> {
-    const url = `${this.baseUrl}`;
-    let params = new HttpParams()
-      .set('url', `${this.apiUrl}/discover/${showMovies ? 'movie' : 'tv'}`)
-      .set('include_adult', this.includeAdult.toString())
-      .set('include_video', 'false')
-      .set('page', page.toString())
-      .set('sort_by', this.sortBy)
-      .set('with_genres', genreId)
-      .set('page_size', pageSize.toString())
-      .set('language', 'en-US');
-    
-    // Add optional filters if they're set
-    if (this.filterOptions.year) {
-      params = params.set('primary_release_year', this.filterOptions.year.toString());
-    }
-    
-    if (this.filterOptions.voteAverage) {
-      params = params.set('vote_average.gte', this.filterOptions.voteAverage.toString());
-    }
-    
-    if (this.filterOptions.withCast) {
-      params = params.set('with_cast', this.filterOptions.withCast);
-    }
-    
-    if (this.filterOptions.withCrew) {
-      params = params.set('with_crew', this.filterOptions.withCrew);
-    }
-    
-    if (this.filterOptions.withCompanies) {
-      params = params.set('with_companies', this.filterOptions.withCompanies);
-    }
-    
-    if (this.filterOptions.withKeywords) {
-      params = params.set('with_keywords', this.filterOptions.withKeywords);
-    }
-    
-    if (this.filterOptions.withWatchProviders) {
-      params = params.set('with_watch_providers', this.filterOptions.withWatchProviders);
-    }
-
-    return this.http.get(url, { params });
-  }
+ 
 
   // Get specific movie/TV show details
-  getFlickDetails(showMovies: boolean, id: number): Observable<any> {
-    const url = `${this.baseUrl}`;
-    const params = new HttpParams().set(
-      'url',
-      `${this.apiUrl}/${
-        showMovies ? 'movie' : 'tv'
-      }/${id}?include_adult=${this.includeAdult.toString()}&language=en-US`
-    );
-    return this.http.get(url, { params });
-  }
+// Update getFlickDetails method in src/app/movie.service.ts
+
+// The method signature should remain the same:
+getFlickDetails(showMovies: boolean, id: number): Observable<any> {
+  const url = `${this.baseUrl}`;
+  
+  // Construct the appropriate URL path based on content type
+  const contentType = showMovies ? 'movie' : 'tv';
+  
+  const params = new HttpParams().set(
+    'url',
+    `${this.apiUrl}/${contentType}/${id}?include_adult=${this.includeAdult.toString()}&language=en-US`
+  );
+  
+  return this.http.get(url, { params }).pipe(
+    // Add a flag to indicate if this is a movie or not to help with handling later
+    map(response => {
+      return {
+        ...response,
+        _isMovie: showMovies // Add a private flag to track the content type
+      };
+    })
+  );
+}
 
   // Get random movie/TV show
   getRandomFlick(showMovies: boolean, pageno = 1): Observable<any> {
@@ -246,16 +212,7 @@ export class MovieService implements OnInit {
     return this.http.get(url, { params });
   }
   
-  // Get available watch providers (where to watch)
-  getWatchProviders(id: number, showMovies: boolean): Observable<any> {
-    const url = `${this.baseUrl}`;
-    const params = new HttpParams().set(
-      'url',
-      `${this.apiUrl}/${showMovies ? 'movie' : 'tv'}/${id}/watch/providers?language=en-US`
-    );
-    
-    return this.http.get(url, { params });
-  }
+
 
   // Send email (existing method)
   sendEmail(formData: any): Observable<any> {
@@ -268,4 +225,112 @@ export class MovieService implements OnInit {
     const url = `https://moviedb-server.vercel.app/send-email`;
     return this.http.post(url, formData, httpOptions);
   }
+
+  // Update to src/app/movie.service.ts to enhance the filtering capabilities
+
+// Add or update these methods in the MovieService class:
+
+// Method to get movies or TV shows with filtering
+getFilteredFlicks(showMovies: boolean, genreId: number | null = null, page: number = 1): Observable<any> {
+  const url = `${this.baseUrl}`;
+  const contentType = showMovies ? 'movie' : 'tv';
+  
+  // Start with basic parameters
+  let params = new HttpParams()
+    .set('url', `${this.apiUrl}/discover/${contentType}`)
+    .set('include_adult', this.includeAdult.toString())
+    .set('page', page.toString())
+    .set('sort_by', this.sortBy)
+    .set('language', 'en-US');
+  
+  // Add genre if specified
+  if (genreId) {
+    params = params.set('with_genres', genreId.toString());
+  }
+  
+  // Add all other filter parameters
+  
+  // Year filter (release_date for movies, first_air_date for TV shows)
+  const yearFilter = this.filterOptions.year;
+  if (yearFilter) {
+    const dateField = showMovies ? 'primary_release_date' : 'first_air_date';
+    if (yearFilter.primaryReleaseDateGte) {
+      params = params.set(`${dateField}.gte`, yearFilter.primaryReleaseDateGte);
+    }
+    if (yearFilter.primaryReleaseDateLte) {
+      params = params.set(`${dateField}.lte`, yearFilter.primaryReleaseDateLte);
+    }
+  }
+  
+  // Vote average filter
+  const voteFilter = this.filterOptions.voteAverage;
+  if (voteFilter) {
+    if (voteFilter.voteAverageGte) {
+      params = params.set('vote_average.gte', voteFilter.voteAverageGte.toString());
+    }
+    if (voteFilter.voteAverageLte) {
+      params = params.set('vote_average.lte', voteFilter.voteAverageLte.toString());
+    }
+  }
+  
+  // Vote count filter
+  const voteCountFilter = this.filterOptions.voteCount;
+  if (voteCountFilter && voteCountFilter.voteCountGte) {
+    params = params.set('vote_count.gte', voteCountFilter.voteCountGte.toString());
+  }
+  
+  // Runtime filter (movies only)
+  if (showMovies) {
+    const runtimeFilter = this.filterOptions.runtime;
+    if (runtimeFilter) {
+      if (runtimeFilter.runtimeGte) {
+        params = params.set('with_runtime.gte', runtimeFilter.runtimeGte.toString());
+      }
+      if (runtimeFilter.runtimeLte) {
+        params = params.set('with_runtime.lte', runtimeFilter.runtimeLte.toString());
+      }
+    }
+  }
+  
+  // Watch providers (streaming services)
+  const providersFilter = this.filterOptions.withWatchProviders;
+  if (providersFilter) {
+    params = params.set('with_watch_providers', providersFilter);
+    // By default, we'll use US region, but this could be configurable
+    params = params.set('watch_region', 'US');
+  }
+  
+  // Original language
+  const languageFilter = this.filterOptions.language;
+  if (languageFilter) {
+    params = params.set('with_original_language', languageFilter);
+  }
+  
+  // Make the API call with all parameters
+  return this.http.get(url, { params });
+}
+
+// Helper method to get available watch providers
+getWatchProviders(region: string = 'US'): Observable<any> {
+  const url = `${this.baseUrl}`;
+  const params = new HttpParams()
+    .set('url', `${this.apiUrl}/watch/providers/movie?watch_region=${region}&language=en-US`);
+  
+  return this.http.get(url, { params });
+}
+
+// Helper method to get available languages
+getLanguages(): Observable<any> {
+  const url = `${this.baseUrl}`;
+  const params = new HttpParams()
+    .set('url', `${this.apiUrl}/configuration/languages`);
+  
+  return this.http.get(url, { params });
+}
+
+// Replace the existing getFlickForGenre method with this enhanced version
+getFlickForGenre(showMovies: boolean, genreId: number, page: number, pageSize: number): Observable<any> {
+  // Call the new filtered method instead
+  return this.getFilteredFlicks(showMovies, genreId, page);
+}
 }

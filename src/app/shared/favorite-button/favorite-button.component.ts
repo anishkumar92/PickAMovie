@@ -17,6 +17,7 @@ export class FavoriteButtonComponent implements OnInit {
   isFavorite: boolean = false;
   isProcessing: boolean = false;
   limitReached: boolean = false;
+  animateParticles: boolean = false;
   
   constructor(
     private favoritesService: FavoritesService,
@@ -26,6 +27,9 @@ export class FavoriteButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkFavoriteStatus();
+    
+    // Set random directions for particles
+    this.setupParticles();
     
     // Subscribe to favorite changes
     this.favoritesService.getFavorites().subscribe(favorites => {
@@ -37,6 +41,18 @@ export class FavoriteButtonComponent implements OnInit {
   private checkFavoriteStatus(): void {
     this.isFavorite = this.favoritesService.isFavorite(this.movieId);
     this.limitReached = !this.authService.canAddFavorite();
+  }
+  
+  setupParticles(): void {
+    // Set random directions for particles using CSS variables
+    setTimeout(() => {
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach(particle => {
+        const el = particle as HTMLElement;
+        el.style.setProperty('--x', (Math.random() * 2 - 1).toFixed(2));
+        el.style.setProperty('--y', (Math.random() * 2 - 1).toFixed(2));
+      });
+    }, 0);
   }
   
   toggleFavorite(event: Event): void {
@@ -57,6 +73,14 @@ export class FavoriteButtonComponent implements OnInit {
         queryParams: { upgrade: true } 
       });
       return;
+    }
+    
+    // Trigger particle animation when adding to favorites (not when removing)
+    if (!this.isFavorite) {
+      this.animateParticles = true;
+      setTimeout(() => {
+        this.animateParticles = false;
+      }, 600); // Match animation duration
     }
     
     this.isProcessing = true;

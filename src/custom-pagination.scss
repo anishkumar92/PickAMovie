@@ -1,24 +1,99 @@
-/* Custom Dark-Themed Pagination Styles */
+/* Updated src/custom-pagination.scss */
 
-/* Change the background color of the pagination */
-.pagination {
-  background-color: var(--dark-color); /* Dark background color */
-  -bs-pagination-border-color: var(--warning-color);
-  .page-link {
-    background-color: var(--dark-color); /* Dark background color */
-    border: none;
+/* Modern Pagination Styles */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+  padding: 15px 0;
+}
+
+:host ::ng-deep .custom-pagination {
+  .pagination {
+    display: flex;
+    padding: 5px;
+    list-style: none;
+    border-radius: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(17, 14, 27, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    
+    li {
+      &.active .page-link {
+        background-color: var(--accent-color);
+        color: var(--black-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 12px rgba(176, 230, 107, 0.4);
+        font-weight: 700;
+      }
+    }
+    
+    .page-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 40px;
+      padding: 0;
+      line-height: 40px;
+      color: var(--secondary-color);
+      background-color: transparent;
+      border: none;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 1rem;
+      
+      &:hover {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(104, 47, 118, 0.3);
+      }
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(176, 230, 107, 0.3);
+      }
+    }
+    
+    .disabled .page-link {
+      color: rgba(246, 246, 244, 0.4);
+      background-color: transparent;
+      pointer-events: none;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* Style the next/prev buttons differently */
+    li:first-child .page-link,
+    li:last-child .page-link {
+      background-color: rgba(104, 47, 118, 0.3);
+      font-size: 0.9rem;
+      
+      &:hover {
+        background-color: var(--primary-color);
+      }
+    }
   }
 }
 
-/* Change the color of the pagination links */
-.pagination a {
-  color: var(--accent-color); /* White text color */
-}
-
-/* Change the color of the active page link */
-.pagination .active a {
-  background-color: var(
-    --accent-color
-  ); /* Yellow background color for active page */
-  color: var(--dark-color); /* Dark text color for active page */
+/* Mobile responsive adjustments */
+@media (max-width: 576px) {
+  :host ::ng-deep .custom-pagination {
+    .pagination {
+      gap: 5px;
+      padding: 3px;
+      
+      .page-link {
+        min-width: 36px;
+        height: 36px;
+        line-height: 36px;
+        font-size: 0.9rem;
+      }
+    }
+  }
 }

@@ -304,3 +304,43 @@
       gap: 10px;
     }
   }
+
+  /* Add this to src/app/favorites/favorites.component.scss */
+
+/* Removal animation for favorite cards */
+.favorite-card {
+  transition: all 0.5s ease;
+  
+  &.removing {
+    opacity: 0.6;
+    transform: scale(0.95) translateY(10px);
+    pointer-events: none;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      z-index: 1;
+    }
+    
+    .remove-btn {
+      background-color: var(--warning-color);
+      color: var(--secondary-color);
+      opacity: 0.7;
+    }
+  }
+}
+
+/* Improved button states */
+.remove-btn {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
