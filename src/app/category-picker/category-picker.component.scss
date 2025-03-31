@@ -1,10 +1,16 @@
-// Category Selector Container
+// Mobile-Friendly Category Selector with Ultra-Wide Support
 .category-selector-container {
+  width: 95%;
+  max-width: 1800px;
   background-color: rgba(17, 14, 27, 0.7);
   border-radius: 15px;
-  margin: 20px 10px;
-  padding: 25px;
+  margin: 10px auto;
+  padding: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 // Toggle Switch Container
@@ -13,10 +19,11 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 8px;
   background-color: rgba(7, 41, 95, 0.4);
   border-radius: 50px;
   width: fit-content;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -24,26 +31,20 @@
 .toggle-label {
   color: var(--secondary-color);
   font-weight: 600;
-  padding: 0 15px;
-  font-size: 1rem;
+  padding: 0 10px;
+  font-size: 0.9rem;
   opacity: 0.8;
   transition: all 0.3s ease;
-  
-  &:first-child {
-    opacity: 0.8;
-  }
-  
-  &:last-child {
-    opacity: 0.8;
-  }
+  white-space: nowrap; // Prevent text wrapping
 }
 
 // Custom Toggle Switch
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 30px;
+  width: 50px;
+  height: 26px;
+  min-width: 50px; // Ensure minimum width
 }
 
 .toggle-switch input {
@@ -66,8 +67,8 @@
   &:before {
     position: absolute;
     content: "";
-    height: 22px;
-    width: 22px;
+    height: 18px;
+    width: 18px;
     left: 4px;
     bottom: 4px;
     background-color: var(--accent-color);
@@ -76,27 +77,21 @@
   }
 }
 
-input:checked + .toggle-slider {
-  background-color: rgba(104, 47, 118, 0.4);
-}
-
-input:focus + .toggle-slider {
-  box-shadow: 0 0 1px var(--primary-color);
-}
-
 input:checked + .toggle-slider:before {
-  transform: translateX(30px);
+  transform: translateX(24px);
 }
 
 // Category Header
 .category-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  width: 100%;
 }
 
 .category-title {
   color: var(--accent-color);
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -106,22 +101,35 @@ input:checked + .toggle-slider:before {
   &:after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 80px;
     height: 3px;
     background-color: var(--primary-color);
     border-radius: 3px;
   }
 }
 
+// Genres Container
+.genres-container {
+  width: 100%;
+  max-width: 600px;
+  overflow-x: hidden; // Prevent horizontal scrolling
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 // Genres Grid
 .genres-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 5px;
+  margin: 0 auto; // Center grid
 }
 
 .genre-button {
@@ -130,16 +138,17 @@ input:checked + .toggle-slider:before {
   border-radius: 10px;
   color: var(--secondary-color);
   cursor: pointer;
-  padding: 15px 10px;
+  padding: 12px 5px;
   text-align: center;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 90px;
+  height: 80px;
   overflow: hidden;
   position: relative;
+  width: 100%;
   
   &:before {
     content: '';
@@ -154,23 +163,23 @@ input:checked + .toggle-slider:before {
   }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     
     &:before {
       opacity: 1;
     }
     
     .genre-icon {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
       color: var(--accent-color);
     }
   }
   
   &.active {
     background-color: var(--primary-color);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     
     .genre-icon, .genre-name {
       color: var(--secondary-color);
@@ -183,25 +192,32 @@ input:checked + .toggle-slider:before {
 }
 
 .genre-icon {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
+  font-size: 1.4rem;
+  margin-bottom: 5px;
   color: rgba(246, 246, 244, 0.8);
   transition: all 0.3s ease;
 }
 
 .genre-name {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.2px;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  line-height: 1.1;
+  word-break: break-word;
+  max-width: 100%;
+  padding: 0 2px;
 }
 
 // Pagination Container
 .pagination-container {
   display: flex;
   justify-content: center;
-  margin: 25px 0;
+  margin: 15px 0;
+  width: 100%;
+  overflow-x: auto; // Allow pagination to scroll if needed
+  padding: 5px 0;
 }
 
 // Custom Pagination
@@ -211,9 +227,11 @@ input:checked + .toggle-slider:before {
     padding-left: 0;
     list-style: none;
     border-radius: 0.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
     
     li {
-      margin: 0 3px;
+      margin: 2px;
       
       &.active .page-link {
         background-color: var(--primary-color);
@@ -225,13 +243,14 @@ input:checked + .toggle-slider:before {
     .page-link {
       position: relative;
       display: block;
-      padding: 8px 12px;
+      padding: 6px 10px;
       margin-left: -1px;
       line-height: 1.25;
       color: var(--accent-color);
       background-color: rgba(7, 41, 95, 0.4);
       border: 1px solid rgba(176, 230, 107, 0.2);
       transition: all 0.3s ease;
+      font-size: 0.9rem;
       
       &:hover {
         z-index: 2;
@@ -258,55 +277,130 @@ input:checked + .toggle-slider:before {
   }
 }
 
-// Responsive Adjustments
-@media (max-width: 768px) {
+// Movie list container styles
+::ng-deep app-movie-list {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  display: block;
+}
+
+// Media Queries for Responsiveness - Consolidated
+@media (min-width: 576px) {
   .category-selector-container {
-    padding: 15px;
-  }
-  
-  .category-title {
-    font-size: 1.5rem;
-    
-    &:after {
-      width: 70px;
-      bottom: -8px;
-    }
+    padding: 20px;
   }
   
   .genres-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    gap: 12px;
   }
   
   .genre-button {
-    padding: 10px 5px;
-    height: 75px;
-  }
-  
-  .genre-icon {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
+    height: 85px;
   }
   
   .genre-name {
     font-size: 0.8rem;
   }
+  
+  .category-title {
+    font-size: 1.8rem;
+  }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 768px) {
+  .genres-container {
+    max-width: 800px;
+  }
+  
   .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
   }
   
   .genre-button {
-    height: 70px;
+    height: 90px;
+    padding: 15px 10px;
   }
   
   .genre-icon {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
   
   .genre-name {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
+  }
+  
+  .toggle-label {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+  
+  .category-title {
+    font-size: 2rem;
+    
+    &:after {
+      width: 100px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .genres-container {
+    max-width: 1000px;
+  }
+  
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  
+  .genre-button {
+    height: 100px;
+  }
+  
+  .genre-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .genre-name {
+    font-size: 0.9rem;
+  }
+  
+  .category-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .genres-container {
+    max-width: 1200px;
+  }
+  
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .genres-container {
+    max-width: 1600px;
+  }
+  
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (min-width: 2000px) {
+  .genres-container {
+    max-width: 2000px;
+  }
+  
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }

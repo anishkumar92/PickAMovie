@@ -1,52 +1,62 @@
-<div class="category-selector-container">
-    <div class="toggle-switch-container">
-      <span class="toggle-label">TV Shows</span>
-      <label class="toggle-switch">
-        <input type="checkbox" [(ngModel)]="showMovies" (click)="onToggle()">
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="toggle-label">Movies</span>
-    </div>
+<div class="wrapper">
+    <div class="category-selector-container">
+      <!-- Toggle Switch -->
+      <div class="toggle-switch-container">
+        <span class="toggle-label">TV Shows</span>
+        <label class="toggle-switch">
+          <input type="checkbox" [(ngModel)]="showMovies" (click)="onToggle()">
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">Movies</span>
+      </div>
   
-    <div class="category-header">
-      <h2 class="category-title">
-        {{showMovies ? 'Find Your Movie Muse - Pick a Category!' : 'Find Your Next TV Show To Binge Watch - Pick a Category!'}}
-      </h2>
-    </div>
+      <!-- Title -->
+      <div class="category-header">
+        <h2 class="category-title">
+          {{showMovies ? 'Find Your Movie Muse - Pick a Category!' : 'Find Your Next TV Show To Binge Watch - Pick a Category!'}}
+        </h2>
+      </div>
   
-    <div class="genres-grid">
-      <button *ngFor="let genre of genres" 
-              class="genre-button" 
-              [ngClass]="{'active': genre === selectedGenre}" 
-              (click)="selectGenre(genre, 1)">
-        <span class="genre-icon">
-          <i [ngClass]="getGenreIcon(genre.name)"></i>
-        </span>
-        <span class="genre-name">{{ genre.name }}</span>
-      </button>
-    </div>
+      <!-- Genres Grid -->
+      <div class="genres-container">
+        <div class="genres-grid">
+          <button *ngFor="let genre of genres" 
+                  class="genre-button" 
+                  [ngClass]="{'active': genre === selectedGenre}" 
+                  (click)="selectGenre(genre, 1)">
+            <span class="genre-icon">
+              <i [ngClass]="getGenreIcon(genre.name)"></i>
+            </span>
+            <span class="genre-name">{{ genre.name }}</span>
+          </button>
+        </div>
+      </div>
   
-    <div class="pagination-container" *ngIf="this.pagedMovies && this.totalPages > 1">
-      <pagination 
-        [(ngModel)]="currentPage"
-        [totalItems]="totalPages * pageSize" 
-        [itemsPerPage]="pageSize" 
-        [maxSize]="5" 
-        (pageChanged)="pageChanged($event)"
-        class="custom-pagination">
-      </pagination>
-    </div>
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="this.pagedMovies && this.totalPages > 1">
+        <pagination 
+          [(ngModel)]="currentPage"
+          [totalItems]="totalPages * pageSize" 
+          [itemsPerPage]="pageSize" 
+          [maxSize]="5" 
+          (pageChanged)="pageChanged($event)"
+          class="custom-pagination">
+        </pagination>
+      </div>
   
-    <app-movie-list [movieList]="pagedMovies" [showMovies]="showMovies"></app-movie-list>
-    
-    <div class="pagination-container" *ngIf="this.pagedMovies && this.totalPages > 1">
-      <pagination 
-        [(ngModel)]="currentPage"
-        [totalItems]="totalPages * pageSize" 
-        [itemsPerPage]="pageSize" 
-        [maxSize]="5" 
-        (pageChanged)="pageChanged($event)"
-        class="custom-pagination">
-      </pagination>
+      <!-- Movie List -->
+      <app-movie-list [movieList]="pagedMovies" [showMovies]="showMovies"></app-movie-list>
+      
+      <!-- Bottom Pagination -->
+      <div class="pagination-container" *ngIf="this.pagedMovies && this.totalPages > 1">
+        <pagination 
+          [(ngModel)]="currentPage"
+          [totalItems]="totalPages * pageSize" 
+          [itemsPerPage]="pageSize" 
+          [maxSize]="5" 
+          (pageChanged)="pageChanged($event)"
+          class="custom-pagination">
+        </pagination>
+      </div>
     </div>
   </div>

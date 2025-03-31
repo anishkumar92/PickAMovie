@@ -67,3 +67,43 @@ body {
     background-color: var(--dark-color); /* Track color */
   }
 }
+
+// Add this style to your SCSS file
+
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-color);
+}
+
+// Make sure app-movie-list is also properly centered
+::ng-deep .movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  ::ng-deep .movie-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  ::ng-deep .movie-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
