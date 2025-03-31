@@ -1,3 +1,4 @@
+// src/app/navbar/navbar.component.scss
 // Modern Navbar Styles
 .navbar {
   background-color: rgba(17, 14, 27, 0.95); // slightly transparent black
@@ -147,6 +148,57 @@
   }
 }
 
+// Right section of navbar
+.navbar-right-section {
+  display: flex;
+  align-items: center;
+}
+
+// New Mature Content Indicator
+.mature-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(17, 14, 27, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  
+  i {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    background-color: rgba(7, 41, 95, 0.6);
+    transform: translateY(-2px);
+    
+    i {
+      opacity: 1;
+    }
+  }
+  
+  // When mature content is enabled
+  &.active {
+    background-color: rgba(226, 15, 15, 0.2);
+    border: 1px solid rgba(226, 15, 15, 0.3);
+    
+    i {
+      color: var(--warning-color);
+      opacity: 1;
+    }
+    
+    &:hover {
+      background-color: rgba(226, 15, 15, 0.3);
+    }
+  }
+}
+
 // Navbar Toggler (Mobile Menu Button)
 .navbar-toggler {
   border: none;
@@ -235,6 +287,20 @@
   .tmdb-attribution {
     display: none;
   }
+  
+  // Add mature indicator for mobile
+  .mature-indicator-mobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 10px;
+    
+    .mature-status {
+      font-size: 0.9rem;
+      margin-left: 8px;
+    }
+  }
 }
 
 // Scroll Behavior - shrink navbar on scroll
@@ -253,38 +319,7 @@
   }
 }
 
-// Add javascript to your component to handle scroll behavior
-// Add this to navbar.component.ts
-// @HostListener('window:scroll', [])
-// onWindowScroll() {
-//   if (window.scrollY > 50) {
-//     document.querySelector('.navbar')?.classList.add('scrolled');
-//   } else {
-//     document.querySelector('.navbar')?.classList.remove('scrolled');
-//   }
-// }
-
-/* Add these styles to your existing navbar.component.scss */
-
-.navbar-right-section {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.mature-mobile {
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin-top: 10px;
-}
-
-@media (max-width: 991px) {
-  .mature-mobile {
-    justify-content: center;
-  }
-}
-
+// Pro badge styles
 .pro-badge {
   display: inline-flex;
   align-items: center;

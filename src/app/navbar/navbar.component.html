@@ -1,4 +1,4 @@
-<!-- src/app/navbar/navbar.component.html with user authentication -->
+<!-- src/app/navbar/navbar.component.html -->
 <nav class="navbar navbar-expand-lg">
   <div class="container navbar-container">
     <!-- Logo Section -->
@@ -54,12 +54,12 @@
         </li>
         
         <!-- Contact link -->
-        <li class="nav-item" routerLinkActive="active">
+        <!-- <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/contact']" (click)="closeNavbar()">
             <i class="fas fa-envelope nav-icon"></i>Contact
           </a>
         </li>
-        
+         -->
         <!-- Login/Register links (visible when not logged in) -->
         <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
           <a class="nav-link" [routerLink]="['/login']" (click)="closeNavbar()">
@@ -83,18 +83,26 @@
           </a>
         </li>
         
-        <!-- Add Mature Content Toggle for Mobile View -->
+        <!-- Mobile-only mature content indicator -->
         <li class="nav-item d-lg-none">
-          <div class="nav-link mature-mobile">
-            <app-mature-toggle></app-mature-toggle>
-          </div>
+          <a class="nav-link mature-indicator-mobile" [routerLink]="['/profile']" (click)="closeNavbar()">
+            <i class="fas" [ngClass]="includeAdult ? 'fa-eye text-warning' : 'fa-eye-slash'"></i>
+            <span class="mature-status">
+              Mature Content: {{ includeAdult ? 'On' : 'Off' }}
+            </span>
+          </a>
         </li>
       </ul>
     </div>
 
-    <!-- TMDB Attribution & Mature Toggle for Desktop -->
+    <!-- Right-side content: TMDB Attribution and Mature Content Indicator -->
     <div class="navbar-right-section d-none d-lg-flex">
-      <app-mature-toggle></app-mature-toggle>
+      <!-- Mature Content Indicator -->
+      <div class="mature-indicator" [ngClass]="{'active': includeAdult}" (click)="navigateToProfileSettings()" title="Mature content is {{ includeAdult ? 'enabled' : 'disabled' }}. Click to change.">
+        <i class="fas" [ngClass]="includeAdult ? 'fa-eye' : 'fa-eye-slash'"></i>
+      </div>
+      
+      <!-- TMDB Attribution -->
       <div class="tmdb-attribution">
         <span>Powered by</span>
         <img src="../../assets/tmdb logo.svg" alt="TMDB">

@@ -1,20 +1,33 @@
 // src/app/navbar/navbar.component.ts
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   theme: string = 'light'; // default theme
+  includeAdult: boolean = false;
   
   constructor(
     private router: Router,
-    public authService: AuthService // Make it public to use in the template
+    public authService: AuthService, // Make it public to use in the template
+    private movieService: MovieService
   ) {}
+  
+  ngOnInit(): void {
+    // Subscribe to changes in the mature content setting
+    this.movieService.includeAdult$.subscribe(value => {
+      this.includeAdult = value;
+    });
+    
+    // Initialize from stored value in MovieService
+    this.includeAdult = this.movieService.getAdultContentSetting();
+  }
   
   // Add scroll behavior to shrink navbar when scrolling
   @HostListener('window:scroll', [])
@@ -23,6 +36,21 @@ export class NavbarComponent {
       document.querySelector('.navbar')?.classList.add('scrolled');
     } else {
       document.querySelector('.navbar')?.classList.remove('scrolled');
+    }
+  }
+  
+  // Navigate to profile settings when mature content indicator is clicked
+  navigateToProfileSettings(): void {
+    if (this.authService.isLoggedIn()) {
+      // If user is logged in, navigate to profile
+      this.router.navigate(['/profile']);
+    } else {
+      // If not logged in, prompt them to login first
+      if (confirm('You need to log in to change content settings. Would you like to log in now?')) {
+        this.router.navigate(['/login'], { 
+          queryParams: { returnUrl: '/profile' } 
+        });
+      }
     }
   }
   

@@ -1,77 +1,86 @@
 .mature-toggle-container {
-    display: flex;
-    align-items: center;
-    margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.mature-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 10px;
+  background-color: rgba(7, 41, 95, 0.4);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(7, 41, 95, 0.6);
+  }
+}
+
+input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+  &:checked + .mature-slider {
+    background-color: var(--warning-color);
   }
   
+  &:checked + .mature-slider:before {
+    transform: translateX(16px);
+  }
+}
+
+.mature-slider {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  background-color: rgba(246, 246, 244, 0.2);
+  border-radius: 30px;
+  transition: 0.4s;
+  margin-right: 10px;
+  
+  &:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+}
+
+.mature-label {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+  font-size: 0.85rem;
+  font-weight: 500;
+  
+  i {
+    margin-right: 5px;
+    color: var(--warning-color);
+    font-size: 0.9rem;
+  }
+}
+
+/* Profile page specific styles */
+:host-context(.profile-container) {
   .mature-switch {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 6px 10px;
-    background-color: rgba(7, 41, 95, 0.4);
-    border-radius: 30px;
-    transition: all 0.3s ease;
+    background-color: rgba(17, 14, 27, 0.5);
+    padding: 8px 12px;
     
     &:hover {
-      background-color: rgba(7, 41, 95, 0.6);
-    }
-  }
-  
-  input[type="checkbox"] {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    
-    &:checked + .mature-slider {
-      background-color: var(--warning-color);
-    }
-    
-    &:checked + .mature-slider:before {
-      transform: translateX(16px);
-    }
-  }
-  
-  .mature-slider {
-    position: relative;
-    display: inline-block;
-    width: 36px;
-    height: 20px;
-    background-color: rgba(246, 246, 244, 0.2);
-    border-radius: 30px;
-    transition: 0.4s;
-    margin-right: 10px;
-    
-    &:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 2px;
-      bottom: 2px;
-      background-color: white;
-      border-radius: 50%;
-      transition: 0.4s;
+      background-color: rgba(17, 14, 27, 0.7);
     }
   }
   
   .mature-label {
-    display: flex;
-    align-items: center;
-    color: var(--secondary-color);
-    font-size: 0.85rem;
-    font-weight: 500;
-    
-    i {
-      margin-right: 5px;
-      color: var(--warning-color);
-      font-size: 0.9rem;
-    }
+    font-size: 0.9rem;
   }
-  
-  @media (max-width: 991px) {
-    .mature-toggle-container {
-      margin: 10px 0;
-    }
-  }
+}

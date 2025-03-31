@@ -139,4 +139,28 @@ export class AuthService {
     this.currentUserSubject.next(updatedUser);
     return of(updatedUser);
   }
+
+  // Method for canceling Pro membership
+cancelPro(): Observable<User> {
+  return this.http.put<any>(`${this.apiUrl}/users/cancel-pro`, {}).pipe(
+    map(response => {
+      // Update the stored user with the non-pro status
+      const updatedUser: User = {
+        ...this.currentUserValue!,
+        isPro: false,
+        favoriteMovies: response.user.favoriteMovies
+      };
+      
+      // Update local storage
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+      this.currentUserSubject.next(updatedUser);
+      
+      return updatedUser;
+    }),
+    catchError(error => {
+      console.error('Cancel Pro error:', error);
+      throw error;
+    })
+  );
+}
 }

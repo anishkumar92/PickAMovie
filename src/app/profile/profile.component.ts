@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, User } from '../auth/auth.service';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +12,10 @@ import { AuthService, User } from '../auth/auth.service';
 export class ProfileComponent implements OnInit {
   currentUser: User | null = null;
   showUpgradeModal = false;
-  
+  showCancelProModal = false;
   constructor(
     private authService: AuthService,
+    private movieService: MovieService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -77,5 +79,29 @@ export class ProfileComponent implements OnInit {
   getFavoritesPercentage(): number {
     if (this.currentUser?.isPro) return 0; // Pro users don't have a percentage
     return (this.getTotalFavorites() / 5) * 100;
+  }
+
+  closeCancelProModal(): void {
+    this.showCancelProModal = false;
+  }
+  
+  cancelProMembership(): void {
+    this.authService.cancelPro().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+        this.showCancelProModal = false;
+        
+        // Show feedback message
+        if (user.favoriteMovies.length < this.getTotalFavorites()) {
+          alert('Pro membership canceled. Your favorites have been reduced to the free limit of 5.');
+        } else {
+          alert('Pro membership canceled successfully.');
+        }
+      },
+      error: (error) => {
+        console.error('Cancel Pro error:', error);
+        alert('Failed to cancel Pro membership. Please try again later.');
+      }
+    });
   }
 }
