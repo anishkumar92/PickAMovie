@@ -49,7 +49,7 @@ export class AuthService {
   }
   
   login(email: string, password: string): Observable<User> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password })
       .pipe(
         map(response => {
           // Store user details and token in local storage
@@ -72,6 +72,8 @@ export class AuthService {
         })
       );
   }
+
+  
   
   register(name: string, email: string, password: string): Observable<User> {
     return this.http.post<any>(`${this.apiUrl}/register`, { name, email, password })

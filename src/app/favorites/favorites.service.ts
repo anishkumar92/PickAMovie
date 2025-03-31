@@ -44,60 +44,21 @@ export class FavoritesService {
       return of(false);
     }
     
-    const currentFavorites = [...this.favoritesSubject.value];
-    const isFavorite = currentFavorites.includes(movieId);
-    
-    // If trying to add a favorite but not a Pro user and already at limit
-    if (!isFavorite && !this.authService.canAddFavorite()) {
-      return of(false);
-    }
-    
-    let updatedFavorites: number[];
-    
-    if (isFavorite) {
-      // Remove from favorites
-      updatedFavorites = currentFavorites.filter(id => id !== movieId);
-    } else {
-      // Add to favorites
-      updatedFavorites = [...currentFavorites, movieId];
-    }
-    
-    // In a real app, we'd update the server here
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/toggle`, {
-      userId: currentUser.id,
+    // Update the URL to match your backend
+    return this.http.post<{ success: boolean }>(`${this.apiUrl}/favorites/toggle`, {
       movieId,
       isMovie
     }).pipe(
       map(response => {
-        if (response.success) {
-          // Update local state
-          this.favoritesSubject.next(updatedFavorites);
-          
-          // Update user in auth service
-          const updatedUser: User = {
-            ...currentUser,
-            favoriteMovies: updatedFavorites
-          };
-          
-          localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-          
-          return !isFavorite; // Return new state (true if added, false if removed)
-        }
-        return isFavorite; // Return original state if operation failed
+        return response.success || false; // Ensure a boolean is always returned
       }),
-      catchError(() => {
-        // For demo purposes, we'll update local state even if the server fails
-        this.favoritesSubject.next(updatedFavorites);
-        
-        // Update user in auth service
-        const updatedUser: User = {
-          ...currentUser,
-          favoriteMovies: updatedFavorites
-        };
-        
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-        
-        return of(!isFavorite);
+      catchError(error => {
+        // Handle specific status codes
+        if (error.status === 403) {
+          // Handle limit reached
+          console.error('Favorite limit reached:', error);
+        }
+        return of(false);
       })
     );
   }
