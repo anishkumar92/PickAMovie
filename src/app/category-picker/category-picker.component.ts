@@ -10,18 +10,68 @@ import { ActivatedRoute, Router } from '@angular/router';
   providers: [PaginationConfig],
 })
 export class CategoryPickerComponent {
-  showMovies = true; // Flag to swith between Tv shows and movies
+  showMovies = true; // Flag to switch between TV shows and movies
   genres: any[] = [];
   movieList: any[] = [];
   selectedGenre: any; // Variable to store the selected genre
-  // genre/28-action/movie
   pagedMovies: any[] = []; // Array to hold the movies for the current page
   currentPage = 1; // Current page number
   pageSize = 10; // Number of movies to display per page
   totalPages = 1; // Total number of pages
-  // selectedGernre: any;
   newValue: any;
   newPage = 1;
+
+  // Genre icon mapping
+genreIcons: { [key: string]: string } = {
+  // Movie Genres
+  'Action': 'fas fa-fist-raised',
+  'Adventure': 'fas fa-hiking',
+  'Animation': 'fas fa-film',
+  'Comedy': 'fas fa-laugh',
+  'Crime': 'fas fa-user-secret',
+  'Documentary': 'fas fa-file-video',
+  'Drama': 'fas fa-theater-masks',
+  'Family': 'fas fa-users',
+  'Fantasy': 'fas fa-dragon',
+  'History': 'fas fa-landmark',
+  'Horror': 'fas fa-ghost',
+  'Music': 'fas fa-music',
+  'Mystery': 'fas fa-search',
+  'Romance': 'fas fa-heart',
+  'Science Fiction': 'fas fa-rocket',
+  'TV Movie': 'fas fa-tv',
+  'Thriller': 'fas fa-mask',
+  'War': 'fas fa-fighter-jet',
+  'Western': 'fas fa-hat-cowboy',
+  
+  // TV Show Genres
+  'Action & Adventure': 'fas fa-running',
+  'Kids': 'fas fa-child',
+  'News': 'fas fa-newspaper',
+  'Reality': 'fas fa-video',
+  'Sci-Fi & Fantasy': 'fas fa-space-shuttle',
+  'Soap': 'fas fa-sun',
+  'Talk': 'fas fa-comments',
+  'War & Politics': 'fas fa-landmark',
+  
+  // Additional TV Show Genres
+  'Animation & Cartoon': 'fas fa-child',
+  'Anime': 'fas fa-dragon',
+  'Biography': 'fas fa-id-badge',
+  'Cooking & Food': 'fas fa-utensils',
+  'Game Show': 'fas fa-gamepad',
+  'Home & Garden': 'fas fa-home',
+  'Mini-Series': 'fas fa-list-ol',
+  'Sport': 'fas fa-basketball-ball',
+  'Travel': 'fas fa-plane',
+  'True Crime': 'fas fa-crosshairs',
+  'Talk Show': 'fas fa-microphone-alt',
+  'Science & Nature': 'fas fa-flask',
+  
+  // Fallback icon
+  'default': 'fas fa-film'
+};
+
   constructor(
     private movieService: MovieService,
     private paginationConfig: PaginationConfig,
@@ -57,14 +107,12 @@ export class CategoryPickerComponent {
 
   onToggle() {
     this.showMovies = !this.showMovies;
-    // this.fetchFlick();
     this.router.navigate([
       '/category',
       this.showMovies ? 'Movies' : 'TV',
       this.showMovies ? 'Action' : 'Animation',
       '1',
     ]);
-    // this.selectGenre(this.selectedGenre);
   }
 
   // Method to handle the selection of a genre
@@ -79,8 +127,6 @@ export class CategoryPickerComponent {
       page,
     ]);
 
-    // this.currentPage = 1;
-    console.log(this.selectedGenre);
     if (this.selectedGenre) {
       this.loadPage(this.selectedGenre.id, this.currentPage);
     }
@@ -110,6 +156,10 @@ export class CategoryPickerComponent {
       this.selectedGenre.name,
       this.currentPage,
     ]);
-    // this.loadPage(this.selectedGenre.id, this.currentPage);
+  }
+
+  // Helper function to get the appropriate icon for each genre
+  getGenreIcon(genreName: string): string {
+    return this.genreIcons[genreName] || 'fas fa-film'; // Default icon if no mapping exists
   }
 }

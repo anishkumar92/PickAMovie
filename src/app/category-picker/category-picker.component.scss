@@ -1,147 +1,312 @@
-/* Styles for the dark-themed category picker container */
-.category-picker {
-  background-color: var(--dark-color); /* Dark background color */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px var(--accent-color);
-  text-align: center;
-  margin: 10px;
+// Category Selector Container
+.category-selector-container {
+  background-color: rgba(17, 14, 27, 0.7);
+  border-radius: 15px;
+  margin: 20px 10px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Title style for dark theme */
-.dark-text {
-  font-size: 1.5rem;
-  color: var(--accent-color); /* Updated title color for dark theme */
-  margin-bottom: 10px;
-}
-
-/* Styles for the dark-themed category list */
-.category-list {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping into new rows */
-  justify-content: center; /* Center items horizontally */
-}
-
-/* Styles for the dark-themed category rows */
-.category-row {
-  display: flex; /* Display buttons in a row */
-  margin: 5px; /* Adjust spacing between rows */
-}
-
-/* Button styles for dark theme */
-.category-picker button {
-  background-color: var(--black-color); /* Dark button background color */
-  color: var(--secondary-color); /* Button text color for dark theme */
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  text-transform: uppercase;
-}
-
-.category-picker button:hover {
-  color: var(--dark-color);
-  background-color: var(
-    --accent-color
-  ); /* Button background color on hover for dark theme */
-}
-
-/* Active tab style for dark theme */
-.category-picker button.active {
-  background-color: var(
-    --primary-color
-  ); /* Active tab background color for dark theme */
-}
-
-/* Custom Pagination Styles */
-
-/* Change the background color of the pagination */
-.pagination {
-  background-color: var(--dark-color);
-  color: var(--primary-color);
-}
-
-::ng-deep --bs-pagination-disabled-color {
-  color: var(--primary-color);
-}
-
-/* Change the color of the pagination links */
-.pagination a {
-  color: var(--primary-color);
-}
-
-/* Change the color of the active page link */
-.pagination .active a {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-}
-
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-}
-
-.box div {
-  width: 100px;
-  height: 100px;
-}
-
-.lab-mov {
-  padding: 15px;
-}
-
-.toggle-container {
+// Toggle Switch Container
+.toggle-switch-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  // height: 100vh; // 100% of the viewport height
-  // width: 100%; // 100% of the viewport width
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: rgba(7, 41, 95, 0.4);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.switch {
+.toggle-label {
+  color: var(--secondary-color);
+  font-weight: 600;
+  padding: 0 15px;
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  
+  &:first-child {
+    opacity: 0.8;
+  }
+  
+  &:last-child {
+    opacity: 0.8;
+  }
+}
+
+// Custom Toggle Switch
+.toggle-switch {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 34px;
+  height: 30px;
 }
 
-.switch input {
+.toggle-switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.slider {
+.toggle-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--secondary-color);
+  background-color: rgba(246, 246, 244, 0.2);
   transition: 0.4s;
-  border-radius: 34px; // Rounded edges for the slider
+  border-radius: 30px;
+  
+  &:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--accent-color);
+    transition: 0.4s;
+    border-radius: 50%;
+  }
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--black-color);
-  transition: 0.4s;
-  border-radius: 50%; // Rounded edges for the knob
+input:checked + .toggle-slider {
+  background-color: rgba(104, 47, 118, 0.4);
 }
 
-input:checked + .slider {
-  background-color: var(--primary-color);
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px var(--primary-color);
 }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
+input:checked + .toggle-slider:before {
+  transform: translateX(30px);
+}
+
+// Category Header
+.category-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.category-title {
+  color: var(--accent-color);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: inline-block;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+  }
+}
+
+// Genres Grid
+.genres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.genre-button {
+  background-color: rgba(7, 41, 95, 0.4);
+  border: none;
+  border-radius: 10px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 15px 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  overflow: hidden;
+  position: relative;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(176, 230, 107, 0.1), rgba(104, 47, 118, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    
+    &:before {
+      opacity: 1;
+    }
+    
+    .genre-icon {
+      transform: translateY(-5px);
+      color: var(--accent-color);
+    }
+  }
+  
+  &.active {
+    background-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    
+    .genre-icon, .genre-name {
+      color: var(--secondary-color);
+    }
+    
+    &:before {
+      opacity: 0;
+    }
+  }
+}
+
+.genre-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: rgba(246, 246, 244, 0.8);
+  transition: all 0.3s ease;
+}
+
+.genre-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+// Pagination Container
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+// Custom Pagination
+:host ::ng-deep .custom-pagination {
+  .pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    
+    li {
+      margin: 0 3px;
+      
+      &.active .page-link {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+    }
+    
+    .page-link {
+      position: relative;
+      display: block;
+      padding: 8px 12px;
+      margin-left: -1px;
+      line-height: 1.25;
+      color: var(--accent-color);
+      background-color: rgba(7, 41, 95, 0.4);
+      border: 1px solid rgba(176, 230, 107, 0.2);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        z-index: 2;
+        color: var(--secondary-color);
+        text-decoration: none;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      
+      &:focus {
+        z-index: 3;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(104, 47, 118, 0.25);
+      }
+    }
+    
+    .disabled .page-link {
+      color: var(--secondary-color);
+      pointer-events: none;
+      cursor: auto;
+      background-color: rgba(17, 14, 27, 0.5);
+      border-color: rgba(176, 230, 107, 0.1);
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .category-selector-container {
+    padding: 15px;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+    
+    &:after {
+      width: 70px;
+      bottom: -8px;
+    }
+  }
+  
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+  
+  .genre-button {
+    padding: 10px 5px;
+    height: 75px;
+  }
+  
+  .genre-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+  
+  .genre-name {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .genres-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .genre-button {
+    height: 70px;
+  }
+  
+  .genre-icon {
+    font-size: 1.3rem;
+  }
+  
+  .genre-name {
+    font-size: 0.7rem;
+  }
 }
