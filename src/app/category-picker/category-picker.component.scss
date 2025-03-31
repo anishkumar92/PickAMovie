@@ -1,26 +1,38 @@
-// Mobile-Friendly Category Selector with Ultra-Wide Support
+// Variables for reuse
+$bg-dark: rgba(17, 14, 27, 0.7);
+$bg-medium: rgba(7, 41, 95, 0.4);
+$bg-disabled: rgba(17, 14, 27, 0.5);
+$border-accent: rgba(176, 230, 107, 0.2);
+$border-light: rgba(176, 230, 107, 0.1);
+$gradient: linear-gradient(135deg, rgba(176, 230, 107, 0.1), rgba(104, 47, 118, 0.1));
+$shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.15);
+$shadow-md: 0 5px 15px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+$transition: all 0.3s ease;
+
+// Base styles
 .category-selector-container {
   width: 95%;
   max-width: 1800px;
-  background-color: rgba(17, 14, 27, 0.7);
+  background-color: $bg-dark;
   border-radius: 15px;
   margin: 10px auto;
   padding: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-lg;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-// Toggle Switch Container
+// Toggle Switch
 .toggle-switch-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
   padding: 8px;
-  background-color: rgba(7, 41, 95, 0.4);
+  background-color: $bg-medium;
   border-radius: 50px;
   width: fit-content;
   max-width: 90%;
@@ -34,23 +46,22 @@
   padding: 0 10px;
   font-size: 0.9rem;
   opacity: 0.8;
-  transition: all 0.3s ease;
-  white-space: nowrap; // Prevent text wrapping
+  transition: $transition;
+  white-space: nowrap;
 }
 
-// Custom Toggle Switch
 .toggle-switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 26px;
-  min-width: 50px; // Ensure minimum width
-}
-
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  min-width: 50px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 }
 
 .toggle-slider {
@@ -111,17 +122,14 @@ input:checked + .toggle-slider:before {
   }
 }
 
-// Genres Container
+// Genres
 .genres-container {
   width: 100%;
   max-width: 600px;
-  overflow-x: hidden; // Prevent horizontal scrolling
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  overflow-x: hidden;
+  margin: 0 auto 20px;
 }
 
-// Genres Grid
 .genres-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
@@ -129,18 +137,18 @@ input:checked + .toggle-slider:before {
   width: 100%;
   box-sizing: border-box;
   padding: 0 5px;
-  margin: 0 auto; // Center grid
+  margin: 0 auto;
 }
 
 .genre-button {
-  background-color: rgba(7, 41, 95, 0.4);
+  background-color: $bg-medium;
   border: none;
   border-radius: 10px;
   color: var(--secondary-color);
   cursor: pointer;
   padding: 12px 5px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: $transition;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,14 +165,14 @@ input:checked + .toggle-slider:before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(176, 230, 107, 0.1), rgba(104, 47, 118, 0.1));
+    background: $gradient;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
   
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: $shadow-sm;
     
     &:before {
       opacity: 1;
@@ -179,7 +187,7 @@ input:checked + .toggle-slider:before {
   &.active {
     background-color: var(--primary-color);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: $shadow-md;
     
     .genre-icon, .genre-name {
       color: var(--secondary-color);
@@ -195,7 +203,7 @@ input:checked + .toggle-slider:before {
   font-size: 1.4rem;
   margin-bottom: 5px;
   color: rgba(246, 246, 244, 0.8);
-  transition: all 0.3s ease;
+  transition: $transition;
 }
 
 .genre-name {
@@ -203,24 +211,24 @@ input:checked + .toggle-slider:before {
   font-weight: 600;
   letter-spacing: 0.2px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  transition: $transition;
   line-height: 1.1;
   word-break: break-word;
   max-width: 100%;
   padding: 0 2px;
 }
 
-// Pagination Container
+// Pagination
 .pagination-container {
   display: flex;
   justify-content: center;
   margin: 15px 0;
   width: 100%;
-  overflow-x: auto; // Allow pagination to scroll if needed
+  overflow-x: auto;
   padding: 5px 0;
 }
 
-// Custom Pagination
+// Custom Pagination - Simplified
 :host ::ng-deep .custom-pagination {
   .pagination {
     display: flex;
@@ -247,9 +255,9 @@ input:checked + .toggle-slider:before {
       margin-left: -1px;
       line-height: 1.25;
       color: var(--accent-color);
-      background-color: rgba(7, 41, 95, 0.4);
-      border: 1px solid rgba(176, 230, 107, 0.2);
-      transition: all 0.3s ease;
+      background-color: $bg-medium;
+      border: 1px solid $border-accent;
+      transition: $transition;
       font-size: 0.9rem;
       
       &:hover {
@@ -271,13 +279,13 @@ input:checked + .toggle-slider:before {
       color: var(--secondary-color);
       pointer-events: none;
       cursor: auto;
-      background-color: rgba(17, 14, 27, 0.5);
-      border-color: rgba(176, 230, 107, 0.1);
+      background-color: $bg-disabled;
+      border-color: $border-light;
     }
   }
 }
 
-// Movie list container styles
+// Movie list container
 ::ng-deep app-movie-list {
   width: 100%;
   max-width: 1800px;
@@ -285,122 +293,65 @@ input:checked + .toggle-slider:before {
   display: block;
 }
 
-// Media Queries for Responsiveness - Consolidated
+// Media Queries - Consolidated and optimized
 @media (min-width: 576px) {
-  .category-selector-container {
-    padding: 20px;
+  .category-selector-container { padding: 20px; }
+  .genres-grid { 
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    gap: 12px; 
   }
-  
-  .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 12px;
-  }
-  
-  .genre-button {
-    height: 85px;
-  }
-  
-  .genre-name {
-    font-size: 0.8rem;
-  }
-  
-  .category-title {
-    font-size: 1.8rem;
-  }
+  .genre-button { height: 85px; }
+  .genre-name { font-size: 0.8rem; }
+  .category-title { font-size: 1.8rem; }
 }
 
 @media (min-width: 768px) {
-  .genres-container {
-    max-width: 800px;
-  }
-  
-  .genres-grid {
+  .genres-container { max-width: 800px; }
+  .genres-grid { 
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 15px;
   }
-  
   .genre-button {
     height: 90px;
     padding: 15px 10px;
   }
-  
-  .genre-icon {
-    font-size: 1.6rem;
-  }
-  
-  .genre-name {
-    font-size: 0.85rem;
-  }
-  
+  .genre-icon { font-size: 1.6rem; }
+  .genre-name { font-size: 0.85rem; }
   .toggle-label {
     font-size: 1rem;
     padding: 0 15px;
   }
-  
   .category-title {
     font-size: 2rem;
-    
-    &:after {
-      width: 100px;
-    }
+    &:after { width: 100px; }
   }
 }
 
 @media (min-width: 992px) {
-  .genres-container {
-    max-width: 1000px;
-  }
-  
-  .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  }
-  
-  .genre-button {
-    height: 100px;
-  }
-  
+  .genres-container { max-width: 1000px; }
+  .genres-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .genre-button { height: 100px; }
   .genre-icon {
     font-size: 1.8rem;
     margin-bottom: 8px;
   }
-  
-  .genre-name {
-    font-size: 0.9rem;
-  }
-  
-  .category-title {
-    font-size: 2.2rem;
-  }
+  .genre-name { font-size: 0.9rem; }
+  .category-title { font-size: 2.2rem; }
 }
 
 @media (min-width: 1200px) {
-  .genres-container {
-    max-width: 1200px;
-  }
-  
+  .genres-container { max-width: 1200px; }
   .genres-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 20px;
   }
 }
 
+// Combined larger breakpoints
 @media (min-width: 1600px) {
-  .genres-container {
-    max-width: 1600px;
-  }
-  
+  .genres-container { max-width: 1600px; }
   .genres-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 25px;
-  }
-}
-
-@media (min-width: 2000px) {
-  .genres-container {
-    max-width: 2000px;
-  }
-  
-  .genres-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
   }
 }
