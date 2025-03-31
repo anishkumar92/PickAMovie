@@ -1,70 +1,104 @@
+<!-- src/app/navbar/navbar.component.html with user authentication -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container navbar-container">
-      <!-- Logo Section -->
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" [routerLink]="['/home']">
-          <img class="logo" src="../../assets/new-logo.png" alt="MOVIE PICKER">
-          <span class="brand-text">MOVIE PICKER</span>
-        </a>
-      </div>
-  
-      <!-- Mobile Menu Toggle -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">
-          <i class="fas fa-bars"></i>
-        </span>
-      </button>
-  
-      <!-- Nav Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/home']" (click)="closeNavbar()">
-              <i class="fas fa-home nav-icon"></i>Home
-            </a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/category/Movies/Action/1']" (click)="closeNavbar()">
-              <i class="fas fa-film nav-icon"></i>Movies
-            </a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/category/TV/Animation/1']" (click)="closeNavbar()">
-              <i class="fas fa-tv nav-icon"></i>TV Shows
-            </a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/search']" (click)="closeNavbar()">
-              <i class="fas fa-search nav-icon"></i>Search
-            </a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/random']" (click)="closeNavbar()">
-              <i class="fas fa-random nav-icon"></i>Random
-            </a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/contact']" (click)="closeNavbar()">
-              <i class="fas fa-envelope nav-icon"></i>Contact
-            </a>
-          </li>
-          <!-- Add Mature Content Toggle for Mobile View -->
-          <li class="nav-item d-lg-none">
-            <div class="nav-link mature-mobile">
-              <app-mature-toggle></app-mature-toggle>
-            </div>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- TMDB Attribution & Mature Toggle for Desktop -->
-      <div class="navbar-right-section d-none d-lg-flex">
-        <app-mature-toggle></app-mature-toggle>
-        <div class="tmdb-attribution">
-          <span>Powered by</span>
-          <img src="../../assets/tmdb logo.svg" alt="TMDB">
-        </div>
+  <div class="container navbar-container">
+    <!-- Logo Section -->
+    <div class="navbar-brand-container">
+      <a class="navbar-brand" [routerLink]="['/home']">
+        <img class="logo" src="../../assets/new-logo.png" alt="MOVIE PICKER">
+        <span class="brand-text">MOVIE PICKER</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+        <i class="fas fa-bars"></i>
+      </span>
+    </button>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/home']" (click)="closeNavbar()">
+            <i class="fas fa-home nav-icon"></i>Home
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/category/Movies/Action/1']" (click)="closeNavbar()">
+            <i class="fas fa-film nav-icon"></i>Movies
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/category/TV/Animation/1']" (click)="closeNavbar()">
+            <i class="fas fa-tv nav-icon"></i>TV Shows
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/search']" (click)="closeNavbar()">
+            <i class="fas fa-search nav-icon"></i>Search
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/random']" (click)="closeNavbar()">
+            <i class="fas fa-random nav-icon"></i>Random
+          </a>
+        </li>
+        
+        <!-- Favorites link (visible when logged in) -->
+        <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/favorites']" (click)="closeNavbar()">
+            <i class="fas fa-heart nav-icon"></i>Favorites
+          </a>
+        </li>
+        
+        <!-- Contact link -->
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/contact']" (click)="closeNavbar()">
+            <i class="fas fa-envelope nav-icon"></i>Contact
+          </a>
+        </li>
+        
+        <!-- Login/Register links (visible when not logged in) -->
+        <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/login']" (click)="closeNavbar()">
+            <i class="fas fa-sign-in-alt nav-icon"></i>Login
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/register']" (click)="closeNavbar()">
+            <i class="fas fa-user-plus nav-icon"></i>Register
+          </a>
+        </li>
+        
+        <!-- Profile link (visible when logged in) -->
+        <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/profile']" (click)="closeNavbar()">
+            <i class="fas fa-user nav-icon"></i>
+            {{ authService.currentUserValue?.name }}
+            <span *ngIf="authService.currentUserValue?.isPro" class="pro-badge">
+              <i class="fas fa-crown"></i>
+            </span>
+          </a>
+        </li>
+        
+        <!-- Add Mature Content Toggle for Mobile View -->
+        <li class="nav-item d-lg-none">
+          <div class="nav-link mature-mobile">
+            <app-mature-toggle></app-mature-toggle>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TMDB Attribution & Mature Toggle for Desktop -->
+    <div class="navbar-right-section d-none d-lg-flex">
+      <app-mature-toggle></app-mature-toggle>
+      <div class="tmdb-attribution">
+        <span>Powered by</span>
+        <img src="../../assets/tmdb logo.svg" alt="TMDB">
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

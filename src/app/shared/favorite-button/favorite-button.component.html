@@ -1,0 +1,25 @@
+<!-- src/app/shared/favorite-button/favorite-button.component.html -->
+<button 
+  class="favorite-btn" 
+  [ngClass]="[size, {active: isFavorite, disabled: limitReached && !isFavorite}]"
+  (click)="toggleFavorite($event)" 
+  [disabled]="isProcessing"
+  [title]="limitReached && !isFavorite ? 'Upgrade to Pro for unlimited favorites' : (isFavorite ? 'Remove from favorites' : 'Add to favorites')"
+>
+  <i *ngIf="isProcessing" class="fas fa-spinner fa-spin"></i>
+  <i *ngIf="!isProcessing" class="fas" [ngClass]="isFavorite ? 'fa-heart' : 'fa-heart'"></i>
+  
+  <span *ngIf="size === 'large' && !isFavorite && !isProcessing && !limitReached" class="btn-text">Add to Favorites</span>
+  <span *ngIf="size === 'large' && isFavorite && !isProcessing" class="btn-text">Remove from Favorites</span>
+  <span *ngIf="size === 'large' && !isFavorite && !isProcessing && limitReached" class="btn-text">Upgrade for More</span>
+  <span *ngIf="size === 'large' && isProcessing" class="btn-text">Processing...</span>
+  
+  <!-- Show remaining count for medium and large buttons when not a favorite -->
+  <span 
+    *ngIf="(size === 'medium' || size === 'large') && !isFavorite && !limitReached && !authService.currentUserValue?.isPro" 
+    class="remaining-count" 
+    [class.warning]="getRemainingFavorites() <= 1"
+  >
+    {{ getRemainingFavorites() }} left
+  </span>
+</button>

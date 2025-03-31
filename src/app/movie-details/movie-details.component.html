@@ -1,3 +1,4 @@
+<!-- src/app/movie-details/movie-details.component.html -->
 <div class="movie-details" [ngClass]="{'show': showModal}">
     <button class="close-button" (click)="closeModal()">&times;</button>
     <h2 (click)="searchMovie(movie.title)" style="cursor:pointer;">
@@ -14,6 +15,11 @@
         <p><strong>Rating :</strong> {{ movie.vote_average }}/10</p>
         <p><strong>Genres :</strong> {{ getGenres(movie.genres) }}</p>
         <p><strong>Homepage : </strong> <a [href]="movie.homepage" target="_blank">Click Here</a></p>
-        <p ><strong>Find more at Google  </strong> <a (click)="searchMovie(movie.title)" style="cursor:pointer;">Click Here</a></p>
+        <p><strong>Find more at Google  </strong> <a (click)="searchMovie(movie.title)" style="cursor:pointer;">Click Here</a></p>
+        
+        <!-- Add favorite button -->
+        <div class="favorite-action">
+            <app-favorite-button [movieId]="movie.id" size="large"></app-favorite-button>
+        </div>
     </div>
 </div>

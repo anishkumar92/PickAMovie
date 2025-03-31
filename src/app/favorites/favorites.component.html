@@ -1,0 +1,70 @@
+<!-- src/app/favorites/favorites.component.html -->
+<div class="favorites-container">
+    <div class="favorites-header">
+      <h1 class="favorites-title">My Favorites</h1>
+      
+      <div *ngIf="authService.currentUserValue && !authService.currentUserValue.isPro" class="limit-indicator">
+        <div class="limit-progress">
+          <div 
+            class="limit-bar" 
+            [style.width.%]="(authService.currentUserValue.favoriteMovies.length / 5) * 100">
+          </div>
+        </div>
+        <span class="limit-text">
+          {{ authService.currentUserValue.favoriteMovies.length }}/5 Free Favorites
+          <a [routerLink]="['/profile']" [queryParams]="{upgrade: true}" class="upgrade-link">
+            <i class="fas fa-crown"></i> Upgrade for unlimited
+          </a>
+        </span>
+      </div>
+    </div>
+    
+    <div *ngIf="loading" class="favorites-loading">
+      <div class="spinner-border text-accent" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading your favorites...</p>
+    </div>
+    
+    <div *ngIf="!loading && error" class="alert alert-danger">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!loading && !favoriteMovies.length" class="favorites-empty">
+      <i class="fas fa-heart-broken"></i>
+      <h3>No favorites yet</h3>
+      <p>Start adding movies or TV shows to your favorites!</p>
+      <div class="empty-actions">
+        <a [routerLink]="['/category/Movies/Action/1']" class="btn btn-primary">Browse Movies</a>
+        <a [routerLink]="['/category/TV/Animation/1']" class="btn btn-outline">Browse TV Shows</a>
+      </div>
+    </div>
+    
+    <div *ngIf="!loading && favoriteMovies.length" class="favorites-grid">
+      <div *ngFor="let movie of favoriteMovies" class="favorite-card">
+        <div class="favorite-image">
+          <img [src]="getImageUrl(movie.poster_path)" [alt]="getMovieTitle(movie) + ' Poster'">
+          <div class="favorite-overlay">
+            <button class="view-btn" (click)="openMovieDetails(movie)">
+              <i class="fas fa-info-circle"></i> View Details
+            </button>
+            <button class="remove-btn" (click)="removeFavorite(movie.id)">
+              <i class="fas fa-trash-alt"></i> Remove
+            </button>
+          </div>
+        </div>
+        <div class="favorite-info">
+          <h3 class="favorite-title">{{ getMovieTitle(movie) }}</h3>
+          <div class="favorite-meta">
+            <span class="favorite-year">
+              {{ (movie.release_date || movie.first_air_date) ? 
+                (movie.release_date || movie.first_air_date).substring(0, 4) : 'N/A' }}
+            </span>
+            <span class="favorite-rating">
+              <i class="fas fa-star"></i> {{ movie.vote_average | number:'1.1-1' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

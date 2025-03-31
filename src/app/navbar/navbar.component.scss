@@ -284,3 +284,16 @@
     justify-content: center;
   }
 }
+
+.pro-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  color: var(--black-color);
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 10px;
+  margin-left: 5px;
+  font-weight: 700;
+}

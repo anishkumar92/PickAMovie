@@ -1,5 +1,7 @@
+// src/app/navbar/navbar.component.ts
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +11,10 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   theme: string = 'light'; // default theme
   
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public authService: AuthService // Make it public to use in the template
+  ) {}
   
   // Add scroll behavior to shrink navbar when scrolling
   @HostListener('window:scroll', [])
@@ -46,5 +51,10 @@ export class NavbarComponent {
       body.classList.add('light-theme');
       body.classList.remove('dark-theme');
     }
+  }
+  
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

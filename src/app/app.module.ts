@@ -1,14 +1,15 @@
+// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { AppComponent } from './app.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CategoryPickerComponent } from './category-picker/category-picker.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { FormsModule } from '@angular/forms';
 import { LoaderInterceptor } from './loading.interceptor';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingService } from './loading.service';
@@ -19,7 +20,15 @@ import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { BannerComponent } from './banner/banner.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {  MatureToggleComponent, MatureWarningComponent } from './mature-toggle/mature-toggle.component';
+import { MatureToggleComponent, MatureWarningComponent } from './mature-toggle/mature-toggle.component';
+
+// Import new modules
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
+
+// Import new components
+import { FavoritesComponent } from './favorites/favorites.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,14 +45,21 @@ import {  MatureToggleComponent, MatureWarningComponent } from './mature-toggle/
     BannerComponent,
     PageNotFoundComponent,
     MatureToggleComponent,
-    MatureWarningComponent
+    MatureWarningComponent,
+    // Add new components
+    FavoritesComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     PaginationModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
+    // Add new modules
+    AuthModule,
+    SharedModule
   ],
   providers: [
     LoadingService,
@@ -51,7 +67,7 @@ import {  MatureToggleComponent, MatureWarningComponent } from './mature-toggle/
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true,
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })

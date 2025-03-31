@@ -1,0 +1,134 @@
+<!-- src/app/profile/profile.component.html -->
+<div class="profile-container">
+    <div class="profile-card">
+      <div class="profile-header">
+        <h2 class="profile-title">My Profile</h2>
+        
+        <div class="profile-avatar">
+          <div class="avatar-circle">
+            <span class="avatar-initials">{{ currentUser?.name?.charAt(0) ?? '' }}</span>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="closeUpgradeModal()">Not Now</button>
+        <button type="button" class="btn btn-primary" (click)="upgradeToPro()">
+          <i class="fas fa-crown"></i> Upgrade Now
+        </button>
+    </div>
+  <div *ngIf="currentUser?.isPro" class="pro-badge">
+            <i class="fas fa-crown"></i> PRO
+          </div>
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-item">
+          <div class="detail-label">Name</div>
+          <div class="detail-value">{{ currentUser?.name }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Email</div>
+          <div class="detail-value">{{ currentUser?.email }}</div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Account Type</div>
+          <div class="detail-value">
+            <span *ngIf="currentUser?.isPro" class="account-type pro">
+              <i class="fas fa-crown"></i> Pro
+            </span>
+            <span *ngIf="!currentUser?.isPro" class="account-type free">
+              <i class="fas fa-user"></i> Free
+            </span>
+          </div>
+        </div>
+        
+        <div class="detail-item" *ngIf="!currentUser?.isPro">
+          <div class="detail-label">Favorites Usage</div>
+          <div class="detail-value">
+            <div class="usage-bar">
+              <div 
+                class="usage-progress" 
+                [style.width.%]="getFavoritesPercentage()"
+                [ngClass]="{'warning': getFavoritesPercentage() > 80}">
+              </div>
+            </div>
+            <div class="usage-text">
+              {{ getTotalFavorites() }}/5 favorites used
+              <button class="upgrade-btn" (click)="showUpgradeModal = true">
+                <i class="fas fa-crown"></i> Upgrade
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-actions">
+        <a [routerLink]="['/favorites']" class="btn btn-secondary">
+          <i class="fas fa-heart"></i> My Favorites
+        </a>
+        <button class="btn btn-outline" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Upgrade Modal -->
+  <div class="upgrade-modal-backdrop" *ngIf="showUpgradeModal" (click)="closeUpgradeModal()"></div>
+  <div class="upgrade-modal" *ngIf="showUpgradeModal">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeUpgradeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i class="fas fa-crown"></i> Upgrade to Pro
+        </h3>
+      </div>
+      
+      <div class="modal-body">
+        <div class="plan-comparison">
+          <div class="plan current">
+            <h4 class="plan-name">Current Free Plan</h4>
+            <div class="plan-price">$0</div>
+            <ul class="plan-features">
+              <li>
+                <i class="fas fa-check"></i> Browse all movies and TV shows
+              </li>
+              <li>
+                <i class="fas fa-check"></i> Random movie suggestions
+              </li>
+              <li>
+                <i class="fas fa-times"></i> <span class="limited">Limited to 5 favorites</span>
+              </li>
+              <li>
+                <i class="fas fa-times"></i> No personalized recommendations
+              </li>
+            </ul>
+          </div>
+          
+          <div class="plan pro">
+            <div class="ribbon">RECOMMENDED</div>
+            <h4 class="plan-name">Pro Plan</h4>
+            <div class="plan-price">$4.99<span>/month</span></div>
+            <ul class="plan-features">
+              <li>
+                <i class="fas fa-check"></i> Browse all movies and TV shows
+              </li>
+              <li>
+                <i class="fas fa-check"></i> Random movie suggestions
+              </li>
+              <li>
+                <i class="fas fa-check"></i> <span class="highlight">Unlimited favorites</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i> <span class="highlight">Personalized recommendations</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i> <span class="highlight">Ad-free experience</span>
+              </li>
+            </ul>
+          </div>
