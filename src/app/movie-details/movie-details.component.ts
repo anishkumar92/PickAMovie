@@ -70,7 +70,7 @@ export class MovieDetailsComponent implements OnInit {
 
   searchMovie(title: string): void {
     const query = encodeURIComponent(title);
-    const url = `https://www.google.com/search?q=${query}`;
+    const url = `https://www.google.com/search?q=${query} ${this.isTvShow() ? 'TV Show' : 'Movie'}`;
     window.open(url, '_blank');
   }
 

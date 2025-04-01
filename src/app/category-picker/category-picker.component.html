@@ -1,11 +1,17 @@
 <!-- Update src/app/category-picker/category-picker.component.html -->
 <div class="wrapper">
   <div class="category-selector-container">
-    <!-- Title -->
+    <!-- Title & Filter Header -->
     <div class="category-header">
       <h2 class="category-title">
         {{showMovies ? 'Find Your Movie Muse - Pick a Category!' : 'Find Your Next TV Show To Binge Watch - Pick a Category!'}}
       </h2>
+      
+      <!-- Add Filter Component in header -->
+      <app-filter 
+        [showMovies]="showMovies" 
+        (filterChanged)="onFilterChanged($event)">
+      </app-filter>
     </div>
   
     <!-- Genres Horizontal Slider -->
@@ -31,12 +37,6 @@
       </button>
     </div>
     
-    <!-- Add Floating Filter Component -->
-    <app-filter 
-      [showMovies]="showMovies" 
-      (filterChanged)="onFilterChanged($event)">
-    </app-filter>
-    
     <!-- Movie List -->
     <app-movie-list [movieList]="pagedMovies" [showMovies]="showMovies"></app-movie-list>
     
@@ -53,3 +53,4 @@
     </div>
   </div>
 </div>
+

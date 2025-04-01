@@ -162,3 +162,17 @@ body {
   box-shadow: none;
   opacity: 1;
 }
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.filter-wrapper {
+  z-index: 99;
+}
+
+.filter-panel {
+  z-index: 99;
+}

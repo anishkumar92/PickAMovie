@@ -1,6 +1,7 @@
 // src/app/filter/filter.component.ts
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 import { MovieService } from '../movie.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 export interface FilterModel {
   sortBy: string;
@@ -19,7 +20,27 @@ export interface FilterModel {
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  styleUrls: ['./filter.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateY(-20px)', opacity: 0 }),
+        animate('200ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ transform: 'translateY(-20px)', opacity: 0 }))
+      ])
+    ]),
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class FilterComponent implements OnInit {
   @Input() showMovies: boolean = true;
@@ -28,6 +49,7 @@ export class FilterComponent implements OnInit {
   isExpanded: boolean = false;
   includeAdult: boolean = false;
   currentYear: number = new Date().getFullYear();
+  activeFiltersCount: number = 0;
   
   filterModel: FilterModel = {
     sortBy: 'popularity.desc',
@@ -78,7 +100,19 @@ export class FilterComponent implements OnInit {
     { iso_639_1: 'hi', english_name: 'Hindi' }
   ];
 
-  constructor(private movieService: MovieService) { }
+// Add to filter.component.ts
+@HostListener('document:click', ['$event'])
+clickOutside(event: Event) {
+  if (this.isExpanded && !this.elementRef.nativeElement.contains(event.target)) {
+    this.isExpanded = false;
+  }
+}
+
+// Make sure to inject ElementRef in constructor
+constructor(
+  private movieService: MovieService,
+  private elementRef: ElementRef
+) { }
 
   ngOnInit(): void {
     // Check if adult content is enabled in settings
@@ -99,6 +133,9 @@ export class FilterComponent implements OnInit {
     // In a real implementation, you would fetch watch providers and languages
     this.loadWatchProviders();
     this.loadLanguages();
+    
+    // Calculate active filters count
+    this.updateActiveFiltersCount();
   }
   
   toggleExpand(): void {
@@ -117,6 +154,8 @@ export class FilterComponent implements OnInit {
       // Remove provider if in array
       this.filterModel.withProviders = this.filterModel.withProviders.filter(id => id !== providerId);
     }
+    
+    this.updateActiveFiltersCount();
   }
   
   resetFilters(): void {
@@ -133,14 +172,77 @@ export class FilterComponent implements OnInit {
       includeAdult: false,
       withProviders: []
     };
+    
+    this.updateActiveFiltersCount();
+    this.saveFilters();
+    this.filterChanged.emit(this.filterModel);
   }
   
   applyFilters(): void {
     // Save filters to service for persistence
     this.saveFilters();
     
+    // Close the filter panel
+    this.isExpanded = false;
+    
     // Emit the filter event with current values
     this.filterChanged.emit(this.filterModel);
+  }
+  
+  // Clear specific filter sections
+  clearYearFilters(): void {
+    this.filterModel.yearFrom = null;
+    this.filterModel.yearTo = null;
+    this.updateActiveFiltersCount();
+    this.applyFilters();
+  }
+  
+  clearRatingFilters(): void {
+    this.filterModel.voteMin = null;
+    this.filterModel.voteMax = null;
+    this.updateActiveFiltersCount();
+    this.applyFilters();
+  }
+  
+  clearVoteCountFilter(): void {
+    this.filterModel.voteCount = 0;
+    this.updateActiveFiltersCount();
+    this.applyFilters();
+  }
+  
+  clearRuntimeFilters(): void {
+    this.filterModel.runtimeMin = null;
+    this.filterModel.runtimeMax = null;
+    this.updateActiveFiltersCount();
+    this.applyFilters();
+  }
+  
+  clearProviderFilters(): void {
+    this.filterModel.withProviders = [];
+    this.updateActiveFiltersCount();
+    this.applyFilters();
+  }
+  
+  // Get readable label for current sort option
+  getSortLabel(): string {
+    const option = this.sortOptions.find(opt => opt.value === this.filterModel.sortBy);
+    return option ? option.label : 'Popularity';
+  }
+  
+  // Update active filters count
+  updateActiveFiltersCount(): void {
+    let count = 0;
+    
+    // Count each active filter
+    if (this.filterModel.yearFrom || this.filterModel.yearTo) count++;
+    if ((this.filterModel.voteMin !== null && this.filterModel.voteMin > 0) || 
+        (this.filterModel.voteMax !== null && this.filterModel.voteMax < 10)) count++;
+    if (this.filterModel.voteCount > 0) count++;
+    if (this.showMovies && ((this.filterModel.runtimeMin !== null && this.filterModel.runtimeMin > 0) || (this.filterModel.runtimeMax !== null && this.filterModel.runtimeMax < 300))) count++;
+    if (this.filterModel.withProviders.length > 0) count++;
+    if (this.filterModel.sortBy !== 'popularity.desc') count++;
+    
+    this.activeFiltersCount = count;
   }
   
   // Methods to fetch data from API (implementation would depend on your service)
@@ -289,5 +391,8 @@ export class FilterComponent implements OnInit {
       this.filterModel.language = this.movieService.getFilterOption('language') || '';
       this.filterModel.includeAdult = this.movieService.getFilterOption('includeAdult') || false;
     }
+    
+    // Calculate active filters count after loading
+    this.updateActiveFiltersCount();
   }
 }

@@ -243,3 +243,22 @@
       }
     }
   }
+
+  .search-header {
+    position: relative;
+    padding-bottom: 20px;
+    
+    .search-form {
+      position: relative;
+    }
+    
+    .search-filter-container {
+      @media (min-width: 768px) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+        max-width: 180px;
+      }
+    }
+  }

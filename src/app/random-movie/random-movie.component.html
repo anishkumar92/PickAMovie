@@ -1,25 +1,90 @@
-<div class="toggle-container">
-    <span class="lab-mov"> TV shows </span>
-    <label class="switch">
-        <input type="checkbox" [(ngModel)]="showMovies" (click)="onToggle()">
-        <span class="slider"></span>
-    </label>
-    <span class="lab-mov">Movie</span>
-
-</div>
-<div class="button-container">
-    <button class="large-button" (click)="getRandomMovie()">"Surprise Me!"</button>
-</div>
-<div class="movie-details-container">
-    <div class="movie-details" *ngIf="movie">
-        <h2>{{ movie.title }}</h2>
-        <img class="movie-poster" [src]="getImageUrl(movie.poster_path)" alt="{{ movie.title }} Poster">
-        <div class="movie-details-content">
-            <p><strong>Overview :</strong> {{ movie.overview }}</p>
-            <p><strong>Release Date :</strong> {{ movie.release_date }}</p>
-            <p><strong>Rating :</strong> {{ movie.vote_average }}/10</p>
-            <p><strong>Genres :</strong> {{ getGenres(movie.genres) }}</p>
-            <p><strong>Homepage : </strong> <a [href]="movie.homepage" target="_blank">Click Here</a></p>
-        </div>
+<div class="random-container">
+    <div class="random-header">
+      <h2 class="section-title">Get a Random Suggestion</h2>
+      <p class="section-subtitle">Looking for something new to watch? Let us pick for you!</p>
+      
+      <div class="toggle-container">
+        <span class="toggle-label">TV Shows</span>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="showMovies" (change)="resetState()">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Movies</span>
+      </div>
+      
+      <!-- Filter component -->
+      <div class="filter-container">
+        <app-filter
+          [showMovies]="showMovies"
+          (filterChanged)="onFilterChanged($event)">
+        </app-filter>
+      </div>
+      
+      <div class="button-container" *ngIf="!movie">
+        <button class="surprise-button" (click)="getRandomMovie()" [disabled]="isFetching">
+          <i class="fas fa-random"></i>
+          <span>"Surprise Me!"</span>
+          <span class="loading-spinner" *ngIf="isFetching"></span>
+        </button>
+      </div>
     </div>
-</div>
+    
+    <div class="movie-details-container" *ngIf="movie">
+      <div class="movie-card">
+        <div class="movie-poster">
+          <img [src]="getImageUrl(movie.poster_path)" [alt]="getTitle() + ' Poster'">
+          <div class="movie-rating">
+            <i class="fas fa-star"></i>
+            <span>{{ movie.vote_average | number:'1.1-1' }}</span>
+          </div>
+        </div>
+        
+        <div class="movie-info">
+          <h2 class="movie-title">{{ getTitle() }}</h2>
+          
+          <div class="movie-meta">
+            <span class="year">{{ getReleaseYear() }}</span>
+            <span class="divider" *ngIf="getReleaseYear() !== 'N/A'">•</span>
+            <span class="runtime" *ngIf="showMovies && movie.runtime">{{ movie.runtime }} min</span>
+            <span class="episodes" *ngIf="!showMovies && movie.number_of_episodes">
+              {{ movie.number_of_seasons }} seasons • {{ movie.number_of_episodes }} episodes
+            </span>
+          </div>
+          
+          <div class="movie-genres">
+            <span *ngFor="let genre of movie.genres" class="genre-badge">{{ genre.name }}</span>
+          </div>
+          
+          <div class="movie-overview">
+            <h3>Overview</h3>
+            <p [ngClass]="{'truncate': !showFullText}">{{ movie.overview }}</p>
+            <button class="toggle-text-btn" (click)="toggleText()" *ngIf="movie.overview && movie.overview.length > 250">
+              {{ showFullText ? 'Show Less' : 'Show More' }}
+            </button>
+          </div>
+          
+          <div class="movie-action">
+            <a [href]="movie.homepage" *ngIf="movie.homepage" target="_blank" class="action-link homepage-link">
+              <i class="fas fa-link"></i> Official Site
+            </a>
+            <a (click)="searchMovie(getTitle())" class="action-link google-link">
+              <i class="fab fa-google"></i> Find on Google
+            </a>
+            <button class="action-link refresh-link" (click)="getRandomMovie()">
+              <i class="fas fa-sync-alt"></i> Get Another Suggestion
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="no-movie-selected" *ngIf="!movie && !isFetching">
+      <i class="fas fa-film fa-3x"></i>
+      <p>Click "Surprise Me!" to get a random suggestion</p>
+    </div>
+    
+    <div class="loading-container" *ngIf="isFetching && !movie">
+      <div class="spinner"></div>
+      <p>Finding the perfect suggestion for you...</p>
+    </div>
+  </div>

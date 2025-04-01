@@ -29,10 +29,14 @@ $transition: all 0.3s ease;
 
 // Category Header
 .category-header {
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  width: 100%;
+  position: relative;
+  padding-right: 130px; /* Make space for filter button */
+  
+  /* Make space for the filter button on mobile */
+  @media (max-width: 768px) {
+    padding-right: 0;
+    margin-bottom: 60px; /* Provide space below the title for the filter */
+  }
 }
 
 .category-title {
@@ -41,8 +45,7 @@ $transition: all 0.3s ease;
   font-weight: 700;
   margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  position: relative;
-  display: inline-block;
+  padding-right: 170px; /* Make space for filter button */
   
   &:after {
     content: '';
@@ -54,6 +57,11 @@ $transition: all 0.3s ease;
     height: 3px;
     background-color: var(--primary-color);
     border-radius: 3px;
+  }
+  
+  @media (max-width: 768px) {
+    padding-right: 0;
+    margin-bottom: 40px;
   }
 }
 
