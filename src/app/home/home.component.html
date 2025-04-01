@@ -1,87 +1,352 @@
-<div class="landing-page">
-    <!-- Hero Section with Parallax Effect -->
-    <section class="hero-section">
-      <div class="overlay"></div>
-      <div class="hero-content">
-        <h1 class="main-title">Welcome to Movie Picker</h1>
-        <p class="subtitle">Discover your next favorite movie or TV show with just a click</p>
-        <div class="cta-buttons">
-          <button class="cta-button primary" [routerLink]="['/category/Movies/Action/1']">Browse Movies</button>
-          <button class="cta-button secondary" [routerLink]="['/random']">Surprise Me</button>
-        </div>
+<!-- src/app/home/home.component.html (Adjusted) -->
+<div class="landing-container">
+  <!-- Hero Section with background images that are less prominent -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <!-- Images should be positioned with reduced opacity and more subtle transitions -->
+      <div class="hero-illustrations" aria-hidden="true">
+        <!-- Adjust opacity on these illustration elements -->
+        <div class="film-reel"></div>
+        <div class="movie-clapboard"></div>
+        <div class="popcorn"></div>
+        <div class="person-watching"></div>
+        <div class="person-popcorn"></div>
       </div>
-    </section>
-  
-    <!-- Features Section -->
-    <section class="features-section">
-      <div class="section-title">
-        <h2>How It Works</h2>
-        <div class="underline"></div>
+    </div>
+    
+    <div class="hero-content">
+      <h1 class="main-title">Find Your Perfect Watch</h1>
+      <p class="subtitle">Stop scrolling, start watching. Your personalized movie & TV companion.</p>
+      
+      <div class="cta-buttons">
+        <button class="cta-button primary" [routerLink]="['/category/Movies/Action/1']">
+          <i class="fas fa-film"></i> Browse Movies
+        </button>
+        <button class="cta-button secondary" [routerLink]="['/category/TV/Animation/1']">
+          <i class="fas fa-tv"></i> Browse TV Shows 
+        </button>
+        <button class="cta-button accent" [routerLink]="['/random']">
+          <i class="fas fa-random"></i> Surprise Me
+        </button>
+      </div>
+    </div>
+    
+    <!-- Login/Register Floating Card (when not logged in) -->
+    <div class="auth-card" *ngIf="!isLoggedIn">
+      <div class="auth-card-header">
+        <div class="auth-icon"><i class="fas fa-user-circle"></i></div>
+        <h3>Join Movie Picker</h3>
+      </div>
+      <p>Save favorites, get personalized recommendations, and more!</p>
+      <div class="auth-buttons">
+        <button class="auth-button login" [routerLink]="['/login']">Log In</button>
+        <button class="auth-button register" [routerLink]="['/register']">Sign Up Free</button>
+      </div>
+    </div>
+    
+    <!-- Pro Upgrade Card (when logged in but not Pro) -->
+    <div class="pro-card" *ngIf="isLoggedIn && !isPro">
+      <div class="pro-card-content">
+        <div class="pro-badge"><i class="fas fa-crown"></i> PRO</div>
+        <h3>Upgrade Your Experience</h3>
+        <ul class="pro-features">
+          <li><i class="fas fa-check"></i> Unlimited favorites</li>
+          <li><i class="fas fa-check"></i> Personalized recommendations</li>
+          <li><i class="fas fa-check"></i> Ad-free experience</li>
+        </ul>
+        <button class="pro-upgrade-btn" [routerLink]="['/profile']" [queryParams]="{upgrade: true}">
+          Upgrade Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="section-title">
+      <h2>Why Movie Picker?</h2>
+      <div class="underline"></div>
+    </div>
+    
+    <div class="features-container">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Save Time</h3>
+        <p>No more endless scrolling. Find the perfect movie or show in seconds with our curated recommendations.</p>
       </div>
       
-      <div class="features-container">
-        <div class="feature-card" [routerLink]="['/category/Movies/Action/1']">
-          <div class="feature-icon">
-            <i class="fas fa-film"></i>
-          </div>
-          <h3>Browse by Category</h3>
-          <p>Explore movies and TV shows by genre. From action and adventure to romance and comedy, find exactly what you're in the mood for.</p>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-list-alt"></i>
         </div>
-        
-        <div class="feature-card" [routerLink]="['/random']">
-          <div class="feature-icon">
-            <i class="fas fa-random"></i>
-          </div>
-          <h3>Random Picker</h3>
-          <p>Can't decide what to watch? Let our random picker surprise you with a movie or TV show you might never have discovered.</p>
-        </div>
-        
-        <div class="feature-card" [routerLink]="['/category/TV/Animation/1']">
-          <div class="feature-icon">
-            <i class="fas fa-tv"></i>
-          </div>
-          <h3>TV Shows</h3>
-          <p>Not in the mood for a movie? Explore thousands of TV shows across different genres to find your next binge-worthy series.</p>
-        </div>
-      </div>
-    </section>
-  
-    <!-- Testimonials/Popular Section -->
-    <section class="popular-section">
-      <div class="section-title">
-        <h2>Find Your Perfect Watch</h2>
-        <div class="underline"></div>
+        <h3>Build Your Collection</h3>
+        <p>Create your personal watchlist, save favorites, and keep track of what you've watched.</p>
       </div>
       
-      <div class="popular-text">
-        <p>Movie Picker uses data from The Movie Database to help you discover high-quality content tailored to your preferences. No more endless scrolling through streaming services!</p>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-filter"></i>
+        </div>
+        <h3>Advanced Filters</h3>
+        <p>Find exactly what you're looking for with filters for genres, release year, rating, and more.</p>
       </div>
       
-      <div class="cta-container">
-        <button class="cta-button accent" [routerLink]="['/category/Movies/Action/1']">Start Exploring</button>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-random"></i>
+        </div>
+        <h3>Discover New Gems</h3>
+        <p>Let our Random feature surprise you with new movies and shows you might never have found.</p>
       </div>
-    </section>
+    </div>
+  </section>
   
-    <!-- Quick Info Section -->
-    <section class="info-section">
-      <div class="info-cards">
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-database"></i></div>
-          <h4>Extensive Library</h4>
-          <p>Access thousands of movies and TV shows updated regularly</p>
+  <!-- Pro Membership Section - ONLY SHOW IF NOT PRO -->
+  <section class="pro-section" *ngIf="!isPro">
+    <div class="pro-content">
+      <div class="pro-text">
+        <h2>Upgrade to <span class="pro-text-badge">PRO</span></h2>
+        <p class="pro-tagline">Get the ultimate movie picking experience</p>
+        
+        <div class="pro-comparison">
+          <div class="plan-column">
+            <div class="plan-header free">
+              <h3>Free</h3>
+              <div class="plan-price">$0</div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> Browse all movies</li>
+              <li><i class="fas fa-check"></i> Basic search</li>
+              <li><i class="fas fa-check"></i> Random movie suggestions</li>
+              <li class="inactive"><i class="fas fa-times"></i> <span>Limited to 5 favorites</span></li>
+              <li class="inactive"><i class="fas fa-times"></i> <span>Ads included</span></li>
+            </ul>
+          </div>
+          
+          <div class="plan-vs">VS</div>
+          
+          <div class="plan-column pro-column">
+            <div class="plan-header pro">
+              <div class="ribbon">POPULAR</div>
+              <h3>Pro</h3>
+              <div class="plan-price">$4.99<span>/month</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> Browse all movies</li>
+              <li><i class="fas fa-check"></i> Advanced search & filters</li>
+              <li><i class="fas fa-check"></i> Random movie suggestions</li>
+              <li><i class="fas fa-check"></i> <strong>Unlimited favorites</strong></li>
+              <li><i class="fas fa-check"></i> <strong>Ad-free experience</strong></li>
+            </ul>
+          </div>
         </div>
         
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-user-friends"></i></div>
-          <h4>User Friendly</h4>
-          <p>Simple interface designed for the best browsing experience</p>
-        </div>
-        
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-bolt"></i></div>
-          <h4>Fast & Responsive</h4>
-          <p>Works perfectly on all your devices, from desktop to mobile</p>
+        <div class="pro-action" *ngIf="!isPro">
+          <button class="upgrade-button" [routerLink]="['/profile']" [queryParams]="{upgrade: true}">
+            <i class="fas fa-crown"></i> Upgrade to Pro
+          </button>
         </div>
       </div>
-    </section>
-  </div>
+      
+      <div class="pro-image">
+        <div class="pro-device">
+          <div class="pro-screen">
+            <div class="pro-screen-content">
+              <div class="screen-favorites">
+                <div class="favorites-grid">
+                  <div class="favorite-tile" *ngFor="let i of [1,2,3,4,5,6,7,8,9]"></div>
+                </div>
+                <div class="unlimited-badge">UNLIMITED</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Categories Section -->
+  <section class="releases-section">
+    <div class="section-title">
+      <h2>Start Exploring</h2>
+      <div class="underline"></div>
+      <p class="section-subtitle">Jump right in with these popular categories</p>
+    </div>
+    
+    <div class="category-cards">
+      <div class="category-card" [routerLink]="['/category/Movies/Action/1']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-fist-raised"></i></div>
+        <h3>Action</h3>
+      </div>
+      
+      <div class="category-card" [routerLink]="['/category/Movies/Comedy/1']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-laugh"></i></div>
+        <h3>Comedy</h3>
+      </div>
+      
+      <div class="category-card" [routerLink]="['/category/Movies/Drama/1']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-theater-masks"></i></div>
+        <h3>Drama</h3>
+      </div>
+      
+      <div class="category-card" [routerLink]="['/category/TV/Animation/1']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-dragon"></i></div>
+        <h3>Animated</h3>
+      </div>
+      
+      <div class="category-card" [routerLink]="['/category/Movies/Horror/1']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-ghost"></i></div>
+        <h3>Horror</h3>
+      </div>
+      
+      <div class="category-card" [routerLink]="['/random']">
+        <div class="category-overlay"></div>
+        <div class="category-icon"><i class="fas fa-question"></i></div>
+        <h3>Random</h3>
+      </div>
+    </div>
+  </section>
+  
+  <!-- User Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-title">
+      <h2>What Our Users Say</h2>
+      <div class="underline"></div>
+    </div>
+    
+    <div class="testimonials-slider">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">Movie Picker saved me so much time! I used to spend 30 minutes browsing Netflix before watching anything. Now I know exactly what to watch.</p>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">JD</div>
+          <div class="author-name">John D.</div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">The Pro membership is totally worth it! I've discovered so many great movies I would have never found otherwise.</p>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div class="author-name">Sarah M.</div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">The random movie feature is perfect for movie nights with friends! No more arguments about what to watch.</p>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">AK</div>
+          <div class="author-name">Alex K.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call-to-Action Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to find your next binge-worthy show?</h2>
+      <p>Join Movie Picker today and never waste time deciding what to watch again.</p>
+      <div class="cta-actions">
+        <button class="cta-button primary" *ngIf="!isLoggedIn" [routerLink]="['/register']">
+          <i class="fas fa-user-plus"></i> Sign Up Free
+        </button>
+        <button class="cta-button accent" [routerLink]="['/category/Movies/Action/1']">
+          <i class="fas fa-film"></i> Start Exploring
+        </button>
+        <button class="cta-button secondary" *ngIf="isLoggedIn && !isPro" [routerLink]="['/profile']" [queryParams]="{upgrade: true}">
+          <i class="fas fa-crown"></i> Upgrade to Pro
+        </button>
+      </div>
+    </div>
+    
+    <div class="floating-devices">
+      <div class="device phone">
+        <div class="device-screen">
+          <div class="device-content phone-content"></div>
+        </div>
+      </div>
+      <div class="device tablet">
+        <div class="device-screen">
+          <div class="device-content tablet-content"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-icon"><i class="fas fa-database"></i></div>
+        <h4>Extensive Library</h4>
+        <p>Thousands of movies and TV shows updated regularly</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h4>Use Anywhere</h4>
+        <p>Works perfectly on all your devices</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-icon"><i class="fas fa-bolt"></i></div>
+        <h4>Fast & Easy</h4>
+        <p>Find the perfect watch in seconds, not hours</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Secure Account</h4>
+        <p>Your data and preferences are always protected</p>
+      </div>
+    </div>
+    
+    <div class="powered-by">
+      <span>Powered by</span>
+      <img src="../../assets/tmdb logo.svg" alt="TMDB">
+    </div>
+  </section>
+</div>
