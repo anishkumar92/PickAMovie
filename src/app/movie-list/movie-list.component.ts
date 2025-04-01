@@ -1,6 +1,6 @@
 // src/app/movie-list/movie-list.component.ts
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 

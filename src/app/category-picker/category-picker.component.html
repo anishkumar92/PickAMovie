@@ -7,11 +7,7 @@
         {{showMovies ? 'Find Your Movie Muse - Pick a Category!' : 'Find Your Next TV Show To Binge Watch - Pick a Category!'}}
       </h2>
       
-      <!-- Add Filter Component in header -->
-      <app-filter 
-        [showMovies]="showMovies" 
-        (filterChanged)="onFilterChanged($event)">
-      </app-filter>
+    
     </div>
   
     <!-- Genres Horizontal Slider -->
@@ -37,6 +33,14 @@
       </button>
     </div>
     
+      <!-- Add Filter Component in header -->
+       <div style="position: relative; width: 100%;">
+         <app-filter 
+           [showMovies]="showMovies" 
+           (filterChanged)="onFilterChanged($event)">
+         </app-filter>
+       </div>
+
     <!-- Movie List -->
     <app-movie-list [movieList]="pagedMovies" [showMovies]="showMovies"></app-movie-list>
     

@@ -1,7 +1,7 @@
 // src/app/shared/favorite-button/favorite-button.component.ts
 import { Component, Input, OnInit } from '@angular/core';
 import { FavoritesService } from '../../favorites/favorites.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,16 +1,20 @@
-<!-- src/app/mature-toggle/mature-toggle.component.html -->
+<!-- mature-toggle.component.html -->
 <div class="mature-toggle-container">
-  <label class="mature-switch">
-    <input type="checkbox" [checked]="includeAdult" (change)="toggleAdultContent($event)">
-    <div class="switch-wrapper">
-      <span class="mature-slider"></span>
-      <span class="slider-state" [class.on]="includeAdult">
-        {{ includeAdult ? 'ON' : 'OFF' }}
-      </span>
+  <div class="toggle-header">
+    <h3>Mature Content</h3>
+    <div class="toggle-switch-container">
+      <label class="toggle-switch">
+        <input
+          type="checkbox"
+          [checked]="includeAdult"
+          (change)="toggleAdultContent($event)"
+        />
+        <span class="slider round"></span>
+      </label>
     </div>
-    <span class="mature-label">
-      <i class="fas" [ngClass]="includeAdult ? 'fa-eye text-warning' : 'fa-eye-slash'"></i>
-      <span class="mature-text">Mature Content</span>
-    </span>
-  </label>
+  </div>
+  <p class="toggle-description">
+    {{ includeAdult ? 'Mature content is enabled. Adult-themed movies will be shown in your search results.' :
+                     'Mature content is disabled. Adult-themed movies are filtered from your search results.' }}
+  </p>
 </div>

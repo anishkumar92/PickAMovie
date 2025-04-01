@@ -1,7 +1,8 @@
 // src/app/filter/filter.component.ts
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { UserPreferencesService } from '../services/user-preferences.service';
 
 export interface FilterModel {
   sortBy: string;
@@ -111,7 +112,8 @@ clickOutside(event: Event) {
 // Make sure to inject ElementRef in constructor
 constructor(
   private movieService: MovieService,
-  private elementRef: ElementRef
+  private elementRef: ElementRef,
+  private userPreferencesService: UserPreferencesService
 ) { }
 
   ngOnInit(): void {
@@ -119,7 +121,7 @@ constructor(
     this.includeAdult = this.movieService.getAdultContentSetting();
     
     // Subscribe to changes in the adult content setting
-    this.movieService.includeAdult$.subscribe(value => {
+    this.userPreferencesService.includeAdult$.subscribe(value => {
       this.includeAdult = value;
       // If adult setting is disabled, ensure the filter is also disabled
       if (!value) {

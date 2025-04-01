@@ -1,9 +1,9 @@
 // src/app/favorites/favorites.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FavoritesService } from './favorites.service';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

@@ -22,7 +22,7 @@ import { RandomMovieComponent } from './random-movie/random-movie.component';
 import { ContactComponent } from './contact/contact.component';
 import { BannerComponent } from './banner/banner.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { MatureToggleComponent, MatureWarningComponent } from './mature-toggle/mature-toggle.component';
+import { MatureToggleComponent } from './mature-toggle/mature-toggle.component';
 
 // Import new modules
 import { AuthModule } from './auth/auth.module';
@@ -32,6 +32,8 @@ import { SharedModule } from './shared/shared.module';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FilterModule } from './filter/filter.module';
+import { MatureDisableWarningComponent } from './mature-toggle/mature-disable-warning.component';
+import { MatureWarningComponent } from './mature-toggle/mature-warning.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { FilterModule } from './filter/filter.module';
     PageNotFoundComponent,
     MatureToggleComponent,
     MatureWarningComponent,
+    MatureDisableWarningComponent,
     // Add new components
     FavoritesComponent,
     ProfileComponent

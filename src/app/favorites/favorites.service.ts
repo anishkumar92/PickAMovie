@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthService, User } from '../auth/auth.service';
-import { MovieService } from '../movie.service';
+import { AuthService, User } from '../services/auth.service';
+import { MovieService } from '../services/movie.service';
 
 @Injectable({
   providedIn: 'root'

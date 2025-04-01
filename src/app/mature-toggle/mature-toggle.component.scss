@@ -1,173 +1,110 @@
-/* src/app/mature-toggle/mature-toggle.component.scss */
+/* mature-toggle.component.scss */
+:host {
+  --primary-color: #682f76;
+  --secondary-color: #f6f6f4;
+  --accent-color: #b0e66b;
+  --warning-color: #e20f0f;
+  --dark-color: #07295f;
+}
+
 .mature-toggle-container {
+  background-color: rgba(104, 47, 118, 0.1);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--primary-color);
+}
+
+.toggle-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.mature-switch {
+.toggle-header h3 {
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.toggle-description {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+}
+
+/* Toggle Switch Styles */
+.toggle-switch {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 10px 16px;
-  background-color: rgba(7, 41, 95, 0.6);
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  
-  &:hover {
-    background-color: rgba(7, 41, 95, 0.8);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  }
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
-input[type="checkbox"] {
+.toggle-switch input {
   opacity: 0;
   width: 0;
   height: 0;
-  
-  &:checked + .switch-wrapper .mature-slider {
-    background-color: var(--warning-color);
-  }
-  
-  &:checked + .switch-wrapper .mature-slider:before {
-    transform: translateX(18px);
-  }
-  
-  &:checked + .switch-wrapper .slider-state {
-    color: var(--warning-color);
-    transform: translateX(18px);
-  }
 }
 
-.switch-wrapper {
-  position: relative;
-  width: 44px;
-  height: 24px;
-  margin-right: 12px;
-}
-
-.mature-slider {
+.slider {
   position: absolute;
+  cursor: pointer;
   top: 0;
   left: 0;
-  width: 44px;
-  height: 24px;
-  background-color: rgba(246, 246, 244, 0.2);
-  border-radius: 30px;
-  transition: background-color 0.3s ease;
-  
-  &:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
+  right: 0;
+  bottom: 0;
+  background-color: rgba(104, 47, 118, 0.3);
+  transition: .4s;
 }
 
-.slider-state {
+.slider:before {
   position: absolute;
-  top: 50%;
-  left: 6px;
-  transform: translateY(-50%);
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: rgba(246, 246, 244, 0.6);
-  transition: all 0.3s ease;
-  pointer-events: none;
-  
-  &.on {
-    left: 22px;
-  }
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--secondary-color);
+  transition: .4s;
 }
 
-.mature-label {
-  display: flex;
-  align-items: center;
-  color: var(--secondary-color);
-  font-size: 0.95rem;
-  font-weight: 600;
-  
-  i {
-    margin-right: 8px;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-    
-    &.text-warning {
-      color: var(--warning-color);
-      animation: pulse 1.5s infinite;
-    }
-  }
+input:checked + .slider {
+  background-color: var(--warning-color);
 }
 
-.mature-text {
-  white-space: nowrap;
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--warning-color);
 }
 
-/* Pulsing animation for the mature content icon when enabled */
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
-/* Toggle animation */
-input[type="checkbox"]:checked + .switch-wrapper .mature-slider:before {
-  animation: toggleOn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
 }
 
-@keyframes toggleOn {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(22px); }
-  100% { transform: translateX(18px); }
+.slider.round:before {
+  border-radius: 50%;
 }
 
-/* Profile page specific styles */
-:host-context(.profile-container) {
-  .mature-switch {
-    background-color: rgba(17, 14, 27, 0.6);
-    padding: 10px 16px;
-    
-    &:hover {
-      background-color: rgba(17, 14, 27, 0.8);
-    }
-  }
+/* Warning state - when mature content is enabled */
+.toggle-switch-container.warning .slider {
+  background-color: var(--warning-color);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .mature-switch {
-    padding: 8px 12px;
+/* Media queries for responsive design */
+@media (max-width: 576px) {
+  .toggle-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .switch-wrapper {
-    width: 40px;
-    height: 22px;
-    margin-right: 10px;
-  }
-  
-  .mature-slider {
-    width: 40px;
-    height: 22px;
-    
-    &:before {
-      height: 16px;
-      width: 16px;
-    }
-  }
-  
-  .mature-label i {
-    font-size: 1rem;
-  }
-  
-  .mature-text {
-    font-size: 0.9rem;
+  .toggle-switch-container {
+    margin-top: 0.75rem;
   }
 }

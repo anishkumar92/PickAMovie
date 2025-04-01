@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { FilterModel } from '../filter/filter.component';
 import { Subscription } from 'rxjs';
 

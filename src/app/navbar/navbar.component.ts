@@ -1,8 +1,9 @@
 // src/app/navbar/navbar.component.ts
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { MovieService } from '../movie.service';
+import { AuthService } from '../services/auth.service';
+import { MovieService } from '../services/movie.service';
+import { UserPreferencesService } from '../services/user-preferences.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,12 +17,13 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService, // Make it public to use in the template
-    private movieService: MovieService
+    private movieService: MovieService,
+    private userPreferencesService: UserPreferencesService
   ) {}
   
   ngOnInit(): void {
     // Subscribe to changes in the mature content setting
-    this.movieService.includeAdult$.subscribe(value => {
+    this.userPreferencesService.includeAdult$.subscribe(value => {
       this.includeAdult = value;
     });
     

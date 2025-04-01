@@ -1,6 +1,6 @@
 // src/app/category-picker/category-picker.component.ts
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterModel } from '../filter/filter.component';

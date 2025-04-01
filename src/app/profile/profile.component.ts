@@ -1,8 +1,8 @@
 // src/app/profile/profile.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, User } from '../auth/auth.service';
-import { MovieService } from '../movie.service';
+import { AuthService, User } from '../services/auth.service';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-profile',

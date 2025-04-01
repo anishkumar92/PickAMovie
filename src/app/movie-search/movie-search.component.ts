@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
 import { FilterModel } from '../filter/filter.component';
 

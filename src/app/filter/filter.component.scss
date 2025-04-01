@@ -74,7 +74,7 @@
 }
 
 .filter-panel {
-  position: absolute;
+  // position: absolute;
   top: calc(100% + 8px);
   left: 0;
   right: 0;
@@ -387,16 +387,16 @@
 /* Integration with category page */
 :host-context(.category-selector-container) {
   .filter-wrapper {
-    position: absolute;
+    // position: absolute;
     top: 0;
     right: 0;
-    width: auto;
-    max-width: 150px;
+    // width: auto;
+    // max-width: 150px;
     
     @media (min-width: 768px) {
       top: 0;
       right: 20px;
-      max-width: 180px;
+      // max-width: 180px;
     }
   }
   

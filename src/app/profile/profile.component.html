@@ -43,16 +43,16 @@
         </div>
       </div>
       
-      <!-- Mature Content Toggle -->
-      <div class="detail-item">
-        <div class="detail-label">Mature Content</div>
-        <div class="detail-value">
-          <app-mature-toggle></app-mature-toggle>
-          <div class="setting-description">
-            Show or hide mature content in search results and recommendations
-          </div>
-        </div>
-      </div>
+<!-- Add this to the profile details section -->
+<div class="detail-item">
+  <div class="detail-label">Mature Content</div>
+  <div class="detail-value">
+    <app-mature-toggle></app-mature-toggle>
+    <div class="setting-description">
+      Show or hide mature content in search results and recommendations
+    </div>
+  </div>
+</div>
       
       <div class="detail-item" *ngIf="!currentUser?.isPro">
         <div class="detail-label">Favorites Usage</div>
