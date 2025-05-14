@@ -1,3 +1,4 @@
+
 <div class="search-container">
   <div class="search-form">
     <div class="search-input-container">
@@ -5,9 +6,18 @@
         type="text" 
         class="search-input" 
         [(ngModel)]="searchQuery" 
-        placeholder="Search for movies or TV shows..." 
+        [placeholder]="showMovies ? 'Search for Movies' : 'Search for TV shows'" 
         (keyup.enter)="search()"
       >
+      <!-- Clear button for search input -->
+      <button 
+        *ngIf="searchQuery" 
+        class="clear-input-button" 
+        (click)="clearSearchQuery()"
+        title="Clear search"
+      >
+        <i class="fas fa-times"></i>
+      </button>
       <button class="search-button" (click)="search()">
         <i class="fas fa-search"></i>
       </button>
@@ -16,7 +26,7 @@
     <div class="toggle-switch-container">
       <span class="toggle-label">TV Shows</span>
       <label class="toggle-switch">
-        <input type="checkbox" [(ngModel)]="showMovies" (change)="clearResults()">
+        <input type="checkbox" [(ngModel)]="showMovies" (change)="onToggleContentType()">
         <span class="toggle-slider"></span>
       </label>
       <span class="toggle-label">Movies</span>
@@ -33,7 +43,7 @@
 
   <div class="search-results-container" *ngIf="searchResults && searchResults.length > 0">
     <h2 class="results-title">
-      Search Results for "{{ searchQuery }}"
+      <!-- Search Results for "{{ searchQuery }}" -->
     </h2>
 
     <app-movie-list [movieList]="searchResults" [showMovies]="showMovies"></app-movie-list>

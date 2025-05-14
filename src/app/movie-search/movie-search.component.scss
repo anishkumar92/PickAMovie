@@ -262,3 +262,36 @@
       }
     }
   }
+
+  /* Add only these styles to your existing movie-search.component.scss */
+
+/* Clear button inside the search input */
+.clear-input-button {
+  position: absolute;
+  right: 50px; /* Position before the search button */
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: rgba(246, 246, 244, 0.6);
+  font-size: 0.9rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.clear-input-button:hover {
+  color: var(--secondary-color);
+  background-color: rgba(17, 14, 27, 0.5);
+}
+
+/* Ensure search input has enough padding for the clear button */
+.search-input {
+  padding-right: 80px !important; /* Make room for both buttons */
+}

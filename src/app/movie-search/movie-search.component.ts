@@ -1,7 +1,10 @@
+// src/app/movie-search/movie-search.component.ts
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { PaginationConfig } from 'ngx-bootstrap/pagination';
 import { FilterModel } from '../filter/filter.component';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-search',
@@ -19,11 +22,74 @@ export class MovieSearchComponent implements OnInit {
   searched: boolean = false;
   activeFilters: FilterModel | null = null;
 
-  constructor(private movieService: MovieService) { }
+  constructor(
+    private movieService: MovieService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    // Check if we have previous search params in localStorage
-    this.loadPreviousSearch();
+    // Listen for navigation events to reset search when coming from another route
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      // If user navigates to search page from another route, reset the search
+      const previousUrl = event.url;
+      if (previousUrl && !previousUrl.includes('/search') && this.router.url.includes('/search')) {
+        this.resetSearch();
+      }
+    });
+
+    // Check if we have query params
+    this.route.queryParams.subscribe(params => {
+      if (params['query']) {
+        this.searchQuery = params['query'];
+        this.showMovies = params['type'] !== 'tv';
+        this.currentPage = params['page'] ? parseInt(params['page']) : 1;
+        this.searched = true;
+        
+        // Perform the search with params
+        this.performSearch();
+      } else if (this.router.url === '/search') {
+        // If we're on the search page with no query params, reset
+        this.resetSearch();
+      }
+    });
+  }
+
+  resetSearch(): void {
+    this.searchQuery = '';
+    this.searchResults = [];
+    this.currentPage = 1;
+    this.totalPages = 0;
+    this.searched = false;
+    this.activeFilters = null;
+    localStorage.removeItem('lastSearch');
+  }
+
+  clearSearchQuery(): void {
+    this.searchQuery = '';
+    // Also reset the search results
+    this.searchResults = [];
+    this.searched = false;
+    this.currentPage = 1;
+    this.totalPages = 0;
+    
+    // Clear URL parameters
+    this.router.navigate(['/search'], { 
+      queryParams: {} 
+    });
+    
+    // Clear saved search params
+    localStorage.removeItem('lastSearch');
+    
+    // Focus the input field
+    setTimeout(() => {
+      const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+      if (searchInput) {
+        searchInput.focus();
+      }
+    }, 0);
   }
 
   search(): void {
@@ -35,7 +101,10 @@ export class MovieSearchComponent implements OnInit {
     this.currentPage = 1;
     this.performSearch();
     
-    // Save search params
+    // Update URL with query params
+    this.updateQueryParams();
+    
+    // Save search params to localStorage for potential future use
     this.saveSearchParams();
   }
 
@@ -65,6 +134,10 @@ export class MovieSearchComponent implements OnInit {
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.performSearch();
+    
+    // Update URL with the new page
+    this.updateQueryParams();
+    
     this.saveSearchParams();
     
     // Scroll to top of results
@@ -78,8 +151,31 @@ export class MovieSearchComponent implements OnInit {
     this.totalPages = 0;
     this.activeFilters = null;
     
+    // Clear URL parameters
+    this.router.navigate(['/search'], { 
+      queryParams: {} 
+    });
+    
     // Clear saved search params
     localStorage.removeItem('lastSearch');
+  }
+  
+  // This method is triggered when toggling between Movies and TV Shows
+  onToggleContentType(): void {
+    // Clear search results but maintain the query
+    this.searchResults = [];
+    this.currentPage = 1;
+    this.totalPages = 0;
+    
+    // If we have an active search, perform it again for the new content type
+    if (this.searched && this.searchQuery) {
+      // Update URL with the new content type
+      this.updateQueryParams();
+      
+      // Perform the search again
+      this.performSearch();
+      this.saveSearchParams();
+    }
   }
   
   onFilterChanged(filters: FilterModel): void {
@@ -171,6 +267,22 @@ export class MovieSearchComponent implements OnInit {
     this.searchResults = filteredResults;
   }
   
+  // Method to update URL query parameters
+  private updateQueryParams(): void {
+    // Only navigate if we have a query
+    if (this.searchQuery) {
+      this.router.navigate(['/search'], {
+        queryParams: {
+          query: this.searchQuery,
+          type: this.showMovies ? 'movie' : 'tv',
+          page: this.currentPage.toString()
+        },
+        // Don't navigate away from the search route
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+  
   private saveSearchParams(): void {
     localStorage.setItem('lastSearch', JSON.stringify({
       query: this.searchQuery,
@@ -178,29 +290,5 @@ export class MovieSearchComponent implements OnInit {
       page: this.currentPage,
       filters: this.activeFilters
     }));
-  }
-  
-  private loadPreviousSearch(): void {
-    const savedSearch = localStorage.getItem('lastSearch');
-    
-    if (savedSearch) {
-      try {
-        const params = JSON.parse(savedSearch);
-        
-        this.searchQuery = params.query || '';
-        this.showMovies = params.showMovies !== undefined ? params.showMovies : true;
-        this.currentPage = params.page || 1;
-        this.activeFilters = params.filters || null;
-        
-        // If we have a query, perform the search
-        if (this.searchQuery) {
-          this.searched = true;
-          this.performSearch();
-        }
-      } catch (e) {
-        console.error('Error loading previous search:', e);
-        localStorage.removeItem('lastSearch');
-      }
-    }
   }
 }
